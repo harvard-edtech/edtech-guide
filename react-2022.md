@@ -56,7 +56,6 @@ Remove banned extensions or disable them on all our projects:
 
 If you want, install optional VSCode extensions:
 
-1. `Material Icon Theme` by Philipp Kief - prettier icons for files
 1. `Path Intellisense` by Christian Kohler - helps auto-complete local imports
 1. `npm Intellisense` by Christian Kohler - helps auto-complete lib imports
 1. `Auto Close Tag` by Jun Han - automatically closes html tags
@@ -406,7 +405,7 @@ Arrays that start off empty must have a declared type.
 ```ts
 const names: string[] = [];
 // or
-const names = Array<string>();
+const names = new Array<string>();
 ```
 
 Objects must be defined with proper spacing to preserve clarity.
@@ -878,7 +877,7 @@ Array<(string | Car)> // Array of strings or objects of type Car
 EnumName // Enums also function as types
 
 // Common Data Structures
-{ [k in string]: number } // Object where keys are strings, values are numbers
+{ [k: string]: number } // Object where keys are strings, values are numbers
 Map<string, Car> // Map where keys are strings, values are objects of type Car
 Set<Car> // Set of objects of type Car
 
@@ -971,7 +970,7 @@ const firstName = database.initialize()
     .getUser()
     .firstName;
 
-// Good
+// Bad
 const firstName = (
     database.initialize()
         .getUser()
@@ -1855,7 +1854,7 @@ const AddComponentName: React.FC<Props> = (props) => {
 /*------------------------------------------------------------------------*/
 
 // Export component
-export default MyComponent;
+export default AddComponentName;
 
 ```
 
