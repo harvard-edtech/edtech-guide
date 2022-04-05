@@ -2506,6 +2506,33 @@ Here are a few for reference:
 - `©` becomes `&copy;`
 - `®` becomes `&reg;`
 
+### FontAwesome Icons
+
+To add a FontAwesome icon, make sure the icon is imported. For example, if we want a checkmark, we will import the `faCheck` icon:
+
+```ts
+// Import FontAwesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+```
+
+Usually, icon names are just the camelCase versions of the icon name, but autocomplete should help you here.
+
+Then, when you want to use the icon, include it like this:
+
+```html
+<FontAwesomeIcon icon={faCheck} />
+```
+
+You can also add a `className` prop to `FontAwesomeIcon` for bootstrap styles:
+
+```html
+<FontAwesomeIcon
+  icon={faCheck}
+  className="m-2"
+/>
+```
+
 ### Self-closing Tags
 
 In HTML, you may see a tag that has no contents:
