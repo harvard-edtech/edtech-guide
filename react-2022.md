@@ -75,7 +75,48 @@ If eslint isn't working on the project, first try reinstalling it: Shift + CMD/C
 
 If that doesn't fix it, try the solutions in this [ESLint Troubleshooting Checklist](https://dev.to/tillsanders/eslint-not-working-in-vscode-help-build-a-troubleshooting-checklist-fdc).
 
-# Create a Project
+# Get Access to Harvard Tools
+
+If you don't have a HarvardKey, claim your HarvardKey:
+
+1. Visit the HarvardKey page: [https://key.harvard.edu/](https://key.harvard.edu/)
+1. Click "Claim HarvardKey"
+1. Follow instructions
+
+Set up Direct Deposit:
+
+1. Make sure you can log into [https://peoplesoft.harvard.edu](https://peoplesoft.harvard.edu)
+1. Follow instructions in the "Direct Deposit" PDF that HR sent you via email when you signed paperwork
+
+Become familiar with reporting time via Peoplesoft:
+
+1. Make sure you can log into [https://peoplesoft.harvard.edu](https://peoplesoft.harvard.edu)
+1. Follow instructions in the "Reporting Time and Absences" PDF that HR sent you via email when you signed paperwork
+
+Get access to Canvas:
+
+1. Visit Canvas [https://canvas.harvard.edu](https://canvas.harvard.edu)
+1. Log in
+1. If you get an error message, contact Gabe and they will help you continue. If you are able to get in, you're all set
+
+Generate a Canvas access token:
+
+1. Visit Canvas [https://canvas.harvard.edu](https://canvas.harvard.edu)
+1. Click your profile image
+1. Click "Settings"
+1. Scroll down and click "+ Access Token"
+1. Set the purpose to "DCE EdTech Testing" and set the expiry date for the end date of your employment term with DCE
+1. Copy down the access token into a secure place (on mac, I recommend using notes in the built-in keychain app, otherwise a password manager will do)
+
+Get access to the team slack:
+
+1. Send Gabe your preferred slack email address and they will add you
+
+Get access to GitHub projects:
+
+1. Send Gabe your GitHub handle and they will add you to the appropriate projects
+
+# How Gabe Creates a Projects
 
 Create a new npm project:
 
@@ -91,6 +132,7 @@ Set up the server:
 1. Inside the `server/` folder, initialize the project: `npm init`
 1. Add a `.gitignore`
 1. Add `private: true` flag in `package.json`
+1. If you have custom server env vars, add `**/.env` to your gitignore, install `dotenv` on the server as a dev dependency, add `import 'dotenv/config';` to the top of your server index, and add a `/server/.env` file where environment variables are listed one per line: `NAME=value`
 
 Set up the client
 
@@ -1352,6 +1394,12 @@ Always use the `async` keyword instead of returning `Promise` objects. In fact, 
 const ready = new Promise((resolve, reject) => {
   ...
 });
+
+// Bad:
+loadFile.then((contents) => {
+  // ...
+});
+// (where loadFile returns a promise)
 
 // Bad:
 const funcName = () => {
