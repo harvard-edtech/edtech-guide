@@ -29,6 +29,14 @@ Created by Gabe Abrams in 2022. This will probably be out of date within minutes
 
 _Note:_ if using windows, start by installing a terminal replacement like Git Bash. It must function like a Mac OS or Linux machine. Otherwise, virtualize Linux.
 
+In each new project, switch to standard unix-style line breaks:
+
+```
+git config core.autocrlf false 
+git rm --cached -r . 
+git reset --hard
+```
+
 ## Typescript
 
 Javascript environment:
@@ -62,8 +70,9 @@ If you want, install optional VSCode extensions:
 1. `gitignore` by michelemelluso - right click and add to gitignore
 1. `Thunder Client` by Ranga Vadhineni - lets you easily send api requests for testing
 
-If you want, update these VSCode settings:
+Update these VSCode settings:
 
+1. Change "EOL" style to "\n" (LF)
 1. Use two spaces instead of tabs
 1. Emmet: Show Expanded Abbreviation = inMarkupAndStylesheetFilesOnly
 1. Turn on "Bracket Pair Colorization"
