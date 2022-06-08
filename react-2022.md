@@ -2995,7 +2995,7 @@ test(
 
 ## Running Tests
 
-Use `npm test` to start the jest test runner.
+Use `npm run test-client` to start the jest test runner.
 
 # Automated UI Testing
 
