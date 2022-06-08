@@ -60,6 +60,7 @@ Install required VSCode extensions:
 Remove banned extensions or disable them on all our projects:
 
 1. `GitHub Copilot` - this removes opportunity for learning
+1. `Tabnine` – this removes opportunity for learning and introduces unintended code
 1. `Prettier` - formats in ways that do not necessarily follow our rules
 
 If you want, install optional VSCode extensions:
@@ -132,7 +133,7 @@ Create a new npm project:
 1. Create a git repo and clone it
 1. Initialize the project: `npm init`
 1. Add a `.gitignore`
-1. Add eslint rules in each sub-project separately (client and server, for example): `npm init dce-eslint`
+1. Add eslint rules in each sub-project separately (client and server, for example): `npm init dce-eslint`, remove react lines in `/server/.eslintrc.js`
 1. Add `private: true` flag in `package.json`
 
 Set up the server:
@@ -1779,7 +1780,7 @@ const AddComponentName: React.FC<Props> = (props) => {
   /* -------------- Refs -------------- */
 
   // Initialize refs
-  const addRefName = useRef(null);
+  const addRefName = useRef<AddRefType>(null);
 
   /*------------------------------------------------------------------------*/
   /*                           Component Functions                          */
