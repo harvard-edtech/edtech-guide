@@ -2920,9 +2920,8 @@ Here's our order of priority:
 
 1. Main interactive components + key features
 1. Edge cases
-1. Tests for failure (write tests that make sure your code fails when it should)
-3. Features that have a higher chance of breaking later on
-4. Everything else
+1. Features that have a higher chance of breaking later on
+1. Everything else
 
 There are some things that we do not test:
 
@@ -3056,6 +3055,102 @@ stubServerRequest({
   errorCode: <string error code that would come from the server>,
 });
 ```
+
+Example of a full test:
+
+```tsx
+// Import testing lib
+import Raixa from 'raixa';
+
+// Import component to test
+import EmailForm from './EmailForm';
+
+test(
+  'Shows notice when recipient email is invalid',
+  async () => {
+    // Render the component
+    Raixa.render(
+      <EmailForm
+        sender="test@harvard.edu"
+        onSent={() => {}}
+      />
+    );
+
+    // Type an invalid recipient
+    Raixa.typeInfo('.EmailForm-recipient-email-input-field', 'invalid.email@@.com');
+
+    // Make sure validation text shows up
+    Raixa.assertExists('.EmailForm-recipient-email-invalid-notice');
+  },
+);
+
+test(
+  'Allows email send when recipient email is valid',
+  async () => {
+    // Stub email form submission endpoint with a successful response
+    stubServerRequest({
+      method: 'POST',
+      path: '/api/ttm/threads/102398/emails',
+      body: true,
+    });
+
+    // Render the component
+    Raixa.render(
+      <EmailForm
+        sender="test@harvard.edu"
+        onSent={() => {}}
+      />
+    );
+
+    // Type a valid recipient
+    Raixa.typeInfo('.EmailForm-recipient-email-input-field', 'valid.email@gmail.com');
+
+    // Make sure validation text is not visible
+    Raixa.assertAbsent('.EmailForm-recipient-email-invalid-notice');
+
+    // Click the "send" button
+    Raixa.click('.EmailForm-send-button');
+
+    // Make sure a success message shows up after some time
+    Raixa.waitForElementPresent('.EmailForm-send-successful-message');
+  },
+);
+
+test(
+  'Shows an error message when the server fails',
+  async () => {
+    // Stub email form submission endpoint with a successful response
+    stubServerRequest({
+      method: 'POST',
+      path: '/api/ttm/threads/102398/emails',
+      errorMessage: 'The message could not be sent',
+      errorCode: 'EM29',
+    });
+
+    // Render the component
+    Raixa.render(
+      <EmailForm
+        sender="test@harvard.edu"
+        onSent={() => {}}
+      />
+    );
+
+    // Type a valid recipient
+    Raixa.typeInfo('.EmailForm-recipient-email-input-field', 'valid.email@gmail.com');
+
+    // Make sure validation text is not visible
+    Raixa.assertAbsent('.EmailForm-recipient-email-invalid-notice');
+
+    // Click the "send" button
+    Raixa.click('.EmailForm-send-button');
+
+    // Make sure the server's error is visible
+    Raixa.assertExists('.EmailForm-error-occurred');
+  },
+);
+```
+
+You can stub multiple requests and Raixa will automatically know which to stub based on the method and path. If your component sends multiple requests to the _same_ method and path combo, then intersperse `stubServerRequest` throughout your test code, only stubbing right before your component sends the request.
 
 ## Running Tests
 
