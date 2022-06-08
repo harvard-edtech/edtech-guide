@@ -2920,8 +2920,9 @@ Here's our order of priority:
 
 1. Main interactive components + key features
 1. Edge cases
-1. Features that have a higher chance of breaking later on
-1. Everything else
+1. Tests for failure (write tests that make sure your code fails when it should)
+3. Features that have a higher chance of breaking later on
+4. Everything else
 
 There are some things that we do not test:
 
@@ -2961,35 +2962,98 @@ Create a test:
 
 ```ts
 test(
-    'description of test',
-    async () => {
-        ...
-    },
+  'description of test',
+  async () => {
+    ...
+  },
 );
 ```
 
-Inside the test, render the component of interest, including appropriate props:
+Describe your test. Here are some examples for an email form component:
+
+- "Updates as user types into subject field"
+- "Validates recipient address properly"
+- "Sends the correct request to the server when user clicks 'send'"
+
+Inside the test, render the component of interest, including appropriate props (note this is rendered to a hidden headless browser, there is no way to see this):
 
 ```ts
 Raixa.render(
-    <MyComponent
-        prop1={value}
-        prop2="value"
-    />
+  <MyComponent
+    prop1={value}
+    prop2="value"
+  />
 );
 ```
 
-All testable items must have either an `id` or a `className` for reference. We then use `container.querySelector` to find elements, even though this is not recommended. We do this so identifiers can be shared across our unit and our end-to-end tests.
+Once you've rendered your component, use [Raixa functions](bit.ly/dce-raixa) to test the component.
+
+```ts
+// Click the "start email button"
+Raixa.click('.MyComponent-start-email-button');
+
+// Type into the subject field
+Raixa.typeInto('#MyComponent-email-subject-field', 'Test Email Subject');
+
+// Test to make sure that the submit button is available
+Raixa.assertExists('.MyComponent-submit-button');
+```
+
+If your interactable elements do not have classNames or ids, add them! Remember that if your component will ever be used in more than one place at once, use classNames. Otherwise, ids are fine.
 
 If a test will take longer to execute, extend its timeout with a third argument:
 
 ```ts
 test(
-    'description of test',
-    async () => {
-        ...
-    },
-    10000, // Timeout in ms
+  'description of test',
+  async () => {
+    ...
+  },
+  10000, // Timeout in ms
+});
+```
+
+If your component sends requests to the server, then you'll need to first stub requests (do this before `Raixa.render`). For each request that your component will send, stub that request with `stubServerRequest` from `dce-reactkit`:
+
+```ts
+import { stubServerRequest } from 'dce-reactkit';
+
+...
+
+test(
+  'description of test',
+  async () => {
+    // Stub email form submission endpoint
+    stubServerRequest({
+      method: 'POST',
+      path: '/api/ttm/threads/102398/emails',
+      body: true,
+    });
+
+    // Render email form
+    Raixa.render(...
+  },
+);
+```
+
+To stub a successful response from the server, use:
+
+```ts
+stubServerRequest({
+  method: <http method that the component will use>,
+  path: <path of the endpoint the component will send to>,
+  body: <fake response to simulate coming back from the server>,
+});
+```
+
+To stub a failed response from the server, use:
+
+```ts
+stubServerRequest({
+  method: <http method that the component will use>,
+  path: <path of the endpoint the component will send to>,
+  errorMessage: <string error message that would come from the server>,
+  errorCode: <string error code that would come from the server>,
 });
 ```
 
