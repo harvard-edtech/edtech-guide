@@ -126,14 +126,15 @@ Get access to GitHub projects:
 
 1. Send Gabe your GitHub handle and they will add you to the appropriate projects
 
-# How Gabe Creates a Projects
+# How Gabe Creates Projects
 
 Create a new npm project:
 
 1. Create a git repo and clone it
 1. Initialize the project: `npm init`
 1. Add a `.gitignore`
-1. Add eslint rules in each sub-project separately (client and server, for example): `npm init dce-eslint`, remove react lines in `/server/.eslintrc.js`
+1. Initialize caccl app using `npm init caccl@latest`
+1. Add eslint rules in each sub-project separately (client and server, for example): `npm init dce-eslint@latest`, remove react lines in `/server/.eslintrc.js`
 1. Add `private: true` flag in `package.json`
 
 Set up the server:
@@ -1859,7 +1860,10 @@ const AddComponentName: React.FC<Props> = (props) => {
 
     // Create modal
     modal = (
-      <addJSXOfModal />
+      <Modal
+        key="unique-modal-key"
+        ...
+      />
     );
   }
 
@@ -2563,6 +2567,21 @@ Here are a few for reference:
 - `¢` becomes `&cent;`
 - `©` becomes `&copy;`
 - `®` becomes `&reg;`
+
+### Modals
+
+All modals should be `dce-reactkit` modals with unique keys.
+
+<Rule>
+  All modals must have unique keys
+</Rule>
+
+```ts
+<Modal
+  key="unique-modal-key"
+  ...
+/>
+```
 
 ### FontAwesome Icons
 
