@@ -2903,13 +2903,302 @@ When defining variables, do so at the top of your scss file:
 $border-width: 5px;
 ```
 
-# Express
+# Express Server
 
-// TODO: write
+## Dependencies
 
-# Mongo/DocDB
+Make sure `caccl`, `dotenv`, and `dce-reactkit` are added to your project dependencies.
 
-// TODO: write
+## Setting up Server
+
+In the top-level `/server/src/index.ts` file, make sure you have the following key components of initialization:
+
+```
+// Import CACCL
+import initCACCL, { getLaunchInfo } from 'caccl/server';
+
+// Import dce-reactkit
+import { initServer } from 'dce-reactkit';
+
+// Import environment
+import 'dotenv/config';
+
+// Import route adders
+import addRoutes from './addRoutes';
+
+/**
+ * Initialize app server
+ * @author Your Name
+ */
+const init = async () => {
+  // Initialize CACCL
+  await initCACCL({
+    express: {
+      postprocessor: (app) => {
+        // Call route adders
+        addRoutes(app);
+      },
+    },
+  });
+
+  // Initialize dce-reactkit
+  initServer({
+    getLaunchInfo,
+  });
+};
+
+// Init server and display errors
+init();
+```
+
+## Server Folder Structure
+
+All servers should generally follow this structure from within the `/server/src/` folder:
+
+```
+/index.ts – the main server file, described above
+/addRoutes/index.ts – a script that calls all route adders
+/addRoutes/addSomeTypeOfRoutes.ts – adds one type of routes (e.g. student API routes)
+/addRoutes/addAnotherTypeOfRoutes.ts – adds one type of routes (e.g. teacher API routes)
+```
+
+Shared files go into the `/server/src/shared/` folder:
+
+```
+/constants/
+/helpers/
+/types/
+/classes/
+/interfaces/
+```
+
+## Adding API Endpoints and Other Routes
+
+In each server, there should be a `/server/src/addRoutes` module that contains all routes. Divide routes into sensible categories, and put them in a nested tree structure such that the top-level `index.ts` file only needs to call one route adder: `/server/src/addRoutes/index.ts`.
+
+For example, let's say you have an app where there are really three types of routes: student API routes, teaching team member (TTM) API routes, and admin API routes. Within TTM routes, that is further subdivided into two sub-categories: teacher routes and TA routes. Thus, we'd divide our routes into the following folder structure:
+
+```
+/addRoutes/index.ts – a route adder function that calls all route adder subfolders
+/addRoutes/addStudentAPIRoutes.ts – adds all student API routes
+/addRoutes/addTTMAPIRoutes/index.ts – calls all adder TTM adder functions
+/addRoutes/addTTMAPIRoutes/addTeacherRoutes.ts – adds all teacher routes
+/addRoutes/addTTMAPIRoutes/addTARoutes.ts – adds all teacher routes
+/addRoutes/addAdminRoutes.ts – adds all admin routes
+```
+
+### Standard Route Path Naming
+
+We use REST API standards with additional constraints. When defining a route, always use the following rules to create your paths:
+
+<Rule>
+  All API endpoint paths must start with `/api`
+</Rule>
+
+Additionally, if only certain types of users can access the route, add another prefix for the type of user. Currently, we support `admin` and `ttm`:
+
+<Rule>
+  TTM API routes must start with `/api/ttm`, admin API routes must start with `/api/admin`
+</Rule>
+
+For the endpoint method, follow these rules:
+
+Get data = GET
+Create or add something = POST
+Multipurpose create *or* modify something = POST
+Single-purpose modify something = PUT
+Delete or remove something = DELETE
+
+We use a folder-like pluralized path structure for endpoints. All placeholders must be prefixed by a description of the value.
+
+<Rule>
+  All placeholders must have a description prefix
+</Rule>
+
+For example, if you want to have a course id and a user id in the path, you must add prefixes:
+
+```
+Good:
+/api/admin/courses/:courseId/users/:userId
+
+Bad:
+/api/admin/course/:courseId/user/:userId – not pluralized
+/api/admin/courses/:courseId/:userId – userId has no prefix
+/api/admin/:courseId/:userId – neither course nor user ids have prefixes
+```
+
+Add routes directly to the express app (for consistency across projects):
+
+```ts
+app.get(
+  '/api/ttm/videos/:videoId/transcripts/:transcriptId',
+  [handler here],
+);
+```
+
+<Rule>
+  Every endpoint must be documented using JSDoc
+</Rule>
+
+Add a JSDoc block above each endpoint, making sure to describe as `@param` statements any parameters that are _not_ included in the URL. For example, if we have an endpoint with two parameters in the url (`videoId` and `transcriptId`) and two parameters included in the request (`format` and `language`), the JSDoc would look like this:
+
+```ts
+/**
+ * Get the transcript for a video
+ * @author Gabe Abrams
+ * @param {string} format the format of the transcript to return
+ * @param {string} [language=en] the language to use for the transcript
+ * @returns {string} full video transcript
+ */
+app.get(
+  '/api/ttm/videos/:videoId/transcripts/:transcriptId',
+  [handler here],
+);
+```
+
+All API routes should use the `dce-reactkit` function for generating a route handler: `genRouteHandler`, which handles auth, session management, security and privacy, parameter parsing, automatic error handling, crash prevention, and so much more.
+
+<Rule>
+  API route handlers should use `genRouteHandler` from `dce-reactkit` if possible
+</Rule>
+
+The second argument of the express `app.get`, `app.post`, `app.put`, `app.delete`, or `app.all` function is a route handler. Use `genRouteHandler` to create such a handler.
+
+`genRouteHandler` takes one argument, which is an object that must contain a `handler` function, may optionally contain a `paramTypes` map defining the types of parameters, and may optionally contain a flag that turns off the session check. Each property is defined below:
+
+#### genRouteHandler: paramTypes
+
+Define all params that the user can include in the request, including params in the URL and params in the request body. For example, if we have an endpoint with two parameters in the url (`videoId` and `transcriptId`) and two parameters included in the request (`format` and `language`), the `paramTypes` object should look like this:
+
+```ts
+app.get(
+  '/api/ttm/videos/:videoId/transcripts/:transcriptId',
+  genRouteHandler({
+    paramTypes: {
+      videoId: ParamType.Int,
+      transcriptId: ParamType.Int,
+      format: ParamType.String,
+      language: ParamType.String,
+    },
+    ...
+  }),
+);
+```
+
+We use the `dce-reactkit` special param type enum called `ParamType`, which supports the following types:
+
+```ts
+Boolean – required boolean
+BooleanOptional – optional boolean
+Float –  required float
+FloatOptional – optional float
+Int – required int
+IntOptional – optional int
+JSON – required JSON object that has been stringified
+JSONOptional – optional JSON object that has been stringified
+String – required string
+StringOptional – optional string
+```
+
+Note that it doesn't make sense to make a URL parameter be an optional param because they must always be included by construction.
+
+#### genRouteHandler: handler function
+
+The handler function is key because it handles the request. The handler function is an `async` function that is tasked with either returning the value that should be sent in the response to the client, or the handler function should throw an error which would also be sent to the client.
+
+To send an error code to the client, use the `dce-reactkit` custom error called `ErrorWithCode`.
+
+To send a response to the client, simply return the value that you want to send to the client. If you don't want to return anything, simply `return undefined;`.
+
+Handler functions can take any of the following requirements, depending on what's required for the functionality you need to implement:
+
+- `params`: a map containing all params defined in `paramTypes` plus a whole host of other automatically included user information. See the list below for more information
+- `req`: the express request object
+- `next`: a function to call to call the next express handler in the stack `next()`
+- `send`: send a raw text response to the client `send(text: string, [status: number])`
+- `renderErrorPage`: render a pretty html page that displays a server-side error (should not be used for API endpoint), takes an object that contain any of the following strings: `title`, `description`, `code`, `pageTitle`, as well as an optional `status` number
+
+Additional params added to the `params` object in addition to params defined by `paramTypes`:
+
+```ts
+/**
+ * Additional auto-included params:
+ * @param {number} userId the user's CanvasId
+ * @param {string} userFirstName the user's first name from Canvas
+ * @param {string} userLastName the user's last name from Canvas
+ * @param {string} userEmail the user's primary email from Canvas
+ * @param {boolean} isLearner true if the user is a learner (student) in the Canvas course
+ * @param {boolean} isTTM true if the user is a teacher, TA, or other teaching team member in the Canvas course
+ * @param {boolean} isAdmin true if the user is a Canvas admin
+ * @param {number} courseId the id of the Canvas course that the user launched from
+ * @param {string} courseName the name of the Canvas course
+ */
+```
+
+Further, all variables from the user's express session will be added to the params object if those variables are of type `string` or `boolean` or `number`.
+
+Here's an example:
+
+```ts
+app.get(
+  '/api/ttm/videos/:videoId/transcripts/:transcriptId',
+  genRouteHandler({
+    ...
+    handler: async ({ params, next }) => {
+      ...
+
+      if (somethingBadHappened) {
+        throw new ErrorWithCode(
+          'Error message with full description here',
+          'AX34', // Error code
+        );
+      }
+
+      ...
+
+      if (needToCallNextHandler) {
+        return next();
+      }
+
+      ...
+
+      // Process params and get transcript
+      const {
+        // Get request info
+        videoId,
+        transcriptId,
+        format,
+        language,
+        // Get more info
+        userId,
+        userFirstName,
+      } = params;
+
+      // Get the transcript
+      const transcript = getTranscript(videoId, transcriptId, format, language);
+
+      // Add user info to the transcript
+      const transcriptWithUserInfo = augmentWithUserInfo(transcript, userId, userFirstName);
+
+      // Send the response to the client
+      return transcriptWithUserInfo;
+    },
+    ...
+  }),
+);
+```
+
+#### genRouteHandler: skipSessionCheck
+
+If `skipSessionCheck` is true, `dce-reactkit` will skip its usual session checks (user must have launched via LTI and must have a valid session).
+
+## Mongo/DocDB
+
+Because our projects are designed to go back and forth seamlessly between MongoDB and Amazon DocDB, we use a library called `dce-mango` which provides the seamless interface that ensures operations are successfully executed and queries are consistently executed independent of the database type.
+
+If integrating with a database, create a shared helper called `/server/src/shared/helpers/mongo.ts` that contains all of the code defining each collection in the database. For each collection, define the typescript type for an entry that will be stored in said collection and put that type in `/server/src/shared/types/stored`.
+
+// TODO: continue
 
 ## Concepts
 
