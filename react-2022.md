@@ -3198,25 +3198,137 @@ Because our projects are designed to go back and forth seamlessly between MongoD
 
 If integrating with a database, create a shared helper called `/server/src/shared/helpers/mongo.ts` that contains all of the code defining each collection in the database. For each collection, define the typescript type for an entry that will be stored in said collection and put that type in `/server/src/shared/types/stored`.
 
-// TODO: continue
+I'll explain `dce-mango` through example. It is important that you follow the structure of this template. This includes formatting and headings.
 
-## Concepts
+First, import dependencies and the shared types associated with each collection:
 
-### Schema
+```ts
+// Import db
+import { initMango, Collection } from 'dce-mango';
 
-A schema is a description of what documents in a collection should look like.
+// Import shared types
+import ActivitySubmission from '../types/stored/ActivitySubmission';
+import ShareoutPost from '../types/stored/ShareoutPost';
+import LiveMessage from '../types/stored/LiveMessage';
+import LiveViewer from '../types/stored/LiveViewer';
+import Migration from '../types/stored/Migration';
+import WatchTrace from '../types/stored/WatchTrace';
+```
 
-Example: description of what a User looks like.
+Then, initialize `dce-mango`, giving it a schemaVersion (start at 1 and increment every time you make changes to this file):
 
-### Model
+```ts
+/*------------------------------------------------------------------------*/
+/*                               Initialize                               */
+/*------------------------------------------------------------------------*/
 
-A model is an instance of an object from the database.
+initMango({
+  schemaVersion: 12,
+  dbName: 'immersive-player-store',
+});
+```
 
-Example: a specific User instance that you can interact with.
+Finally, define and export each collection. Define each collection by creating a new instance of the `Collection` class. Add in the type of the entries in the collection, using the associated type that you imported: `new Collection<MyEntryType>(...)`. The `Collection` constructor takes two arguments: the first argument is the name of the collection, which should be named the same as the entry type: `new Collection<MyEntryType>('MyEntryType', ...`. The second argument defines indexes, and takes the following parameters:
 
-### Query
+`uniqueIndexKey` – a string that represents the key for the property to use as a unique index. If defined, each entry must have a unique value for this property. When inserting into a collection with a unique index, if an existing entry has a matching value for this key, the existing entry will be overwritten.
 
-A lookup in the database. Basically, like a search.
+`indexKeys` – a list of secondary non-unique keys that should be used to create other indexes. Here, simply provide a list of keys that will commonly be used for searching and querying.
+
+`expireAfterSeconds` – a number of seconds that represents the minimum lifespan of entries in this collection. If not included, entries will not be automatically deleted. There is no guarantee that entries will be deleted immediately after they expire. Instead, regular cleanups occur and expired entries are deleted. 
+
+Remember to export each collection, as you see in the example:
+
+```ts
+/*------------------------------------------------------------------------*/
+/*                               Collections                              */
+/*------------------------------------------------------------------------*/
+
+// Activity Submissions
+export const activitySubmissionCollection = new Collection<ActivitySubmission>(
+  'ActivitySubmission',
+  {
+    uniqueIndexKey: 'id',
+    indexKeys: [
+      'courseId',
+      'videoId',
+      'isLearner',
+      'isAdmin',
+    ],
+  },
+);
+
+// Shareout Post
+export const shareoutPostCollection = new Collection<ShareoutPost>(
+  'ShareoutPost',
+  {
+    uniqueIndexKey: 'id',
+    indexKeys: [
+      'courseId',
+      'videoId',
+      'isLearner',
+      'isAdmin',
+    ],
+  },
+);
+
+// Migrations
+export const migrationCollection = new Collection<Migration>(
+  'Migration',
+  {
+    uniqueIndexKey: 'id',
+    indexKeys: [
+      'oldVideoId',
+      'newVideoId',
+      'migrationStatus',
+    ],
+  },
+);
+
+// Live messages
+export const liveMessageCollection = new Collection<LiveMessage>(
+  'LiveMessage',
+  {
+    uniqueIndexKey: 'id',
+    indexKeys: [
+      'courseId',
+      'videoId',
+      'timestamp',
+      'isLearner',
+      'isAdmin',
+    ],
+  },
+);
+
+// Live viewers
+export const liveViewerCollection = new Collection<LiveViewer>(
+  'LiveViewer',
+  {
+    uniqueIndexKey: 'id',
+    indexKeys: [
+      'courseId',
+      'videoId',
+      'timestamp',
+      'isLearner',
+      'isAdmin',
+    ],
+    expireAfterSeconds: 90,
+  },
+);
+
+// Watch traces
+export const watchTraceCollection = new Collection<WatchTrace>(
+  'WatchTrace',
+  {
+    uniqueIndexKey: 'id',
+    indexKeys: [
+      'courseId',
+      'videoId',
+      'isLearner',
+      'isAdmin',
+    ],
+  },
+);
+```
 
 # Unit Tests
 
@@ -3510,3 +3622,13 @@ Check out the [Kaixa Docs](https://harvard-edtech.github.io/create-kaixa/) for g
 1. Start a development copy of the app (server and/or client)
 1. Open the test case
 1. Next to the play button, click the dropdown and choose a browser
+
+# Commonly Used Dependencies
+
+If you're looking for a module that does one of the operations below, use these libs. Thus, when bundling, we can save space by using common libs.
+
+`fast-clone` – for fast deep clones
+
+`papaparse` – for CSV parsing and generation
+
+`object-hash` – for hashing objects
