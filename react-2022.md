@@ -2905,6 +2905,12 @@ $border-width: 5px;
 
 # Express Server
 
+## Why Express?
+
+All of our React apps are served with an Express backend. This is a very intentional decision because it allows us to fluidly move items between the front-end and the back-end. This is possible because Express runs typescript in the same way as our React clients, plus all our dependencies can be added to either the server or the client. Finally, it allows us to share types across our server and client, instead of having to re-define them and manage two sets of types. None of this would be possible if we use a non-express, non-typescript backend (django, java, etc.).
+
+If your app requires a server, it _must_ use Express.
+
 ## Dependencies
 
 Make sure `caccl`, `dotenv`, and `dce-reactkit` are added to your project dependencies.
@@ -3003,11 +3009,11 @@ Additionally, if only certain types of users can access the route, add another p
 
 For the endpoint method, follow these rules:
 
-Get data = GET
-Create or add something = POST
-Multipurpose create *or* modify something = POST
-Single-purpose modify something = PUT
-Delete or remove something = DELETE
+- Get data = GET
+- Create or add something = POST
+- Multipurpose create *or* modify something = POST
+- Single-purpose modify something = PUT
+- Delete or remove something = DELETE
 
 We use a folder-like pluralized path structure for endpoints. All placeholders must be prefixed by a description of the value.
 
@@ -3194,7 +3200,41 @@ If `skipSessionCheck` is true, `dce-reactkit` will skip its usual session checks
 
 ## Mongo/DocDB
 
+### When to Add a Database
+
+We use databases intentionally. Thus, it's important to understand when to use a database, and when not to.
+
+Comparing memory vs database storage:
+
+| Factor | In Memory | In Database |
+| --- | --- | --- |
+| Speed | Quick to access | Slow to access |
+| Permanence | Deleted upon instance restart | Stored indefinitely |
+| Distribution | Data must only be relevant to one user during their session | Data can be shared across multiple sessions, across multiple users, or across multiple server instances |
+| Migration | Automatically deleted when app is upgraded | Must be migrated when app is updated |
+| Backups | Never backed up | Automatically backed up on regular intervals |
+| Cleanup | If managed well, garbage collector takes care of this | Database will continue to grow if not managed carefully |
+
+From this chart, it may seem like everything should go in a database, which is not necessarily true. Especially with user-specific information that is specific to the user's current session, it is extremely advantageous to store that information directly to the user's session (`req.session` via express) instead of storing items in the database. This minimizes the number of I/O lookups that have to occur on every server request.
+
+Here are a few scenarios to consider:
+
+- A piece of user-specific data needs to be quickly accessible by the user and is not needed after the user's session expires. We'll put this in the user's session because it'll be fast to access and will be automatically cleaned up after the user ends their session.
+- A piece of data needs to be extremely quick to access because it must be used by server-side algorithms, but this data is also required outside the user's session. We'll store this in a database but cache it in memory, so we get the best of both worlds...but we'll be careful to think through the impact of caching and potentially out-of-date data.
+- A piece of data needs to be stored indefinitely and we'll continue to add to it over time. We'll store this in the database because that'll ensure the data is persistent and backed up.
+- A piece of data needs to be accessed by multiple users. We'll store this in the database.
+- A piece of data is very large. We'll store this in the database because we simply cannot leave it in memory without risk of running out of memory once multiple users use this feature.
+
+Once you've decided what data should be in the database and what data should not be in the database, you can continue to the following section to integrate with mongo/docdb.
+
+### Integrating with Mongo/DocDB
+
 Because our projects are designed to go back and forth seamlessly between MongoDB and Amazon DocDB, we use a library called `dce-mango` which provides the seamless interface that ensures operations are successfully executed and queries are consistently executed independent of the database type.
+
+We _only_ use non-relational database because these types of databases work extremely fluently with the rest of our javascript-based stack. In particular, mongo and docdb allow us to store javascript objects directly to the database, with a couple constraints. Thus, wherever possible, try to create javascript objects that adhere to the following constraints so we can move those objects to a database if needed:
+
+1. No circular objects (an object cannot contain cycles)
+1. Only simple data in objects (strings, numbers, booleans, arrays, objects) instead of complex objects (classes, interfaces, class instances, etc.)
 
 If integrating with a database, create a shared helper called `/server/src/shared/helpers/mongo.ts` that contains all of the code defining each collection in the database. For each collection, define the typescript type for an entry that will be stored in said collection and put that type in `/server/src/shared/types/stored`.
 
@@ -3232,7 +3272,7 @@ Finally, define and export each collection. Define each collection by creating a
 
 `uniqueIndexKey` – a string that represents the key for the property to use as a unique index. If defined, each entry must have a unique value for this property. When inserting into a collection with a unique index, if an existing entry has a matching value for this key, the existing entry will be overwritten.
 
-`indexKeys` – a list of secondary non-unique keys that should be used to create other indexes. Here, simply provide a list of keys that will commonly be used for searching and querying.
+`indexKeys` – a list of secondary non-unique keys that should be used to create other indexes. Here, simply provide a list of keys that will commonly be used for searching and querying. Don't get too carried away: for every key you add to this list, the database must maintain an index and must update the index when entries are added/modified/removed.
 
 `expireAfterSeconds` – a number of seconds that represents the minimum lifespan of entries in this collection. If not included, entries will not be automatically deleted. There is no guarantee that entries will be deleted immediately after they expire. Instead, regular cleanups occur and expired entries are deleted. 
 
@@ -3328,6 +3368,251 @@ export const watchTraceCollection = new Collection<WatchTrace>(
     ],
   },
 );
+```
+
+### Local Development
+
+Once deployed to AWS, `dce-mango` will automatically connect to an auto-provisioned database, as long as the app is configured to have a dabase.
+
+However, while developing your app and testing in a local dev environment, you'll need to have a test database. Ultimately, you'll need to "MONGO_URL" which you'll put in your `/server/.env` file:
+
+```bash
+MONGO_URL=mongodb://some/mongo-database-url-here
+```
+
+There are two recommended ways of provisioning your test database:
+
+#### Get a free cloud-based mongodb instance
+
+This option is best if you want a simple, flexible database that has a UI, and is easy to share across multiple systems. Gabe recommends this for all EdTech Software Engineers that report to them because it'll be easier for Gabe to jump in and run your code with your current database state.
+
+1. Visit `cloud.mongodb.com`
+1. Log in with your `g.harvard.edu` email
+1. Create a new project
+1. Get a free "Shared" tier database and place it in AWS N. Virginia
+1. Create a Username and Password for your app
+1. Allow access from anywhere by adding an IP to your IP Access List: IP Address = 0.0.0.0/0 and Description = Anywhere
+1. Find the cluster (probably called "Cluster0") and click "Connect"
+1. Click "Connect your application"
+1. Copy down the "connection string" and replace "<username>" with the username, replace "<password>" with the password
+1. Paste the url into your `/server/.env` file as "MONGO_URL"
+
+#### Create a local mongodb cluster
+
+This option is best if you're a pro and want complete control over your cluster. Also consider this option if you're storing sensitive data.
+
+Find a tutorial online on how to provision a local mongodb cluster. Create a database within that cluster. For the sake of this example, let's call the database "my-app". Then, a url to your local cluster in your `/server/.env` file. It might look something like this:
+
+```bash
+MONGO_URL=mongodb://0.0.0.0:27017/my-app
+```
+
+### Accessing and Modifying Data
+
+Now that you've integrated with the database, you'll need to create, edit, delete, and query collections in the database. We'll walk through some asynchronous operations you can perform. Full documentation can be found via the typescript JSDoc embedded in the `dce-mango` library. We'll show a few examples.
+
+In each example, we will pretend that we're integrating with a "Users" collection that contains objects that look like this:
+
+```ts
+// Type (saved to /server/src/shared/types/stored/User.ts)
+type User = {
+  // The user's unique id
+  id: string,
+  // The user's first name
+  userFirstName: string,
+  // The user's last name
+  userLastName: string,
+  // The user's email
+  userEmail: string,
+  // The user's current age
+  age: number,
+  // List of user's current addresses
+  addresses: {
+    type: ('home' | 'work' | 'other'),
+    streetAddress: number,
+    streetName: string,
+    streetSuffix: ('st' | 'dr' | 'av' | 'pl' | 'rd'),
+    cityName: string,
+    zipCode: number,
+    country: string,
+  }[],
+};
+
+// Example user:
+const user: User = {
+  id: '1022',
+  userFirstName: 'Gabe',
+  userLastName: 'Abrams',
+  userEmail: 'gabe_abrams@harvard.edu',
+  age: 10,
+  addresses: [
+    {
+      type: 'home',
+      streetAddress: 13,
+      streetName: 'Axis',
+      streetSuffix: 'dr',
+      cityName: 'Cambridge',
+      zipCode: 02155,
+      country: 'US',
+    },
+  ],
+};
+```
+
+Before continuing, we need to describe a "query" object. This is used for searching the collection. You can think of a query as a partial object that is compared with every item in the collection. Any items that match the query will be returned/modified/deleted/etc. depending on the current operation. I'll explain with a few examples:
+
+```ts
+// Query that matches all users with a certain first name:
+const query = {
+  userFirstName: 'Kino',
+};
+```
+
+```ts
+// Query that matches all users with a certain age:
+const query = {
+  age: 14,
+};
+```
+
+We support complex queries. You can google these, but generally, the way you use these is by putting an object in place of a value. Here are a few examples:
+
+```ts
+// Query that matches all users who are younger than 18
+const query = {
+  age: { $lt: 18 },
+};
+```
+
+```ts
+// Query that matches all users who are 10 or 20
+const query = {
+  age: { $in: [10, 20] },
+};
+```
+
+To interact with the collection, simply import it at the top of your file:
+
+```ts
+import { userCollection } from '../../shared/helpers/mongo';
+```
+
+#### Find - Query/Search a Collection
+
+Each find command searches a collection for _all_ matches to a query. If the returned array is empty, there are no matches to the query.
+
+```ts
+// Find all teenagers
+const matches = await userCollection.find({
+  age: { $gte: 13, $lt: 20 },
+});
+```
+
+#### Increment - increment an integer propery of an object
+
+To use this function, the collection must be uniquely indexed by a string "id" field. Simply pass in the id of the object and the property to increment.
+
+```ts
+// Increment a user's age by 1 year
+await userCollection.increment('1022', 'age');
+```
+
+#### Update Prop Values - add or update values in an entry in the collection
+
+For this to work, the object must already exist in the collection. Instead of overwriting the object, you can use this operation to perform a partial update, only modifying certain parts of the object. Pass in a query that will be used to find the object to update, then pass in an object containing the updates to apply.
+
+```ts
+// Set the addresses of all users with the last name "Abrams"
+await userCollection.updatePropValues(
+  {
+    userLastName: 'Abrams',
+  },
+  {
+    addresses: [
+      {
+        type: 'home',
+        streetAddress: 13,
+        streetName: 'Axis',
+        streetSuffix: 'dr',
+        cityName: 'Cambridge',
+        zipCode: 02155,
+        country: 'US',
+      },
+    ],
+  },
+);
+```
+
+#### Push - add an object to an array in an object
+
+If there's an existing array in an object, you can use this function to add one more item to that array. To use this function, the collection must be uniquely indexed by a string "id" field. Simply pass in the id of the object, the property that points to the array, and the object to insert.
+
+```ts
+// Add an address to a specific user's addresses array
+await userCollection.push(
+  '1022',
+  'addresses',
+  {
+    type: 'home',
+    streetAddress: 13,
+    streetName: 'Axis',
+    streetSuffix: 'dr',
+    cityName: 'Cambridge',
+    zipCode: 02155,
+    country: 'US',
+  },
+);
+```
+
+#### Filter Out - modify an array by filtering out all objects that don't match a comparison
+
+If there's an existing array in an object, you can use this function to filter items out of an array. To use this function, the collection must be uniquely indexed by a string "id" field. Pass an object that contains the id, arrayProp, and a compareProp (the property inside of each array object to compare) and the compareValue (the value to filter out).
+
+```ts
+// Remove all US addresses from a user's addresses array
+await userCollection.filterOut({
+  id: '1022',
+  arrayProp: 'addresses',
+  compareProp: 'country',
+  compareValue: 'US',
+});
+```
+
+#### Insert - add an item to the collection
+
+This one's simple: it'll insert an item into the collection. If the collection is uniquely indexed and an object already exists, the insert will be converted to an "upsert" which replaces the existing object automatically.
+
+```ts
+// Add a user to the db
+await userCollection.insert({
+  id: '1022',
+  userFirstName: 'Gabe',
+  userLastName: 'Abrams',
+  userEmail: 'gabe_abrams@harvard.edu',
+  age: 10,
+  addresses: [
+    {
+      type: 'home',
+      streetAddress: 13,
+      streetName: 'Axis',
+      streetSuffix: 'dr',
+      cityName: 'Cambridge',
+      zipCode: 02155,
+      country: 'US',
+    },
+  ],
+});
+```
+
+#### Delete - remove an item from the collection
+
+This one's simple: it'll delete the first object that matches the query.
+
+```ts
+// Delete a user
+await userCollection.delete({
+  id: '1022',
+});
 ```
 
 # Unit Tests
