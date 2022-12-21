@@ -1,1 +1,6 @@
-
+#Jekyll configuration
+name: EdTech Guide by Gabe
+description: Comprehensive web app development guide for EdTech at Harvard DCE
+url: "https://harvard-edtech.github.io/edtech-guid/"
+markdown: kramdown
+highlighter: route
