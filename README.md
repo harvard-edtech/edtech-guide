@@ -6,9 +6,9 @@ Created by Gabe Abrams in 2022. This will probably be out of date within minutes
   Rule {
     display: block;
     font-weight: bold;
-    color: #FFC107;
+    color: #FF8400;
 
-    border: 1px solid #FFC107;
+    border: 1px solid #FF8400;
     border-radius: 5px;
 
     padding-top: 3px;
@@ -2997,13 +2997,13 @@ For example, let's say you have an app where there are really three types of rou
 
 We use REST API standards with additional constraints. When defining a route, always use the following rules to create your paths:
 
-<Rule>
+<Rule tall>
   All API endpoint paths must start with `/api`
 </Rule>
 
 Additionally, if only certain types of users can access the route, add another prefix for the type of user. Currently, we support `admin` and `ttm`:
 
-<Rule>
+<Rule tall>
   TTM API routes must start with `/api/ttm`, admin API routes must start with `/api/admin`
 </Rule>
 
@@ -3017,7 +3017,7 @@ For the endpoint method, follow these rules:
 
 We use a folder-like pluralized path structure for endpoints. All placeholders must be prefixed by a description of the value.
 
-<Rule>
+<Rule tall>
   All placeholders must have a description prefix
 </Rule>
 
@@ -3042,7 +3042,7 @@ app.get(
 );
 ```
 
-<Rule>
+<Rule tall>
   Every endpoint must be documented using JSDoc
 </Rule>
 
@@ -3064,7 +3064,7 @@ app.get(
 
 All API routes should use the `dce-reactkit` function for generating a route handler: `genRouteHandler`, which handles auth, session management, security and privacy, parameter parsing, automatic error handling, crash prevention, and so much more.
 
-<Rule>
+<Rule tall>
   API route handlers should use `genRouteHandler` from `dce-reactkit` if possible
 </Rule>
 
