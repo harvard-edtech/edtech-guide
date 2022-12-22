@@ -57,7 +57,7 @@ Programming and Testing:
 
 Creating Projects:
 
-- [How Gabe Creates React Projects](#how-gabe-creates-react-projects)
+- [Creating React Projects](#creating-react-projects)
 - [Creating Component Libraries](#creating-component-libraries)
 - [Creating Support Libraries](#creating-support-libraries)
 
@@ -3901,7 +3901,7 @@ If you're looking for a module that does one of the operations below, use these 
   Use dependencies listed above instead of seeking out alternatives
 </Rule>
 
-# How Gabe Creates React Projects
+# Creating React Projects
 
 Create a new npm project:
 
