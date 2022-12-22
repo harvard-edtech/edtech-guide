@@ -25,6 +25,24 @@ Created by Gabe Abrams in 2022. This will probably be out of date within minutes
   }
 </style>
 
+Although everything in this guide should be followed closely, pay special attention to `Rule` blocks, as those are even more non-negotiable.
+
+# Table of Contents
+
+1. [Set Up Your Workspace](#set-up-your-workspace)
+1. [Get Access to Harvard Tools](#get-access-to-harvard-tools)
+1. [How Gabe Creates Projects](#how-gabe-creates-projects)
+1. [Project and File Management](#project-and-file-management)
+1. [Typescript Basics](#typescript-basics)
+1. [Typescript Advanced Stuff](#typescript-advanced-stuff)
+1. [React](#react)
+1. [Express Server](#express-server)
+1. [Unit Tests](#unit-tests)
+1. [Automated UI Testing](#automated-ui-testing)
+1. [Commonly Used Dependencies](#commonly-used-dependencies)
+1. [Creating Component Libraries](#creating-component-libraries)
+1. [Creating Support Libraries](#creating-support-libraries)
+
 # Set Up Your Workspace
 
 _Note:_ if using windows, start by installing a terminal replacement like Git Bash. It must function like a Mac OS or Linux machine. Otherwise, virtualize Linux.
@@ -3917,3 +3935,323 @@ If you're looking for a module that does one of the operations below, use these 
 `papaparse` – for CSV parsing and generation
 
 `object-hash` – for hashing objects
+
+# Creating Component Libraries
+
+Component libraries are npm modules that contain React components that are intended for reuse. If you find yourself reusing a component across multiple projects, you might want to consider putting that component into a shared component library.
+
+Creating a component library can be really complex and finnicky, so we've simplified our process and made some compromises. Please follow this guide, including all simplifications and compromises.
+
+When naming your component library, include `dce` or `harvard` in the project name _unless_ it is a project that will be used across multiple universities. We don't want to be part of the npm clutter problem, so don't reserve generic names for our internal libs if you don't need to. For example, if we're creating a support library that is used for managing dates and times with respect to Cambridge, MA, don't snag the `date-manager` project name. Instead, call your library `dce-date-manager` or something.
+
+## 1. Prepare Your Components
+
+Before components can be added to a component library, we require that style be translated into vanilla css (not scss) and copied inline into a new section at the top of the component `.tsx` file:
+
+```tsx
+/*----------------------------------------*/
+/*                 Style                  */
+/*----------------------------------------*/
+
+const style = `
+  .MyComponent-container {
+    ...
+  }
+`;
+```
+
+Then, in the final `return` in the render function, add the style inline:
+
+```tsx
+  return (
+    <div className="MyComponent-container">
+      {/* Inline Style */}
+      <style>
+        {style}
+      </style>
+
+      ...
+    </div>
+  );
+```
+
+## 2. Create a Component Package
+
+Now, we'll create an npm package that we will be publishing as open source to npm. For consistency and maintenance, Gabe will be the one who publishes and maintains these packages on npm.
+
+First, create a new repo on GitHub, set it up using the `Node` gitignore template, write a short description of the project (and copy that description to the clipboard), and add the `MIT` license. Then, clone that repo to your computer.
+
+Next, initialize the npm project using `npm init`. When prompted for a description, paste the description from your clipboard. When prompted for an author, use `Gabe Abrams <gabeabrams@gmail.com>`, and when prompted for a license, use "MIT".
+
+Also, follow instructions (near the top of this guide) for adding eslint rules to a project.
+
+## 3. Set Up Build Process
+
+Install dev dependencies:
+
+`npm i --save-dev rollup rollup-plugin-dts rollup-plugin-sourcemaps typescript @rollup/plugin-commonjs @rollup/plugin-json @rollup/plugin-node-resolve @rollup/plugin-typescript @types/react`
+
+Install peer dependencies, modifying for the proper versions:
+
+```json
+  // Add to package.json:
+  "peerDependencies": {
+    "@fortawesome/free-regular-svg-icons": "^6.x.x",
+    "@fortawesome/free-solid-svg-icons": "^6.x.x",
+    "@fortawesome/react-fontawesome": "^0.x.x",
+    "bootstrap": "^5.x.x",
+    "react": "^x.x.x"
+  },
+```
+
+Then run `npm i` to install the appropriate dependencies.
+
+Add a build script to your `package.json`:
+
+```json
+  "scripts": {
+    ...
+    "build": "rm -rf dist && rollup -c"
+  },
+```
+
+Modify/add the following lines to your `package.json`:
+
+```json
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+```
+
+Add the following configuration files to your project:
+
+```js
+// rollup.config.js
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import typescript from '@rollup/plugin-typescript';
+import dts from 'rollup-plugin-dts';
+import sourcemaps from 'rollup-plugin-sourcemaps';
+
+const packageJson = require('./package.json');
+
+export default [
+  {
+    input: 'src/index.ts',
+    output: [
+      {
+        file: packageJson.main,
+        format: 'cjs',
+        sourcemap: true,
+      },
+      {
+        file: packageJson.module,
+        format: 'esm',
+        sourcemap: true,
+      },
+    ],
+    plugins: [
+      resolve(),
+      commonjs(),
+      typescript({ tsconfig: './tsconfig.json' }),
+      sourcemaps(),
+    ],
+    external: [
+      ...Object.keys(packageJson.dependencies || {}),
+      ...Object.keys(packageJson.peerDependencies || {}),
+    ],
+  },
+  {
+    input: 'dist/esm/index.d.ts',
+    output: [{ file: 'dist/index.d.ts', format: 'esm' }],
+    plugins: [dts()],
+    external: [
+      ...Object.keys(packageJson.dependencies || {}),
+      ...Object.keys(packageJson.peerDependencies || {}),
+    ],
+  },
+];
+```
+
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+
+    "jsx": "react",
+    "module": "ESNext",
+    "declaration": true,
+    "declarationDir": "types",
+    "sourceMap": true,
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "emitDeclarationOnly": true,
+    "rootDir": "src"
+  },
+
+  "include": [
+    "./src/**/*"
+  ]
+}
+```
+
+## 4. Add Components
+
+Create a `/src` folder and a `/src/index.ts` file that will serve as the entrypoint.
+
+Add all components to a `/src/components` folder and follow all other normal rules for file and folder structure (naming conventions, shared folders, etc.).
+
+In the `/src/index.ts` file, import all components, helpers, types, etc. that you want to be available to users of your package and then export them in one object:
+
+```ts
+// Components
+import MyFirstComponent from './components/MyFirstComponent';
+import MySecondComponent from './components/MyFirstComponent';
+
+// Helpers
+import myHelperFunction from './helpers/myHelperFunction';
+
+// Types
+import MyFirstType from './shared/types/MyFirstType';
+import MySecondType from './shared/types/MySecondType';
+
+// Export
+export {
+  // Components
+  MyFirstComponent,
+  MySecondComponent
+  // Helpers
+  myHelperFunction,
+  // Types
+  MyFirstType,
+  MySecondType,
+};
+```
+
+## 5. Test
+
+One of the easiest ways to test is to create a test React app, copy your components into the app and try to use them. This is a good place to start, but won't get you all the way there, so check out `npm link` functionality and ask Gabe for specific testing strategies that will work for you.
+
+## 6. Build and Publish
+
+Build your component lib by running `npm run build`. If no errors occur, check the `/dist` folder for built contents.
+
+Commit and push your code and ask Gabe to publish the library.
+
+# Creating Support Libraries
+
+Support libraries contain helpful, reusable code that is used across multiple projects. These support libraries cannot contain React code. If they do, consider a Component Library (see the previous section).
+
+Creating a support library is extremely complicated and complex, so we've created this guide and need you to stick to it. What might seem to be compromises are probably careful decisions that were made to improve the build process or robustness of the library in other ways.
+
+When naming your support library, include `dce` or `harvard` in the project name _unless_ it is a project that will be used across multiple universities. We don't want to be part of the npm clutter problem, so don't reserve generic names for our internal libs if you don't need to. For example, if we're creating a support library that is used for managing dates and times with respect to Cambridge, MA, don't snag the `date-manager` project name. Instead, call your library `dce-date-manager` or something.
+
+## 1. Prepare Your Code
+
+Any code that you want to place into a shared library must be 100% typescript files (`.ts`). We do not currently support assets or other types of files.
+
+## 2. Create a Support Package
+
+Now, we'll create an npm package that we will be publishing as open source to npm. For consistency and maintenance, Gabe will be the one who publishes and maintains these packages on npm.
+
+First, create a new repo on GitHub, set it up using the `Node` gitignore template, write a short description of the project (and copy that description to the clipboard), and add the `MIT` license. Then, clone that repo to your computer.
+
+Next, initialize the npm project using `npm init`. When prompted for a description, paste the description from your clipboard. When prompted for an author, use `Gabe Abrams <gabeabrams@gmail.com>`, and when prompted for a license, use "MIT".
+
+Also, follow instructions (near the top of this guide) for adding eslint rules to a project.
+
+## 3. Set Up Build Process
+
+Install dev dependencies:
+
+`npm i --save-dev @types/node typescript`
+
+Add a build script to your `package.json`:
+
+```json
+  "scripts": {
+    ...
+    "build": "tsc --project ./tsconfig.json"
+  },
+```
+
+Add/modify the following `package.json` lines:
+
+```json
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+```
+
+Add the following `tsconfig.json` file to the top-level of your project:
+
+```json
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "declaration": true,
+    "sourceMap": true,
+    "target": "es5",
+    "outDir": "./lib"
+  },
+  "include": [
+    "./src"
+  ],
+  "ts-node": {
+    "files": true
+  }
+}
+```
+
+## 4. Add Code
+
+Add all code to a `/src` folder and follow all other normal rules for file and folder structure (naming conventions, shared folders, etc.).
+
+In the `/src/index.ts` file, import all functions, types, etc. that you want to be available to users of your package and then export them in one object:
+
+```ts
+// Functions
+import myFirstFunction from './helpers/myFirstFunction';
+import mySecondFunction from './helpers/mySecondFunction';
+
+// Types
+import MyFirstType from './shared/types/MyFirstType';
+import MySecondType from './shared/types/MySecondType';
+
+// Export
+export {
+  // Functions
+  myFirstFunction,
+  mySecondFunction,
+  // Types
+  MyFirstType,
+  MySecondType,
+};
+```
+
+## 5. Test
+
+To test your project, create a test npm project somewhere else on your machine, then follow these instructions for testing via `npm link`:
+
+First, build your support library using `npm run build`.
+
+Then, link your support library using `npm link`.
+
+Finally, in your test project, run `npm link <package-name>` where `<package-name>` is the name of your support library.
+
+Repeat these steps as necessary.
+
+## 6. Build and Publish
+
+Build your component lib by running `npm run build`. If no errors occur, check the `/dist` folder for built contents.
+
+Commit and push your code and ask Gabe to publish the library.
