@@ -3905,7 +3905,7 @@ If you're looking for a module that does one of the operations below, use these 
 
 # Creating React Projects
 
-Create a new npm project:
+## Create a new npm project:
 
 1. Create a git repo and clone it
 1. Initialize the project: `npm init`
@@ -3914,7 +3914,7 @@ Create a new npm project:
 1. Add eslint rules in each sub-project separately (client and server, for example): `npm init dce-eslint@latest`, remove react lines in `/server/.eslintrc.js`
 1. Add `private: true` flag in `package.json`
 
-Set up the server:
+## Set up the server:
 
 1. Create a `server/` folder
 1. Inside the `server/` folder, initialize the project: `npm init`
@@ -3922,7 +3922,7 @@ Set up the server:
 1. Add `private: true` flag in `package.json`
 1. If you have custom server env vars, add `**/.env` to your gitignore, install `dotenv` on the server as a dev dependency, add `import 'dotenv/config';` to the top of your server index, and add a `/server/.env` file where environment variables are listed one per line: `NAME=value`
 
-Set up the client
+## Set up the client
 
 1. From the top-level directory, initialize react: `npx create-react-app --template typescript client`
 1. Install bootstrap: `npm i --save bootstrap`
@@ -3946,7 +3946,7 @@ This script copies types from the server (`/server/src/shared/types`) and puts t
 	},
 ```
 
-Set up the project for deployment:
+## Set up the project for deployment:
 
 Install `dce-dev-wizard` into the project: `npm i --save-dev dce-dev-wizard`.
 
@@ -3969,7 +3969,7 @@ Add a `dceConfig.json` file with deployment information. The `name` is a human-r
 }
 ```
 
-Add a `dev-wizard` script that is used for managing and performing deployment:
+## Add a `dev-wizard` script that is used for managing and performing deployment:
 
 ```json
   "scripts": {
