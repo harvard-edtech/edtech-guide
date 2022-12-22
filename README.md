@@ -39,9 +39,13 @@ Although everything in this guide should be followed closely, pay special attent
 
 # Table of Contents
 
+Getting Set Up:
+
 - [Set Up Your Workspace](#set-up-your-workspace)
 - [Get Access to Harvard Tools](#get-access-to-harvard-tools)
-- [How Gabe Creates Projects](#how-gabe-creates-projects)
+
+Programming and Testing:
+
 - [Project and File Management](#project-and-file-management)
 - [Typescript Basics](#typescript-basics)
 - [Typescript Advanced Stuff](#typescript-advanced-stuff)
@@ -50,6 +54,10 @@ Although everything in this guide should be followed closely, pay special attent
 - [React Component Unit Tests](#react-component-unit-tests)
 - [Automated UI Testing](#automated-ui-testing)
 - [Commonly Used Dependencies](#commonly-used-dependencies)
+
+Creating Projects:
+
+- [How Gabe Creates React Projects](#how-gabe-creates-react-projects)
 - [Creating Component Libraries](#creating-component-libraries)
 - [Creating Support Libraries](#creating-support-libraries)
 
@@ -153,84 +161,6 @@ Get access to the team slack:
 Get access to GitHub projects:
 
 1. Send Gabe your GitHub handle and they will add you to the appropriate projects
-
-# How Gabe Creates Projects
-
-Create a new npm project:
-
-1. Create a git repo and clone it
-1. Initialize the project: `npm init`
-1. Add a `.gitignore`
-1. Initialize caccl app using `npm init caccl@latest`
-1. Add eslint rules in each sub-project separately (client and server, for example): `npm init dce-eslint@latest`, remove react lines in `/server/.eslintrc.js`
-1. Add `private: true` flag in `package.json`
-
-Set up the server:
-
-1. Create a `server/` folder
-1. Inside the `server/` folder, initialize the project: `npm init`
-1. Add a `.gitignore`
-1. Add `private: true` flag in `package.json`
-1. If you have custom server env vars, add `**/.env` to your gitignore, install `dotenv` on the server as a dev dependency, add `import 'dotenv/config';` to the top of your server index, and add a `/server/.env` file where environment variables are listed one per line: `NAME=value`
-
-Set up the client
-
-1. From the top-level directory, initialize react: `npx create-react-app --template typescript client`
-1. Install bootstrap: `npm i --save bootstrap`
-1. Import bootstrap in `index.tsx`:
-    ```ts
-    // Import bootstrap stylesheet
-    import 'bootstrap/dist/css/bootstrap.min.css';
-    import 'bootstrap/dist/js/bootstrap.min';
-    ```
-1. Install FontAwesome libs: `npm i --save @fortawesome/fontawesome-svg-core @fortawesome/free-regular-svg-icons @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome`
-1. Install SCSS with `npm i --save-dev sass`
-1. Remove eslint rules from `package.json` (they're included via `dce-eslint`)
-
-## Adding Typescript Support to a Project
-
-Once you've created the project, you need to separately add typescript support.
-
-First, move all code into a `src/` folder and make sure your project has no top-level `lib/` folder.
-
-Add typescript to the project:
-
-1. Install typescript with `npm i --save-dev typescript`
-1. In `package.json`, update `main` to `./lib/index.js`
-1. In `package.json`, update `types` to `./lib/index.d.ts`
-1. Add a build script: `tsc --project ./tsconfig.json`
-
-Add a `tsconfig.json` file to the top-level directory of the project:
-
-```json
-{
-  "compilerOptions": {
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "noImplicitAny": true,
-    "noEmitOnError": true,
-    "removeComments": false,
-    "declaration": true,
-    "sourceMap": true,
-    "target": "es5",
-    "lib": ["DOM", "ES2015"],
-    "outDir": "./lib"
-  },
-  "include": [
-    "./src"
-  ],
-  "ts-node": {
-    "files": true
-  }
-}
-```
-
-You can customize the `tsconfig.json`. This config is designed to target es5 while supporting modern standards.
-
-If your project has non-typescript files that are required in the project, update your build script:
-
-1. Install new dependencies `npm i --save-dev rimraf copyfiles`
-1. Update your build script: `rimraf lib/ && tsc --project ./tsconfig.json && copyfiles -u 1 src/**/*.ejs src/**/*.jpg lib/`
 
 # Project and File Management
 
@@ -3971,6 +3901,84 @@ If you're looking for a module that does one of the operations below, use these 
   Use dependencies listed above instead of seeking out alternatives
 </Rule>
 
+# How Gabe Creates React Projects
+
+Create a new npm project:
+
+1. Create a git repo and clone it
+1. Initialize the project: `npm init`
+1. Add a `.gitignore`
+1. Initialize caccl app using `npm init caccl@latest`
+1. Add eslint rules in each sub-project separately (client and server, for example): `npm init dce-eslint@latest`, remove react lines in `/server/.eslintrc.js`
+1. Add `private: true` flag in `package.json`
+
+Set up the server:
+
+1. Create a `server/` folder
+1. Inside the `server/` folder, initialize the project: `npm init`
+1. Add a `.gitignore`
+1. Add `private: true` flag in `package.json`
+1. If you have custom server env vars, add `**/.env` to your gitignore, install `dotenv` on the server as a dev dependency, add `import 'dotenv/config';` to the top of your server index, and add a `/server/.env` file where environment variables are listed one per line: `NAME=value`
+
+Set up the client
+
+1. From the top-level directory, initialize react: `npx create-react-app --template typescript client`
+1. Install bootstrap: `npm i --save bootstrap`
+1. Import bootstrap in `index.tsx`:
+    ```ts
+    // Import bootstrap stylesheet
+    import 'bootstrap/dist/css/bootstrap.min.css';
+    import 'bootstrap/dist/js/bootstrap.min';
+    ```
+1. Install FontAwesome libs: `npm i --save @fortawesome/fontawesome-svg-core @fortawesome/free-regular-svg-icons @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome`
+1. Install SCSS with `npm i --save-dev sass`
+1. Remove eslint rules from `package.json` (they're included via `dce-eslint`)
+
+## Adding Typescript Support to a Project
+
+Once you've created the project, you need to separately add typescript support.
+
+First, move all code into a `src/` folder and make sure your project has no top-level `lib/` folder.
+
+Add typescript to the project:
+
+1. Install typescript with `npm i --save-dev typescript`
+1. In `package.json`, update `main` to `./lib/index.js`
+1. In `package.json`, update `types` to `./lib/index.d.ts`
+1. Add a build script: `tsc --project ./tsconfig.json`
+
+Add a `tsconfig.json` file to the top-level directory of the project:
+
+```json
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "declaration": true,
+    "sourceMap": true,
+    "target": "es5",
+    "lib": ["DOM", "ES2015"],
+    "outDir": "./lib"
+  },
+  "include": [
+    "./src"
+  ],
+  "ts-node": {
+    "files": true
+  }
+}
+```
+
+You can customize the `tsconfig.json`. This config is designed to target es5 while supporting modern standards.
+
+If your project has non-typescript files that are required in the project, update your build script:
+
+1. Install new dependencies `npm i --save-dev rimraf copyfiles`
+1. Update your build script: `rimraf lib/ && tsc --project ./tsconfig.json && copyfiles -u 1 src/**/*.ejs src/**/*.jpg lib/`
+
 # Creating Component Libraries
 
 Component libraries are npm modules that contain React components that are intended for reuse. If you find yourself reusing a component across multiple projects, you might want to consider putting that component into a shared component library.
@@ -4058,10 +4066,9 @@ Modify/add the following lines to your `package.json`:
   "types": "dist/index.d.ts",
 ```
 
-Add the following configuration files to your project:
+Add a `rollup.config.js` file to the root project directory:
 
 ```js
-// rollup.config.js
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
@@ -4108,8 +4115,9 @@ export default [
 ];
 ```
 
+Add a `tsconfig.json` file to the root project directory:
+
 ```json
-// tsconfig.json
 {
   "compilerOptions": {
     "target": "es2016",
