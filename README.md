@@ -3905,6 +3905,8 @@ If you're looking for a module that does one of the operations below, use these 
 
 # Creating React Projects
 
+In almost every case, let Gabe create React projects. That said, it's good to know the process:
+
 ## Create a new npm project:
 
 1. Create a git repo and clone it
