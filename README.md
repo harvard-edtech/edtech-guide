@@ -37,7 +37,7 @@ Although everything in this guide should be followed closely, pay special attent
 - [Typescript Advanced Stuff](#typescript-advanced-stuff)
 - [React](#react)
 - [Express Server](#express-server)
-- [Unit Tests](#unit-tests)
+- [React Component Unit Tests](#react-component-unit-tests)
 - [Automated UI Testing](#automated-ui-testing)
 - [Commonly Used Dependencies](#commonly-used-dependencies)
 - [Creating Component Libraries](#creating-component-libraries)
@@ -3633,7 +3633,7 @@ await userCollection.delete({
 });
 ```
 
-# Unit Tests
+# React Component Unit Tests
 
 ## Guiding Principles
 
