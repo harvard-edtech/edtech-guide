@@ -35,6 +35,10 @@ Last updated by Gabe Abrams in December 2022. This will probably be out of date 
     padding-right: 0.7rem;
     padding-top: 0.5rem;
   }
+
+  .footer {
+    display: none;
+  }
 </style>
 
 Although everything in this guide should be followed closely, pay special attention to `Rule` blocks, as those are even more non-negotiable.
