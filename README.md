@@ -1,6 +1,6 @@
-# Comprehensive Software Development Guide
+# Comprehensive EdTech Development Guide
 
-Created by Gabe Abrams in 2023. This will probably be out of date within minutes of this guide being published. Be alert and be flexible.
+Last updated by Gabe Abrams in December 2022. This will probably be out of date within minutes of this guide being published. Be alert and be flexible.
 
 <style>
   Rule {
