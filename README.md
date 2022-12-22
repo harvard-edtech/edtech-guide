@@ -3,7 +3,7 @@
 Created by Gabe Abrams in 2023. This will probably be out of date within minutes of this guide being published. Be alert and be flexible.
 
 <style>
-    Rule {
+  Rule {
     display: block;
     font-weight: bold;
     color: #CB3048;
@@ -17,7 +17,7 @@ Created by Gabe Abrams in 2023. This will probably be out of date within minutes
     padding-right: 0.5rem;
   }
   Rule::before {
-    content: 'Rule: ';
+    content: '\2605  Rule: ';
     font-weight: normal;
   }
   Rule[tall] {
