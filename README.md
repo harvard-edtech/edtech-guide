@@ -29,19 +29,19 @@ Although everything in this guide should be followed closely, pay special attent
 
 # Table of Contents
 
-1. [Set Up Your Workspace](#set-up-your-workspace)
-1. [Get Access to Harvard Tools](#get-access-to-harvard-tools)
-1. [How Gabe Creates Projects](#how-gabe-creates-projects)
-1. [Project and File Management](#project-and-file-management)
-1. [Typescript Basics](#typescript-basics)
-1. [Typescript Advanced Stuff](#typescript-advanced-stuff)
-1. [React](#react)
-1. [Express Server](#express-server)
-1. [Unit Tests](#unit-tests)
-1. [Automated UI Testing](#automated-ui-testing)
-1. [Commonly Used Dependencies](#commonly-used-dependencies)
-1. [Creating Component Libraries](#creating-component-libraries)
-1. [Creating Support Libraries](#creating-support-libraries)
+- [Set Up Your Workspace](#set-up-your-workspace)
+- [Get Access to Harvard Tools](#get-access-to-harvard-tools)
+- [How Gabe Creates Projects](#how-gabe-creates-projects)
+- [Project and File Management](#project-and-file-management)
+- [Typescript Basics](#typescript-basics)
+- [Typescript Advanced Stuff](#typescript-advanced-stuff)
+- [React](#react)
+- [Express Server](#express-server)
+- [Unit Tests](#unit-tests)
+- [Automated UI Testing](#automated-ui-testing)
+- [Commonly Used Dependencies](#commonly-used-dependencies)
+- [Creating Component Libraries](#creating-component-libraries)
+- [Creating Support Libraries](#creating-support-libraries)
 
 # Set Up Your Workspace
 
