@@ -23,6 +23,13 @@ Created by Gabe Abrams in 2023. This will probably be out of date within minutes
   Rule[tall] {
     margin-bottom: 10px;
   }
+
+  h1 {
+    border-radius: 0.5rem;
+    background-color: #333;
+    color: white;
+    padding: 0.5rem;
+  }
 </style>
 
 Although everything in this guide should be followed closely, pay special attention to `Rule` blocks, as those are even more non-negotiable.
@@ -241,7 +248,7 @@ As you work, keep track of everything you work on and update your Google Sheet w
 The main branch of the project is managed by Gabe. Anything that makes it to `main` is Gabe's responsibility, so please do not merge into `main`.
 
 <Rule tall>
-    Never commit, merge, or push to main
+  Never commit, merge, or push to main
 </Rule>
 
 For each task you work on, check the title and label of the card in GitHub Projects. That label may be "enhancement" or "new-feature" etc.
@@ -249,7 +256,7 @@ For each task you work on, check the title and label of the card in GitHub Proje
 Before starting to work on that task, create a new branch labeled `<label>/<lowercase-dashed-title>`.
 
 <Rule>
-    One branch per task, named appropriately
+  One branch per task, named appropriately
 </Rule>
 
 ```bash
@@ -262,7 +269,7 @@ git checkout -b enhancement/add-simplification-algorithm
 For your own public credit on GitHub and for traceability, we prefer that you commit and push to your branch very often.
 
 <Rule>
-    Commit and push to your branch frequently
+  Commit and push to your branch frequently
 </Rule>
 
 ```bash
@@ -281,7 +288,7 @@ We use a strict file structure for all our projects. This helps us get around ea
 Modules can take one of two structures: one/two files or folder. A module must be a folder if it has any helpers, sub-components, or more than two files for any other reason. There is one exception to this: test files are not included in this count, so you may end up with three files instead of a folder if one of them is a test.
 
 <Rule>
-    Modules must be folders if they have helpers, sub-components, or more than 2 files
+  Modules must be folders if they have helpers, sub-components, or more than 2 files
 </Rule>
 
 ```ts
@@ -342,7 +349,7 @@ MyComponent/
 Use `const` when defining variables. Only use `let` if absolutely necessary (a variable's value changes). It is unforgivable to use `var`.
 
 <Rule>
-    Use const to define vars. Only use let if necessary
+  Use const to define vars. Only use let if necessary
 </Rule>
 
 ```ts
@@ -375,7 +382,7 @@ user.age += 1;
 We favor longer variable names that are descriptive: `mouseX` is better than `x`.
 
 <Rule>
-    Use appropriate naming conventions
+  Use appropriate naming conventions
 </Rule>
 
 ```ts
@@ -431,7 +438,7 @@ const isStudent?: boolean = ...
 All variables must have types. If typescript cannot infer a type, one must be explicitly defined.
 
 <Rule>
-    All variables must have specific types (if not defined or inferred)
+  All variables must have specific types (if not defined or inferred)
 </Rule>
 
 ```ts
@@ -442,7 +449,7 @@ const name: string = getName();
 All numbers must include units, either in the variable name itself or in a comment at the variable's declaration:
 
 <Rule>
-    All numbers must include units
+  All numbers must include units
 </Rule>
 
 ```ts
@@ -455,10 +462,17 @@ const height = 5; // ft
 const height = 5;
 ```
 
+If you have the option to choose units, here are our preferred set of units:
+
+- timestamp/time = ms
+- age = years
+- date = ms since epoch
+- video timestamp = seconds since start of video
+
 We reserve single quotes for typescript and double quotes for JSX. This makes our code differentiable and nestable.
 
 <Rule>
-    Only use single quotes in typescript
+  Only use single quotes in typescript
 </Rule>
 
 ```ts
@@ -470,7 +484,7 @@ const name = 'Divardo';
 Arrays that start off empty must have a declared type.
 
 <Rule>
-    Arrays must have declared types
+  Arrays must have declared types
 </Rule>
 
 ```ts
@@ -482,7 +496,7 @@ const names = new Array<string>();
 Objects must be defined with proper spacing to preserve clarity.
 
 <Rule>
-    Space out object properties
+  Space out object properties
 </Rule>
 
 ```ts
@@ -496,7 +510,7 @@ const user = {name: 'Divardo'};
 If adding a variable to an object with the same name, use shorthand.
 
 <Rule>
-    Used object property shorthand
+  Used object property shorthand
 </Rule>
 
 ```ts
@@ -515,7 +529,7 @@ const user = { name: name, age: age };
 Always use `===` for equality. If you're using `==` there had better be a really good reason.
 
 <Rule>
-    Always use ===  or !== for equality comparisons
+  Always use ===  or !== for equality comparisons
 </Rule>
 
 ```ts
@@ -533,7 +547,7 @@ If you want to do a deep comparison of two objects, use a library.
 Math must be readable and grouped. Only one operation can happen in each parentheses group.
 
 <Rule>
-    Wrap each mathematical operation in parentheses
+  Wrap each mathematical operation in parentheses
 </Rule>
 
 ```ts
@@ -543,7 +557,7 @@ const x = (((a + b) * (c + d)) / e);
 It turns out few people understand the subtleties of `num++` or `num--`, so we do not use those operators except in for loops, where its use is well-understood.
 
 <Rule>
-    Only use ++ or -- in for loop declaration
+  Only use ++ or -- in for loop declaration
 </Rule>
 
 ```ts
@@ -564,7 +578,7 @@ This works nicely with other mathematical operations:
 String addition must always be done using template strings.
 
 <Rule>
-    Only use template strings for string addition
+  Only use template strings for string addition
 </Rule>
 
 ```ts
@@ -574,7 +588,7 @@ const weather = `The temperature is ${temp} today`;
 Never nest ternaries and always wrap them in parentheses, even if they're short.
 
 <Rule>
-    Never nest ternaries
+  Never nest ternaries
 </Rule>
 
 ```ts
@@ -587,7 +601,7 @@ const beingType = (age > 150 ? monsterType : 'human');
 ```
 
 <Rule>
-    Put complex ternaries on multiple lines
+  Put complex ternaries on multiple lines
 </Rule>
 
 ```ts
@@ -651,7 +665,7 @@ const age = (
 When retrieving values from objects or tuples (arrays of length 2), you can destructure. We prefer that you do not alias (do not rename destructured values). This helps other programmers follow data around your code and also helps when people use `find` or other searching mechanisms.
 
 <Rule>
-    Destructure where possible. Do not alias unless necessary
+  Destructure where possible. Do not alias unless necessary
 </Rule>
 
 ```ts
@@ -666,7 +680,7 @@ const {
 We never use the `function` keyword. It's been outdated for years.
 
 <Rule>
-    Never use the function keyword
+  Never use the function keyword
 </Rule>
 
 ```ts
@@ -679,7 +693,7 @@ function honk(horn) {
 Use arrow functions as much as possible: this ensures appropriate context binding and reduces complexity.
 
 <Rule>
-    Use arrow functions as much as possible
+  Use arrow functions as much as possible
 </Rule>
 
 ```ts
@@ -723,7 +737,7 @@ name => { print(name); }
 All named functions absolutely must have JSDoc definitions. Include a description of the purpose of the function, add one or more author tags for people who worked on that function, and describe arguments and return.
 
 <Rule>
-    Add JSDoc to all named functions
+  Add JSDoc to all named functions
 </Rule>
 
 ```ts
@@ -742,7 +756,7 @@ const prepareCar = async (car: Car, raceType: RaceType): number => {
 Notice that data types are included inline in the typescript function declaration. To minimize documentation update issues, keep data types and sync/async status inline in the typescript. Do not include them in JSDoc. Thus, `{type}` tags and the `@async` keyword are not allowed
 
 <Rule>
-    Don't duplicate descriptions with JSDoc
+  Don't duplicate descriptions with JSDoc
 </Rule>
 
 ```ts
@@ -822,7 +836,7 @@ class User {
 If a method doesn't refer to `this`, then there's no reason it can't be a `static` method. Thus, if a method doesn't refer to `this`, we require that it be `static`. This helps because it's easy for others to figure out if a function depends on class variables.
 
 <Rule>
-    Methods that don't use this must be static
+  Methods that don't reference "this" must be static
 </Rule>
 
 ```ts
@@ -1098,7 +1112,7 @@ Note: this is not supported in `.json` files. Thus, when possible, we prefer `.t
 Array functions are awesome. Replace loops with array functions wherever possible. Unfortunately, array functions do not fully support async/await yet. That's the only time we must use a `for` loop.
 
 <Rule>
-    Use array functions whenever possible unless await is used inside
+  Use array functions whenever possible unless await is used inside
 </Rule>
 
 ```ts
@@ -1250,7 +1264,7 @@ const redCars = cars.filter((car: Car) => {
 Object functions are great for iterating through objects. Use them whenever possible. But just like array functions, if using async/await inside the loop, you'll need a for loop.
 
 <Rule>
-    Use object functions whenever possible unless await is used inside
+  Use object functions whenever possible unless await is used inside
 </Rule>
 
 ### Object.keys(...) – get an array of keys
@@ -1341,7 +1355,7 @@ export default MyComponent;
 The file name must match the name of the default export. This helps with consistency and helps with automatic documentation.
 
 <Rule>
-    Default export name must match file name
+  Default export name must match file name
 </Rule>
 
 ```ts
@@ -1355,7 +1369,7 @@ export default MyButton;
 If an item takes up more than one line, define it above and then export it on one line.
 
 <Rule>
-    Export must be on a single line
+  Export must be on a single line
 </Rule>
 
 ```ts
@@ -1371,7 +1385,7 @@ export default MyCar;
 When importing a module, leave out the extension if it's a `.ts` or `.tsx` file.
 
 <Rule>
-    When importing, leave off extension if `.tsx`
+  When importing, leave off extension if ".tsx"
 </Rule>
 
 ```ts
@@ -1381,7 +1395,7 @@ import MyComponent from '../shared/MyComponent';
 If a module is a folder, leave off `index.tsx` when importing.
 
 <Rule>
-    Leave off `index.tsx` when importing file modules
+  Leave off "index.tsx" when importing file modules
 </Rule>
 
 ```ts
@@ -1415,7 +1429,7 @@ const funcName = async () => {
 Always use the `async` keyword instead of returning `Promise` objects. In fact, refrain from referencing `Promise` except in types and when using `Promise.all`.
 
 <Rule>
-    Only reference Promise when using Promise.all or when defining types
+  Only reference Promise when using Promise.all or when defining types
 </Rule>
 
 ```ts
@@ -1457,7 +1471,7 @@ await Promise.all(tasks);
 To wait for an async task, always use `await` instead of `.then`.
 
 <Rule>
-    Use await instead of .then
+  Use await instead of .then
 </Rule>
 
 ```ts
@@ -1957,6 +1971,10 @@ Here's an example for a forgot password button:
  */
 ```
 
+<Rule tall>
+  Add JSDoc to the top of every component file, describing the component
+</Rule>
+
 ### Git Norms
 
 **Commit frequently**. We will squash later, but it's nice to have a detailed history. Plus, this is great for your careers.
@@ -1967,9 +1985,11 @@ We prefer **rem** for elements that have the same sizing, independent of their c
 
 We prefer **em** for elements that have variable sizing where their sizing depends on their parent or context.
 
-For very small details that are not required in order to understand the functionality or content of a tool (example: a very fine border), you can use **px**. If this part of the UI is important for functionality or content, then setting it as a specific number of pixels will mean that people with visual impairments will not be able to zoom in and see it in certain settings.
-
 Why? When people customize their browser settings (fonts, font size, viewport settings, etc.) it will mess up your layout and create unexpected layouts. Plus, this makes your tool more accessible (it adapts better to user settings).
+
+<Rule tall>
+  Use rem or em units instead of px units
+</Rule>
 
 ### Imports
 
@@ -2666,7 +2686,7 @@ dispatch({
 Unless something in JSX has just one item, put it on multiple lines. This keeps our UI code very clean and readable.
 
 <Rule>
- Prefer multiline JSX
+  Prefer multiline JSX
 </Rule>
 
 ```tsx
@@ -2918,7 +2938,7 @@ To import a stylesheet that includes variables that you'd like to use, do it wit
 When defining variables, do so at the top of your scss file:
 
 ```scss
-$border-width: 5px;
+$border-width: 0.5rem;
 ```
 
 # Express Server
@@ -2995,6 +3015,10 @@ Shared files go into the `/server/src/shared/` folder:
 /classes/
 /interfaces/
 ```
+
+<Rule tall>
+  Use the server folder structure above
+</Rule>
 
 ## Adding API Endpoints and Other Routes
 
@@ -3083,7 +3107,7 @@ app.get(
 All API routes should use the `dce-reactkit` function for generating a route handler: `genRouteHandler`, which handles auth, session management, security and privacy, parameter parsing, automatic error handling, crash prevention, and so much more.
 
 <Rule tall>
-  API route handlers should use `genRouteHandler` from `dce-reactkit` if possible
+  API route handlers should use "genRouteHandler" from dce-reactkit if possible
 </Rule>
 
 The second argument of the express `app.get`, `app.post`, `app.put`, `app.delete`, or `app.all` function is a route handler. Use `genRouteHandler` to create such a handler.
@@ -3293,6 +3317,10 @@ Finally, define and export each collection. Define each collection by creating a
 `indexKeys` – a list of secondary non-unique keys that should be used to create other indexes. Here, simply provide a list of keys that will commonly be used for searching and querying. Don't get too carried away: for every key you add to this list, the database must maintain an index and must update the index when entries are added/modified/removed.
 
 `expireAfterSeconds` – a number of seconds that represents the minimum lifespan of entries in this collection. If not included, entries will not be automatically deleted. There is no guarantee that entries will be deleted immediately after they expire. Instead, regular cleanups occur and expired entries are deleted. 
+
+<Rule tall>
+  If entries have an id, always simply name it "id"
+</Rule>
 
 Remember to export each collection, as you see in the example:
 
@@ -3658,7 +3686,7 @@ When writing tests, first write each assertion with the opposite type of test (i
 Name your test the same as your component with a `.test.tsx` filename:
 
 <Rule>
-    Tests use same name as component with .test.tsx extension
+  Tests use same name as component with .test.tsx extension
 </Rule>
 
 ```ts
@@ -3936,6 +3964,10 @@ If you're looking for a module that does one of the operations below, use these 
 
 `object-hash` – for hashing objects
 
+<Rule tall>
+  Use dependencies listed above instead of seeking out alternatives
+</Rule>
+
 # Creating Component Libraries
 
 Component libraries are npm modules that contain React components that are intended for reuse. If you find yourself reusing a component across multiple projects, you might want to consider putting that component into a shared component library.
@@ -4144,6 +4176,10 @@ Build your component lib by running `npm run build`. If no errors occur, check t
 
 Commit and push your code and ask Gabe to publish the library.
 
+<Rule tall>
+  Only Gabe publishes packages to npm
+</Rule>
+
 # Creating Support Libraries
 
 Support libraries contain helpful, reusable code that is used across multiple projects. These support libraries cannot contain React code. If they do, consider a Component Library (see the previous section).
@@ -4255,3 +4291,7 @@ Repeat these steps as necessary.
 Build your component lib by running `npm run build`. If no errors occur, check the `/dist` folder for built contents.
 
 Commit and push your code and ask Gabe to publish the library.
+
+<Rule tall>
+  Only Gabe publishes packages to npm
+</Rule>
