@@ -9,7 +9,7 @@ Created by Gabe Abrams in 2023. This will probably be out of date within minutes
     color: #CB3048;
 
     border: 0.15rem solid #CB3048;
-    border-radius: 0.3rem;
+    border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem;
 
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
@@ -22,6 +22,8 @@ Created by Gabe Abrams in 2023. This will probably be out of date within minutes
   }
   Rule[tall] {
     margin-bottom: 0.7rem;
+    border-bottom-left-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
   }
 
   h1 {
@@ -3933,6 +3935,47 @@ Set up the client
 1. Install FontAwesome libs: `npm i --save @fortawesome/fontawesome-svg-core @fortawesome/free-regular-svg-icons @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome`
 1. Install SCSS with `npm i --save-dev sass`
 1. Remove eslint rules from `package.json` (they're included via `dce-eslint`)
+
+Add a script for copying types from the server to the client:
+
+This script copies types from the server (`/server/src/shared/types`) and puts them on the client (`/client/src/shared/types`). This is extremely useful if types are shared between the server and the client, or if a database is used.
+
+```json
+  "scripts": {
+		"copy-server-types": "rm -rf ./client/src/shared/types/from-server; cp -r ./server/src/shared/types ./client/src/shared/types/from-server"
+	},
+```
+
+Set up the project for deployment:
+
+Install `dce-dev-wizard` into the project: `npm i --save-dev dce-dev-wizard`.
+
+Add a `dceConfig.json` file with deployment information. The `name` is a human-readable deployment name, `app` is the aws name of the deployment, and `profile` is the aws profile. Example:
+
+```json
+{
+  "deployments": [
+    {
+      "name": "Stage",
+      "app": "my-app-stage",
+      "profile": "stage"
+    },
+    {
+      "name": "Prod",
+      "app": "my-app-prod",
+      "profile": "prod"
+    }
+  ]
+}
+```
+
+Add a `dev-wizard` script that is used for managing and performing deployment:
+
+```json
+  "scripts": {
+		"dev-wizard": "./node_modules/.bin/dce-dev-wizard"
+  }
+```
 
 ## Adding Typescript Support to a Project
 
