@@ -3,32 +3,35 @@
 Created by Gabe Abrams in 2023. This will probably be out of date within minutes of this guide being published. Be alert and be flexible.
 
 <style>
-  Rule {
+    Rule {
     display: block;
     font-weight: bold;
-    color: #FF8400;
+    color: #CB3048;
 
-    border: 1px solid #FF8400;
-    border-radius: 5px;
+    border: 0.15rem solid #CB3048;
+    border-radius: 0.3rem;
 
-    padding-top: 3px;
-    padding-bottom: 3px;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
   Rule::before {
     content: 'Rule: ';
     font-weight: normal;
   }
   Rule[tall] {
-    margin-bottom: 10px;
+    margin-bottom: 0.7rem;
   }
 
   h1 {
     border-radius: 0.5rem;
     background-color: #333;
     color: white;
-    padding: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+    padding-top: 0.5rem;
   }
 </style>
 
