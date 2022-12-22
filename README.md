@@ -4071,7 +4071,11 @@ First, create a new repo on GitHub, set it up using the `Node` gitignore templat
 
 Next, initialize the npm project using `npm init`. When prompted for a description, paste the description from your clipboard. When prompted for an author, use `Gabe Abrams <gabeabrams@gmail.com>`, and when prompted for a license, use "MIT".
 
-Also, follow instructions (near the top of this guide) for adding eslint rules to a project.
+Also, add eslint rules to the project:
+
+```bash
+npm init dce-eslint@latest
+```
 
 ## 3. Set Up Build Process
 
@@ -4256,7 +4260,11 @@ First, create a new repo on GitHub, set it up using the `Node` gitignore templat
 
 Next, initialize the npm project using `npm init`. When prompted for a description, paste the description from your clipboard. When prompted for an author, use `Gabe Abrams <gabeabrams@gmail.com>`, and when prompted for a license, use "MIT".
 
-Also, follow instructions (near the top of this guide) for adding eslint rules to a project.
+Also, add eslint rules to the project:
+
+```bash
+npm init dce-eslint@latest
+```
 
 ## 3. Set Up Build Process
 
