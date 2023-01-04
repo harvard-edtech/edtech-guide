@@ -56,6 +56,7 @@ Programming and Testing:
 - [Typescript Basics](#typescript-basics)
 - [Typescript Advanced Stuff](#typescript-advanced-stuff)
 - [React](#react)
+- [Logging](#logging)
 - [Express Server](#express-server)
 - [React Component Unit Tests](#react-component-unit-tests)
 - [Automated UI Testing](#automated-ui-testing)
@@ -2880,6 +2881,480 @@ When defining variables, do so at the top of your scss file:
 $border-width: 0.5rem;
 ```
 
+# Logging
+
+To improve our tools, inform teaching practices, and provide analytics to faculty and staff, we log user errors and actions. Because logging is done so commonly, we use custom features built into `dce-reactkit` that manage logging on both the client and the server.
+
+## Preparation
+
+### Connect to DB
+
+In your app, make sure you've followed [instructions on setting up connections to the database](#mongodocdb). Then, add another "Log" collection to your `/server/src/shared/helpers/mongo.ts` file:
+
+Import `dce-reactkit` dependencies at the top of the file:
+
+```ts
+// Import dce-reactkit
+import { initLogCollection, Log } from 'dce-reactkit';
+```
+
+Initialize the log collection near the bottom of the file:
+
+```ts
+// Logs
+export const logCollection = initLogCollection(Collection) as Collection<Log>;
+```
+
+And as always, whenever you make a change to this file, increment the `schemaVersion` variable.
+
+Then, in the server index of your app, initialize `dce-reactkit` by importing the appropriate dependencies near the top:
+
+```ts
+// Import CACCL
+import initCACCL, { getLaunchInfo } from 'caccl/server';
+
+// Import dce-reactkit
+import { initServer } from 'dce-reactkit';
+
+// Import log collection
+import { logCollection } from './shared/helpers/mongo';
+```
+
+Then, within the `initCACCL`, at the top of the `express.postprocessor` function, add code to initialize `dce-reactkit` with logging:
+
+```ts
+const main = async () => {
+  // Initialize CACCL
+  await initCACCL({
+    ...
+    express: {
+      postprocessor: (app) => {
+        // Initialize dce-reactkit
+        initServer({
+          app,
+          getLaunchInfo,
+          logCollection,
+        });
+
+        ...
+      },
+    },
+  });
+};
+...
+```
+
+### Log Organization
+
+Now that you've set up support for logging, take some time to think through how you want to organize the logs. We'll always divide logs into `error` and `action` logs, where `action` logs contain user actions such as opening panels, clicking buttons, interacting with elements, etc. It's up to you how you want to organize your action logs.
+
+We'll be curating a `/server/src/shared/types/LogMetadata.ts` file (that should be synched to the client as well) that will hold all of the various contexts, subcontexts, tags, and other log organization metadata. Add an empty file to get started:
+
+```ts
+/**
+ * Log contexts, tags, and other metadata
+ * @author Your Name
+ */
+const LogMetadata = {
+  // TODO: add metadata
+};
+
+export default LogMetadata;
+```
+
+There are two ways you will organize your logs:
+
+#### Context and Subcontext
+
+Each action log entry must be tied to a "context" and can optionally be tied to a "subcontext" as well. You may choose for contexts to represent features in your app, where subcontexts represent subfeatures. Or perhaps contexts represent pages/panels in your app. Or perhaps contexts represent different parts of a toolbox. However you choose to organize your logs, make sure you future-proof your structure so that it can grow as your app changes. It's not fun to have to go back through old log entries and perform migrations. Instead, it's best to create future-proofed contexts and subcontexts that can be augmented and expanded.
+
+Once you've determined how you want to structure your contexts and subcontexts, add a section to the `LogMetadata.ts` file. Add each context to the `LogMetadata.Context` object as a string key where the value of each key matches the key itself:
+
+```ts
+/**
+ * Log contexts, tags, and other metadata
+ * @author Your Name
+ */
+const LogMetadata = {
+  // Contexts
+  Context: {
+    AttendancePanel: 'AttendancePanel',
+    AnalyticsDashboard: 'AnalyticsDashboard',
+    Roster: 'Roster',
+  },
+};
+
+export default LogMetadata;
+```
+
+If your app will make use of subcontexts, simply nest the context object and move the string value to an inner key called `_` that is placed at the top of the list of children. In the following example, we have subcategories within "AnalyticsDashboard" that represent different views inside of the analytics dashboard: "StudentView", "ClassView", and "ProgramView".
+
+```ts
+/**
+ * Log contexts, tags, and other metadata
+ * @author Your Name
+ */
+const LogMetadata = {
+  // Contexts
+  Context: {
+    AttendancePanel: 'AttendancePanel',
+    AnalyticsDashboard: {
+      _: 'AnalyticsDashboard',
+      StudentView: 'StudentView',
+      ClassView: 'ClassView',
+      ProgramView: 'ProgramView',
+    },
+    Roster: 'Roster',
+  },
+};
+
+export default LogMetadata;
+```
+
+### Tags
+
+Another way you can organize logs is through tags. These tags are flexible, optional, and very simple. You decide which tags to use for your app. The main thing to think about is clutter-reduction. In particular, it's easy to create an endless list of tags that are confusing and sometimes indistinguishable from each other.
+
+If you choose to use tags, once you've decided on a list of tags, add them to your `LogMetadata.ts` file:
+
+```ts
+/**
+ * Log contexts, tags, and other metadata
+ * @author Your Name
+ */
+const LogMetadata = {
+  // Contexts
+  ...
+  // Tags
+  Tag: {
+    StudentFeature: 'StudentFeature',
+    TeacherFeature: 'TeacherFeature',
+    AdminFeature: 'AdminFeature',
+    PilotFeature: 'PilotFeature',
+    RequiresLogin: 'RequiresLogin',
+    RequiresRegistration: 'RequiresRegistration',
+  },
+};
+
+export default LogMetadata;
+```
+
+### Metadata
+
+If context, subcontext, and tags aren't enough, you can add custom metadata individually to each log entry. The intent of the metadata field is to allow complicated actions or errors to provide additional information about the event. The metadata field should be an object with string keys and simple values (strings, numbers, booleans, etc.) but the metadata field is not intended for large amounts of data (images, etc.)
+
+### Automatically Added Organization
+
+Whenever you log via `dce-reactkit`, a whole bunch of useful data is added to each log entry:
+
+#### User Information
+
+Every log entry will automatically include the following user information taken directly from the user's Canvas info:
+
+```ts
+{
+  // First name of the user
+  userFirstName: string,
+  // Last name of the user
+  userLastName: string,
+  // User email
+  userEmail: string,
+  // User Canvas Id
+  userId: number,
+  // If true, the user is a learner
+  isLearner: boolean,
+  // If true, the user is an admin
+  isAdmin: boolean,
+  // If true, the user is a ttm
+  isTTM: boolean,
+}
+```
+
+#### Course Information
+
+Every log entry will automatically include the following course information taken directly from the current Canvas course:
+
+```ts
+{
+  // The id of the Canvas course that the user launched from
+  courseId: number,
+  // The name of the Canvas course
+  courseName: string,
+}
+```
+
+#### Device and Browser Information
+
+Every log entry will automatically include the following course information taken from the user's session information:
+
+```ts
+{
+  // Browser info
+  browser: {
+    // Name of the browser
+    name: string,
+    // Version of the browser
+    version: string,
+  },
+  // Device info
+  device: {
+    // Name of the operating system
+    os: string,
+    // If true, device is a mobile device
+    isMobile: boolean,
+  },
+}
+```
+
+#### Date and Time
+
+Every log entry will automatically include the following date and time information, recorded in ET where applicable:
+
+```ts
+{
+  // Calendar year that the event is from
+  year: number,
+  // Month that the event is from (1 = Jan, 12 = Dec)
+  month: number,
+  // Day of the month that the event is from
+  day: number,
+  // Hour of the day (24hr) when the event occurred
+  hour: number,
+  // Minute of the day when the event occurred
+  minute: number,
+  // Timestamp of event (ms since epoch)
+  timestamp: number,
+}
+```
+
+#### Error Source
+
+If the log entry was created on the client, the entry will automatically include the following source flag:
+
+```ts
+{
+  // Source of the event
+  source: LogSource.Client,
+}
+```
+
+Where `LogSource` can be found in `dce-reactkit`.
+
+If the log entry was created on the server, the entry will automatically include the following source flag:
+
+```ts
+{
+  // Source of the event
+  source: LogSource.Server,
+  // Route path (e.g. /api/admin/courses/53450/blocks)
+  routePath: string,
+  // Route template (e.g. /api/admin/courses/:courseId/blocks)
+  routeTemplate: string,
+}
+```
+
+Where route information is taken from express.
+
+## Writing Logs
+
+First, let's go over all the cases where logs are already automatically written. Whenever the `renderErrorPage` function is called from within an endpoint, that will automatically be logged. Also, whenever an error is thrown on the server from within an endpoint, that error will also automatically be logged.
+
+To write your own logs, all you need to do is call the appropriate logging function. On the client, simply import the `logClientEvent` function from `dce-reactkit` and call it:
+
+```ts
+// Import dce-reactkit
+import { logClientEvent } from 'dce-reactkit';
+
+...
+
+logClientEvent({
+  ...
+});
+```
+
+If you're on the server, from within an endpoint that is using the `genEndpointHandler` function, destructure the `logServerEvent` function from the handler's arguments and call it:
+
+```ts
+app.post(
+  '/api/my/endpoint/path',
+  genRouteHandler({
+    ...
+    handler: async ({ logServerEvent }) => {
+      ...
+      logServerEvent({
+        ...
+      });
+```
+
+The `logServerEvent` function takes the same arguments, independently of whether you're calling it from the server or the client. See the section below depending on which type of thing you're logging:
+
+### Logging Errors
+
+To log errors, call `logServerEvent` or `logClientEvent` with an "error" argument which is an Error instance:
+
+```ts
+logClientEvent({
+  context: LogMetadata.Context.AnalyticsDashboard,
+  error: myError,
+});
+```
+
+You can also add any or all of the following: subcontext, tags, and/or metadata:
+
+```ts
+logClientEvent({
+  context: LogMetadata.Context.AnalyticsDashboard,
+  error: myError,
+  subcontext: LogMetadata.Context.AnalyticsDashboard.StudentView,
+  tags: [LogMetadata.Tag.RequiresLogin],
+  metadata: {
+    userHasPopupBlocker: true,
+  },
+});
+```
+
+We automatically record `error.message`, `error.code`, and `error.stack`. If you want to manually determine those, try creating a `new ErrorWithCode`:
+
+```ts
+// Import dce-reactkit
+import { ErrorWithCode } from 'dce-reactkit';
+
+...
+
+const error = new ErrorWithCode(
+  'Add a message here',
+  ErrorCode.MyErrorCode,
+);
+```
+
+When querying logs, note that error information is spread out across three variables for simplicity:
+
+```ts
+{
+  // The error message
+  errorMessage: string,
+  // The error code
+  errorCode: string,
+  // Error stack trace
+  errorStack: string,
+}
+```
+
+### Logging Actions
+
+To log actions, call `logServerEvent` or `logClientEvent` with an `action` and an optional `target` argument. If the action is being performed on the context itself (for example, the user is opening the AnalyticsDashboard), then the target should be left blank. Otherwise, the target should be included and should be a target taken directly from `LogMetadata.Target`. For a full list of available types of actions, see the list of [dce-reactkit log actions](https://github.com/harvard-edtech/dce-reactkit/blob/main/src/types/LogAction.ts).
+
+Example of opening the context:
+
+```ts
+// Import dce-reactkit
+import { LogAction } from 'dce-reactkit';
+
+...
+
+logServerEvent({
+  context: LogMetadata.Context.AnalyticsDashboard,
+  action: LogAction.Open,
+});
+```
+
+Example of doing an action within a context:
+
+```ts
+// Import dce-reactkit
+import { LogAction } from 'dce-reactkit';
+
+...
+
+logServerEvent({
+  context: LogMetadata.Context.AnalyticsDashboard,
+  action: LogAction.Remove,
+  target: LogMetadata.Target.WatchSpeedWidget,
+});
+```
+
+As with errors, you can add more information to your action log entry by adding a subcontext, tags, and/or metadata:
+
+```ts
+logClientEvent({
+  context: LogMetadata.Context.AnalyticsDashboard,
+  subcontext: LogMetadata.Context.AnalyticsDashboard.StudentView,
+  action: LogAction.Remove,
+  target: LogMetadata.Target.WatchSpeedWidget,
+  tags: [
+    LogMetadata.Tag.PilotFeature,
+    LogMetadata.Tag.AdminFeature,
+  ],
+  metadata: {
+    analyticsInHighContrastMode: false,
+  },
+});
+```
+
+## Querying Logs
+
+There are many ways to query the logs, but here are some tips:
+
+### Filter by Type
+
+Take a look at the included [dce-reactkit log types](https://github.com/harvard-edtech/dce-reactkit/blob/main/src/types/LogType.ts) and filter by one of those. For example, if querying for just actions, use this query:
+
+```ts
+{ type: 'action' }
+```
+
+### Filter by User, Course, or Role
+
+Use `userId`, `userEmail`, `userFirstName`, and/or `userLastName` to filter to a specific user.
+
+Use `courseId` and/or `courseName` to filter to a specific course.
+
+Use `isLearner`, `isAdmin`, or `isTTM` to filter to specific user roles.
+
+### Filter by Source
+
+You can filter by where the error occurred (on the server, on the client, etc.) by taking a look at the included [dce-reactkit sources](https://github.com/harvard-edtech/dce-reactkit/blob/main/src/types/LogSource.ts). For example, if querying for server-side errors, use this query:
+
+```ts
+{ source: 'server' }
+```
+
+### Filter by Date and/or Time
+
+You can use the `year`, `month`, `day`, `hour`, `minute`, etc. fields to query. For example, if we know that the issue occurred in January or February of 2023:
+
+```ts
+{
+  year: 2023,
+  month: { $in: [1, 2] },
+}
+```
+
+### Filter by Action Type
+
+If searching through action logs, you can take a look at the included [dce-reactkit action types](https://github.com/harvard-edtech/dce-reactkit/blob/main/src/types/LogAction.ts). For example, if you just want to find Open/Close/Cancel actions:
+
+```ts
+{
+  action: {
+    $in: ['open', 'close', 'cancel'],
+  },
+}
+```
+
+### Combining Filters
+
+As usual, you can combine any of the example filters above while also adding your own custom filters to your query. For example, here's a query to find all client-side errors that students experienced in 2022:
+
+```ts
+{
+  year: 2022,
+  isLearner: true,
+  source: 'client',
+  type: 'error',
+}j
+```
+
 # Express Server
 
 ## Why Express?
@@ -2918,15 +3393,15 @@ const init = async () => {
   await initCACCL({
     express: {
       postprocessor: (app) => {
+        // Initialize dce-reactkit
+        initServer({
+          getLaunchInfo,
+        });
+
         // Call route adders
         addRoutes(app);
       },
     },
-  });
-
-  // Initialize dce-reactkit
-  initServer({
-    getLaunchInfo,
   });
 };
 
