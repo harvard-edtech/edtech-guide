@@ -2883,7 +2883,7 @@ $border-width: 0.5rem;
 
 # Logging
 
-To improve our tools, inform teaching practices, and provide analytics to faculty and staff, we log user errors and actions. Because logging is done so commonly, we use custom features built into `dce-reactkit` that manage logging on both the client and the server.
+To improve our tools, inform teaching practices, and provide analytics to faculty and staff, we log user errors and actions. Because logging is done so commonly, we use a common logging service from `dce-reactkit`.
 
 ## Preparation
 
@@ -2948,7 +2948,7 @@ const main = async () => {
 
 Now that you've set up support for logging, take some time to think through how you want to organize the logs. We'll always divide logs into `error` and `action` logs, where `action` logs contain user actions such as opening panels, clicking buttons, interacting with elements, etc. It's up to you how you want to organize your action logs.
 
-We'll be curating a `/server/src/shared/types/LogMetadata.ts` file (that should be synched to the client as well) that will hold all of the various contexts, subcontexts, tags, and other log organization metadata. Add an empty file to get started:
+We'll be curating a `/server/src/shared/types/LogMetadata.ts` file (that should be synched to the client as well) that will hold all of the reusable log organization metadata (which you will learn about in later sections). Add an empty file to get started:
 
 ```ts
 /**
@@ -2966,7 +2966,7 @@ There are two ways you will organize your logs:
 
 #### Context and Subcontext
 
-Each action log entry must be tied to a "context" and can optionally be tied to a "subcontext" as well. You may choose for contexts to represent features in your app, where subcontexts represent subfeatures. Or perhaps contexts represent pages/panels in your app. Or perhaps contexts represent different parts of a toolbox. However you choose to organize your logs, make sure you future-proof your structure so that it can grow as your app changes. It's not fun to have to go back through old log entries and perform migrations. Instead, it's best to create future-proofed contexts and subcontexts that can be augmented and expanded.
+Each action log entry must be tied to a "context" and can optionally be tied to a "subcontext" as well. You may choose for contexts to represent features in your app, where subcontexts represent subfeatures. Or perhaps contexts represent pages/panels in your app. Or perhaps contexts represent different parts of a toolbox.
 
 Once you've determined how you want to structure your contexts and subcontexts, add a section to the `LogMetadata.ts` file. Add each context to the `LogMetadata.Context` object as a string key where the value of each key matches the key itself:
 
@@ -3011,6 +3011,72 @@ const LogMetadata = {
 export default LogMetadata;
 ```
 
+However you choose to organize your logs, make sure you future-proof your structure so that it can grow as your app changes. It's not fun to have to go back through old log entries and perform migrations. Instead, it's best to create future-proofed contexts and subcontexts that can be augmented and expanded. To better understand future-proofing, let's discuss an example: you are working on an app called "Math Toolbox" and you anticipate that it'll eventually have lots of sub-tools with different purposes. Currently, you've only created the "Calculator" subtool.
+
+Here's an example of poor organization where contexts are not future-proofed:
+
+```ts
+/**
+ * Log contexts, tags, and other metadata
+ * @author Your Name
+ */
+const LogMetadata = {
+  // Contexts
+  Context: {
+    Algebra: 'Algebra',
+    Calculus: 'Calculus',
+    Graphing: 'Graphing',
+  },
+};
+
+export default LogMetadata;
+```
+
+Each context (Algebra, Calculus, Graphing) represents one part of the current calculator app. This will become really confusing and cluttered as more tools get added to our Math Toolbox tool. Perhaps the next tool will be a data science tool or a visualization tool. When more tools get added to our Math Toolbox, our context space will get more cluttered and it'll be hard to tell which context belongs to each tool. Plus, if other tools in our Math Toolbox have similar functions (perhaps the data science tool also has a graphing function), then we would have to add another context for that other tool and we'd have to give it a confusing name like `GraphingForDataScience`.
+
+Here's a slightly improved way to organize contexts, but even this is not good enough:
+
+```ts
+/**
+ * Log contexts, tags, and other metadata
+ * @author Your Name
+ */
+const LogMetadata = {
+  // Contexts
+  Context: {
+    CalculatorAlgebra: 'CalculatorAlgebra',
+    CalculatorCalculus: 'CalculatorCalculus',
+    CalculatorGraphing: 'CalculatorGraphing',
+  },
+};
+
+export default LogMetadata;
+```
+
+In the example above, at least it's clear which tool each context belongs to, but it'll still be too cluttered as we further develop the tool.
+
+Here's an example of good future-proofing:
+
+```ts
+/**
+ * Log contexts, tags, and other metadata
+ * @author Your Name
+ */
+const LogMetadata = {
+  // Contexts
+  Context: {
+    Calculator: {
+      _: 'Calculator',
+      Algebra: 'Algebra',
+      Calculus: 'Calculus',
+      Graphing: 'Graphing',
+    },
+  },
+};
+
+export default LogMetadata;
+```
+
 ### Tags
 
 Another way you can organize logs is through tags. These tags are flexible, optional, and very simple. You decide which tags to use for your app. The main thing to think about is clutter-reduction. In particular, it's easy to create an endless list of tags that are confusing and sometimes indistinguishable from each other.
@@ -3043,15 +3109,47 @@ export default LogMetadata;
 
 Each log entry is assigned a "log level" which determines the type of information the log contains. For example, "warn" level logs contain critical information, "info" level logs contain normal user story information, and "debug" level logs contain highly detailed information that might be necessary for fine-grained tracking or debugging.
 
-By default, log entries are assigned the "info" log level. If you want to use another log level, simply pass it in while logging.
+By default, log entries are assigned the "info" log level. If you want to use another log level, simply pass it in while logging as `level`:
+
+```ts
+logServerEvent({
+  ...
+  level: LogLevel.Warn,
+});
+```
+
+Where `LogLevel` can be imported from `dce-reactkit`:
+
+```ts
+// Import dce-reactkit
+import { LogLevel } from 'dce-reactkit';
+```
 
 ### Metadata
 
 If context, subcontext, and tags aren't enough, you can add custom metadata individually to each log entry. The intent of the metadata field is to allow complicated actions or errors to provide additional information about the event. The metadata field should be an object with string keys and simple values (strings, numbers, booleans, etc.) but the metadata field is not intended for large amounts of data (images, etc.)
 
+To add metadata to a log entry, simply pass it in while logging as `metadata`:
+
+```ts
+logServerEvent({
+  ...
+  metadata: {
+    my: 28,
+    custom: 'metadata',
+    can: 'have',
+    any: {
+      format: 'I want',
+    },
+  },
+});
+```
+
+Where `metadata` can be any JSON object, however, we do prefer shallow metadata for easier querying.
+
 ### Automatically Added Organization
 
-Whenever you log via `dce-reactkit`, a whole bunch of useful data is added to each log entry:
+Whenever you log using `dce-reactkit`, a whole bunch of useful data is added to each log entry:
 
 #### User Information
 
@@ -3192,7 +3290,7 @@ app.post(
       });
 ```
 
-The `logServerEvent` function takes the same arguments, independently of whether you're calling it from the server or the client. See the section below depending on which type of thing you're logging:
+Both the `logServerEvent` and `logClientEvent` functions take the same arguments. Thus, the process of logging on the server is identical to the process of logging on the client. See the section below depending on which type of log you’re making (error or action):
 
 ### Logging Errors
 
@@ -3251,7 +3349,7 @@ When querying logs, note that error information is spread out across three varia
 
 ### Logging Actions
 
-To log actions, call `logServerEvent` or `logClientEvent` with an `action` and an optional `target` argument. If the action is being performed on the context itself (for example, the user is opening the AnalyticsDashboard), then the target should be left blank. Otherwise, the target should be included and should be a target taken directly from `LogMetadata.Target`. For a full list of available types of actions, see the list of [dce-reactkit log actions](https://github.com/harvard-edtech/dce-reactkit/blob/main/src/types/LogAction.ts).
+An action is any event that is either triggered by a user or is encountered by a user. To log actions, call `logServerEvent` or `logClientEvent` with an `action` and an optional `target` argument. If the action is being performed on the context itself (for example, the user is opening the AnalyticsDashboard), then the target should be left blank. Otherwise, the target should be included and should be a target taken directly from `LogMetadata.Target`. For a full list of available types of actions, see the list of [dce-reactkit log actions](https://github.com/harvard-edtech/dce-reactkit/blob/main/src/types/LogAction.ts).
 
 Example of opening the context:
 
