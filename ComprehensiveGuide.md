@@ -3039,6 +3039,12 @@ const LogMetadata = {
 export default LogMetadata;
 ```
 
+### Log Levels
+
+Each log entry is assigned a "log level" which determines the type of information the log contains. For example, "warn" level logs contain critical information, "info" level logs contain normal user story information, and "debug" level logs contain highly detailed information that might be necessary for fine-grained tracking or debugging.
+
+By default, log entries are assigned the "info" log level. If you want to use another log level, simply pass it in while logging.
+
 ### Metadata
 
 If context, subcontext, and tags aren't enough, you can add custom metadata individually to each log entry. The intent of the metadata field is to allow complicated actions or errors to provide additional information about the event. The metadata field should be an object with string keys and simple values (strings, numbers, booleans, etc.) but the metadata field is not intended for large amounts of data (images, etc.)
@@ -3199,7 +3205,7 @@ logClientEvent({
 });
 ```
 
-You can also add any or all of the following: subcontext, tags, and/or metadata:
+You can also add any or all of the following: subcontext, tags, level (log level), and/or metadata:
 
 ```ts
 logClientEvent({
@@ -3207,11 +3213,14 @@ logClientEvent({
   error: myError,
   subcontext: LogMetadata.Context.AnalyticsDashboard.StudentView,
   tags: [LogMetadata.Tag.RequiresLogin],
+  level: LogLevel.Debug,
   metadata: {
     userHasPopupBlocker: true,
   },
 });
 ```
+
+Where `LogLevel` can be imported from `dce-reactkit`: `import { LogLevel } from 'dce-reactkit';`.
 
 We automatically record `error.message`, `error.code`, and `error.stack`. If you want to manually determine those, try creating a `new ErrorWithCode`:
 
@@ -3273,7 +3282,7 @@ logServerEvent({
 });
 ```
 
-As with errors, you can add more information to your action log entry by adding a subcontext, tags, and/or metadata:
+As with errors, you can add more information to your action log entry by adding a subcontext, tags, level (log level), and/or metadata:
 
 ```ts
 logClientEvent({
@@ -3285,11 +3294,14 @@ logClientEvent({
     LogMetadata.Tag.PilotFeature,
     LogMetadata.Tag.AdminFeature,
   ],
+  level: LogLevel.Warn,
   metadata: {
     analyticsInHighContrastMode: false,
   },
 });
 ```
+
+Where `LogLevel` can be imported from `dce-reactkit`: `import { LogLevel } from 'dce-reactkit';`.
 
 ## Querying Logs
 
