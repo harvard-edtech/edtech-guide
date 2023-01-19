@@ -3084,6 +3084,9 @@ Another way you can organize logs is through tags. These tags are flexible, opti
 If you choose to use tags, once you've decided on a list of tags, add them to your `LogMetadata.ts` file:
 
 ```ts
+// Import dce-reactkit
+import { LogMetadataType } from 'dce-reactkit';
+
 /**
  * Log contexts, tags, and other metadata
  * @author Your Name
