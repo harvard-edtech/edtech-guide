@@ -557,6 +557,31 @@ const carStatus = (
 ```
 
 <Rule>
+  Wrap multiline ternaries with parentheses, place condition on its own line
+</Rule>
+
+```ts
+// Bad
+const carStatus = miles > getCarMiles()
+  ? `${make} is older than ${standard}`
+  : 'new'
+;
+
+// Bad
+const carStatus = (miles > getCarMiles()
+  ? `${make} is older than ${standard}`
+  : 'new'
+);
+
+// Good
+const carStatus = (
+  miles > getCarMiles()
+    ? `${make} is older than ${standard}`
+    : 'new'
+);
+```
+
+<Rule>
   Operators always start lines
 </Rule>
 
