@@ -967,8 +967,8 @@ If a value can take on many pre-determined values, we use enums. However, we und
 
 ```ts
 enum Instrument {
-  Piano = 'piano',
-  Violin = 'violin',
+  Piano = 'Piano',
+  Violin = 'Violin',
 }
 ```
 
@@ -1652,7 +1652,7 @@ const ADD_CONSTANT_NAME = 'add constant value';
 
 enum View {
   // Add description of view
-  AddViewName = 'add-view-name',
+  AddViewName = 'AddViewName',
 }
 
 /* -------- State Definition -------- */
@@ -1681,7 +1681,7 @@ type State = (
 // Types of actions
 enum ActionType {
   // Add description of action type
-  AddActionTypeName = 'add-action-type-name',
+  AddActionTypeName = 'AddActionTypeName',
 }
 
 // Action definitions
@@ -2082,11 +2082,11 @@ For components that have different views, define a `View` enum and base state de
 ```ts
 enum View {
   // View the cart
-  Cart = 'cart',
+  Cart = 'Cart',
   // Add shipping and billing information
-  ShippingAndBillingForm = 'shipping-and-billing-form',
+  ShippingAndBillingForm = 'ShippingAndBillingForm',
   // Review order details and confirm
-  Review = 'review',
+  Review = 'Review',
 }
 ```
 
@@ -2170,13 +2170,13 @@ First, we create an `ActionType` enum that defines all of the types of actions t
 // Types of actions
 enum ActionType {
   // Add a recipient to the email
-  AddRecipient = 'add-recipient',
+  AddRecipient = 'AddRecipient',
   // Update the subject of the email
-  UpdateSubject = 'update-subject',
+  UpdateSubject = 'UpdateSubject',
   // Reset the entire email form
-  ResetForm = 'reset-form',
+  ResetForm = 'ResetForm',
   // Show the "email is being sent" indicator
-  ShowSendingIndicator = 'show-sending-indicator',
+  ShowSendingIndicator = 'ShowSendingIndicator',
 }
 ```
 
@@ -2782,7 +2782,7 @@ Type modules are simple:
  * Car type
  * @author Divardo Calicci
  */
-enum Car {
+type Car {
   // Company that made the car
   make: string,
   // Year that the car was manufactured
@@ -2804,9 +2804,9 @@ Enum modules are simple:
  * @author Divardo Calicci
  */
 enum AllowedColors {
-  RED = 'red',
-  GREEN = 'green',
-  BLUE = 'blue',
+  Red = 'Red',
+  Green = 'Green',
+  Blue = 'Blue',
 }
 
 export default AllowedColors;
@@ -2821,31 +2821,31 @@ It seems like a lot of word to re-type the name of enum values in lowercase, but
 ```ts
 // Bad:
 enum AllowedColors {
-  RED,
-  GREEN,
-  BLUE,
+  Red,
+  Green,
+  Blue,
 }
 
 // Good:
 enum AllowedColors {
-  RED = 'red',
-  GREEN = 'green',
-  BLUE = 'blue',
+  Red = 'Red',
+  Green = 'Green',
+  Blue = 'Blue',
 }
 
 // Bad (allowed colors are not numbers)
 enum AllowedColors {
-  RED = 1,
-  GREEN = 2,
-  BLUE = 3,
+  Red = 1,
+  Green = 2,
+  Blue = 3,
 }
 
 // Good (number of wheels is a number naturally)
 enum VehicleWheelConfig {
-  BIKE = 2,
-  TRICYCLE = 3,
-  CAR = 4,
-  FLATBED_TRUCK = 16,
+  Bike = 2,
+  Tricycle = 3,
+  Car = 4,
+  FlatbedTruck = 16,
 }
 ```
 
