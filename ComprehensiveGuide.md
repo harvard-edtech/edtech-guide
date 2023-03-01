@@ -74,10 +74,16 @@ _Note:_ if using windows, start by installing a terminal replacement like Git Ba
 
 In each new project, switch to standard unix-style line breaks:
 
-```
+```bash
 git config core.autocrlf false 
 git rm --cached -r . 
 git reset --hard
+```
+
+Always make sure your git config is set to detect case-sensitive filename changes:
+
+```bash
+git config --global core.ignorecase false
 ```
 
 ## Typescript
