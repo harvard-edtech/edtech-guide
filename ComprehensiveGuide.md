@@ -4321,10 +4321,10 @@ test(
 });
 ```
 
-If your component sends requests to the server, then you'll need to first stub requests (do this before `Raixa.render`). For each request that your component will send, stub that request with `stubServerRequest` from `dce-reactkit`:
+If your component sends requests to the server, then you'll need to first stub requests (do this before `Raixa.render`). For each request that your component will send, stub that request with `stubServerEndpoint` from `dce-reactkit`:
 
 ```ts
-import { stubServerRequest } from 'dce-reactkit';
+import { stubServerEndpoint } from 'dce-reactkit';
 
 ...
 
@@ -4332,7 +4332,7 @@ test(
   'description of test',
   async () => {
     // Stub email form submission endpoint
-    stubServerRequest({
+    stubServerEndpoint({
       method: 'POST',
       path: '/api/ttm/threads/102398/emails',
       body: true,
@@ -4347,7 +4347,7 @@ test(
 To stub a successful response from the server, use:
 
 ```ts
-stubServerRequest({
+stubServerEndpoint({
   method: <http method that the component will use>,
   path: <path of the endpoint the component will send to>,
   body: <fake response to simulate coming back from the server>,
@@ -4357,7 +4357,7 @@ stubServerRequest({
 To stub a failed response from the server, use:
 
 ```ts
-stubServerRequest({
+stubServerEndpoint({
   method: <http method that the component will use>,
   path: <path of the endpoint the component will send to>,
   errorMessage: <string error message that would come from the server>,
@@ -4397,7 +4397,7 @@ test(
   'Allows email send when recipient email is valid',
   async () => {
     // Stub email form submission endpoint with a successful response
-    stubServerRequest({
+    stubServerEndpoint({
       method: 'POST',
       path: '/api/ttm/threads/102398/emails',
       body: true,
@@ -4429,7 +4429,7 @@ test(
   'Shows an error message when the server fails',
   async () => {
     // Stub email form submission endpoint with a successful response
-    stubServerRequest({
+    stubServerEndpoint({
       method: 'POST',
       path: '/api/ttm/threads/102398/emails',
       errorMessage: 'The message could not be sent',
@@ -4459,7 +4459,7 @@ test(
 );
 ```
 
-You can stub multiple requests and Raixa will automatically know which to stub based on the method and path. If your component sends multiple requests to the _same_ method and path combo, then intersperse `stubServerRequest` throughout your test code, only stubbing right before your component sends the request.
+You can stub multiple requests and Raixa will automatically know which to stub based on the method and path. If your component sends multiple requests to the _same_ method and path combo, then intersperse `stubServerEndpoint` throughout your test code, only stubbing right before your component sends the request.
 
 ## Running Tests
 
