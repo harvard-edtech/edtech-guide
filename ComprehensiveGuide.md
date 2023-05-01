@@ -26,6 +26,29 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
     border-bottom-right-radius: 0.3rem;
   }
 
+  Exercise {
+    display: block;
+    font-weight: bold;
+    color: #54d2e2;
+
+    border: 0.15rem solid #54d2e2;
+    border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem;
+
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  Exercise::before {
+    content: '\25BA  Exercise: ';
+    font-weight: normal;
+  }
+  Exercise[tall] {
+    margin-bottom: 0.7rem;
+    border-bottom-left-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+  }
+
   h1 {
     border-radius: 0.5rem;
     background-color: #333;
@@ -49,6 +72,11 @@ Getting Set Up:
 
 - [Set Up Your Workspace](#set-up-your-workspace)
 - [Get Access to Harvard Tools](#get-access-to-harvard-tools)
+
+Team Info:
+
+- [Mission](#mission)
+- [Team Norms](#team-norms)
 
 Programming and Testing:
 
@@ -90,12 +118,44 @@ git config --global core.ignorecase false
 
 Javascript environment:
 
-1. Install Node.js LTS
 1. Install NVM
+1. Install Node.js LTS via NVM
 
 NPM setup
 
 1. Install npx using `npm i -g npx`
+
+<Exercise>
+  Check your Node setup
+</Exercise>
+
+```bash
+# Open terminal, check the version you're running:
+username@MyLaptop % node --version
+x.x.x
+
+# Change to a different version of node
+username@MyLaptop % nvm use 16
+
+# Make sure the version switched
+username@MyLaptop % node --version
+16.x.x
+
+# Switch back to the current version
+username@MyLaptop % nvm use default
+
+# Open the Node interpreter
+username@MyLaptop % node
+
+# Test Node operations
+Welcome to Node.js v18.15.0.
+Type ".help" for more information.
+> console.log(10 + 5);
+15
+> const name = 'Divardo';
+Divardo
+> 
+```
 
 ## Code Editor
 
@@ -108,8 +168,6 @@ Install required VSCode extensions:
 
 Remove banned extensions or disable them on all our projects:
 
-1. `GitHub Copilot` - this removes opportunity for learning
-1. `Tabnine` – this removes opportunity for learning and introduces unintended code
 1. `Prettier` - formats in ways that do not necessarily follow our rules
 
 If you want, install optional VSCode extensions:
@@ -175,19 +233,137 @@ Get access to GitHub projects:
 
 1. Send Gabe your GitHub handle and they will add you to the appropriate projects
 
+# Mission
+
+Everything we do will be aligned with our mission. The skills we develop, the projects we work on, and the designs we create will all be informed by and aligned with our mission.
+
+## 1. Inclusive and Flexible
+
+Focus on diversity, equity, inclusion, and belonging: build tools that use inclusive language, foster a sense of belonging, and empower users to be themselves.
+
+Advance accessibility and improve access: meet and exceed accessibility standards, provide solutions for people with mobile devices, and prepare for weak internet connections and slow devices.
+
+Design for synchronous, asynchronous, in-person, and distance users: incorporate flexible teaching and learning pedagogy into the technology we build.
+
+## 2. Scalable and Self-Service
+
+Support increased scale: build to enable the increasing number of courses and term startups.
+
+Design for self-service administration and support: all admin functionality, debugging, analytics, and tracking must be exposed through a simple and intuitive admin dashboard. Software developers should not be required for diagnosing issues, debugging user behavior, or handling any tool-specific non-bug issues.
+
+Design for self-service usage: teaching team members and students should be able to perform as much as possible on their own before requiring the attention or assistance of a staff member.
+
+Choose efficient and scalable technologies: use simple and scalable technologies, shift as much of the complex logic as possible to the front end.
+
+## 3. Seamless and Intuitive
+
+Always choose the simplest technology: whether it's a small or large library, always choose the simplest tech so we can focus on impact.
+
+Standardize design and UI: to create a seamless user experience, we will use the same design language and user interface elements across all projects. Gabe oversees the designs and makes sure UI and UX decisions are consistent across all tools. We also design to match the design of 3rd party tools (Canvas, Zoom, etc.) to create a seamless user experience.
+
+Standardize dependencies and libs: every API, every 3rd party tool, and every small dependency should be standardized across all projects. For example, CACCL always handles Canvas integration, ZACCL always handles Zoom integration, and so on. With libraries, we always use the same library for cloning, for example. This reduces cognitive load while reducing app bundle sizes because of merged auto-bundling.
+
+Meet users where they are: always design to meet the user where they are. Have buttons in convenient locations, place relevant actions in locations that will be visible when those actions need to be performed.
+
+Write human-readable error messages and codes: all errors must have both a human-readable error message and a machine-readable error code. Our error messages are written to be short, concise, and not require any technical or domain-level knowledge and definitely do not expose any of the inner workings of our products.
+
+## 4. Informed and Impactful
+
+Know your users: we design our tools for staff, teaching team members, and students. With each project, we'll take time to talk about and learn about our users.
+
+Listen to teaching and learning experts: combine your own passion about education with the expert advice, attention to research, and studies/focus groups that the teaching and learning team conducts. Gabe serves as the team's representative on the teaching and learning team, explaining updates and new findings as they come from the teaching and learning team.
+
+Prioritize impact over tech: we design for impact, we design to improve our courses, help students learn and find community, and help TTMs teach in exciting and engaging ways. Prioritizing impact over tech means that impact comes first and then we find the technologies that make that impact possible, instead of choosing technologies that we like and then seeing how we can make an impact with them.
+
+Collect data and provide analytics: work to collect data and analytics to help improve our tools and improve our courses, and create dashboards that provide insight to the teaching and learning team. This is important but cannot be an excuse for compromising student safety and privacy.
+
+# Overview of Technologies
+
+Our technologies were chosen to fit our missions. Thinking about consistency, stability, scalability, etc. we've landed on the following stack:
+
+**Front-end:** Typescript, React + SCSS + Bootstrap
+
+**APIs**: REST
+
+**Server-side:** Typescript, Node + Express
+
+**Databases:** Mongo/Amazon DocDB
+
+# Team Norms
+
+## 1. Wellbeing is Top Priority
+
+Our top priority is health, wellbeing, a sense of belonging, and a feeling that you can bring your full authentic self to work. In some ways, this means a culture of learning, flexibility, and kindness: we will work hard to flex our work processes to be mindful of teammates' health, wellbeing, and sense of belonging. In some ways, this means inflexibility where necessary in order to create a culture of uncompromising inclusion: we require usage of people's names and pronouns and respect for people's cultures and identities.
+
+## 2. Welcome Sharing, but Don't Mandate
+
+We work hard to create safe spaces for everyone to feel like they can be their authentic selves at work. That said, it is everyone's choice to share. To advance the feeling of a safe space, we adopt a "model, don't mandate" mentality. Gabe might share things about themselves to create a space of openness, but this doesn't mean that sharing is required in any way. For example, Gabe will share their pronouns, but you needn't do that. If you don't share your pronouns, Gabe will simply not use gendered pronouns when referring to you and it'll be easy as pie.
+
+## 3. Flexibility for Work-life Balance
+
+We work hard to have flexible hours, schedules, and workloads to account for stuff in our lives that creates stress or anxiety (if possible, give warning to minimize impact on other team members).
+
+## 4. Clear and Constructive Feedback
+
+We build a culture of constructive feedback. Gabe welcomes (and practically begs for) feedback. In return, Gabe works hard to give feedback to everyone on the team. If you ever feel unsure about how you're doing, please ask for feedback. Good conversations and sharing of feedback are how we create clarity and openness.
+
+## 5. Prompt and Respectful Communication
+
+We use Slack for communication. If communication is happening outside of Slack, ping people in Slack. For example, if you left comments on someone's GitHub PR, ping them in Slack with a link to the GitHub PR. We expect prompt communication (get back to people within a day or two) but we only expect responses from each other on Monday, Tuesday, Wednesday, and Thursday (not Friday) from 9am to 5pm ET.
+
+## 6. Take Space, Make Space
+
+If you're someone who often takes up more space than others, try taking a little less space and leaving room for others to speak and contribute. If you're someone who often takes up less space than others, challenge yourself to speak and contribute more.
+
+## 7. No Standing Meetings on Fridays
+
+We don't schedule regular meetings for Fridays.
+
+## 8. Respect People's Time
+
+Be punctual to meetings, end meetings on time.
+
+## 9. Ask for Help, Offer Help
+
+If you need help, ask for it. If you're worried that you're falling behind, running into roadblocks, or are making a big decision and need help thinking through the decision, ask for help. In exchange, take time to offer help as well. It's hard to ask for help. This takes effort, but it's worth it! We all help balance each other's workloads if we get help when we need it and offer help when we have extra bandwidth.
+
+Time that you take to help others on the team is considered part of your work. This is not "above and beyond" work, this is not an extra thing on top of your work. Thus, of course, it goes on your time sheet and may mean that you will need rethink the schedule of your own work. Chat with Gabe to re-set expectations, deadlines, schedules, etc. instead of trying to squeeze everything in, potentially adding stress or tension for yourself.
+
+## Thoughts?
+
+Please share your thoughts on the norms, suggest new norms, and help improve our norms.
+
+<Exercise>
+  Come up with one challenge that we might face (tough deadlines, misunderstanding, someone said something hurtful, etc.)
+</Exercise>
+
+```
+Example: two teammates are working together and one person is dictating how the code should be developed while not listening to the other person's ideas
+```
+
+<Exercise>
+  Discuss which norms are relevant in this situation. How could we rely on our norms to resolve this? What norms might need to be added?
+</Exercise>
+
+```
+The most relevant norm would be "Take Space, Make Space" because it seems that one of the teammates doesn't have space to share their thoughts and opinions on the direction of the project.
+
+Either the teammates could work it out together or one of them might ask Gabe for advice and Gabe could remind people of the "Take Space, Make Space" norm, asking the dominant team member to make space for the other teammate to share.
+```
+
 # Project and File Management
 
 ## Assigned Tasks
 
 We use GitHub Projects as our task management system. To see what you're assigned, visit the repo, click `Projects`, click our project, and take a look at the `Assigned` column. Cards with your picture on them are yours to do this week.
 
+We'll be adding cards together, and sometimes you'll be in charge of creating cards to represent the tasks and work that you're doing. This is meant to be a collaborative process. Instead of purely dictating tasks, Gabe likes to discuss the task and then either work together to fill out the card or leave the creation of the card up to you. When you create cards, write down your understanding of the task, and Gabe will use it as a way to make sure everyone's on the same page about what the task entails.
+
 When you start working on a task, drag the card to `In Progress`. 
 
 When you finish a task, drag the card to `In Review`.
 
 We'll peer-review each-other's work before moving cards to `Done`.
-
-As you work, keep track of everything you work on and update your Google Sheet with things you've done and minutes you've spent.
 
 ## GitHub
 
@@ -197,19 +373,19 @@ The main branch of the project is managed by Gabe. Anything that makes it to `ma
   Never commit, merge, or push to main
 </Rule>
 
-For each task you work on, check the title and label of the card in GitHub Projects. That label may be "enhancement" or "new-feature" etc.
+For each task you work on, check the title and type of the card in GitHub Projects. If there is no card, do your best to determine the type of work you're doing. That type may be "enhancement" or "feature" or "bugfix" etc.
 
-Before starting to work on that task, create a new branch labeled `<label>/<lowercase-dashed-title>`.
+Before starting to work on that task, create a new branch labeled `<type>/<lowercase-dashed-title>`.
 
 <Rule>
   One branch per task, named appropriately
 </Rule>
 
 ```bash
-# For an "enhancement" task called "Add Simplification Algorithm"
+# For an "update" task called "Add Simplification Algorithm"
 git checkout stage
 git pull
-git checkout -b enhancement/add-simplification-algorithm
+git checkout -b update/add-simplification-algorithm
 ```
 
 For your own public credit on GitHub and for traceability, we prefer that you commit and push to your branch very often.
@@ -226,6 +402,10 @@ git push ...
 ```
 
 When done with your task, submit a pull request to `stage` and describe everything you did in detail. Finally, request a review from a peer or from Gabe and let everyone know in Slack.
+
+<Rule tall>
+  When submitting a PR, always take time to do a self-review first: have you included documentation, fixed typos, fixed small issues?
+</Rule>
 
 ## File Management
 
@@ -246,23 +426,23 @@ MyComponent.scss
 
 // If there are 3+ files:
 MyComponent/
-    index.tsx
-    style.scss
-    logo.png
+  index.tsx
+  style.scss
+  logo.png
 
 // OR
 
 // If there are helpers:
 MyComponent/
-    index.tsx
-    helpers/
-        myHelper.tsx
+  index.tsx
+  helpers/
+    myHelper.tsx
 
 // Or if there are sub-components:
 MyComponent/
-    index.tsx
-    MySubComponent.tsx
-    MySubComponent.scss
+  index.tsx
+  MySubComponent.tsx
+  MySubComponent.scss
 ```
 
 # Typescript Basics
@@ -276,7 +456,7 @@ MyComponent/
 - `boolean` - either true or false
 - `undefined` - unset
 - `null` - no value
-- `void` - either `undefined` or `null` - but we refrain from using it
+- `void` - either `undefined` or `null` - but we refrain from using it except for with function return types
 
 ### Important Data Structures
 
@@ -311,18 +491,66 @@ let age = 10;
 age += 1;
 ```
 
-Object property modification do **not** count as re-assigning:
+Object property modifications do **not** count as re-assigning:
 
 ```js
 // Still use const
 const user = {
-    name: 'Divardo',
-    age: 10,
+  name: 'Divardo',
+  age: 10,
 };
 
 // These do not modify user
 user.name = 'Jane';
 user.age += 1;
+```
+
+An easy way to choose between `const` and `let` is simply to always start with `const` and only change it to `let` if the editor complains.
+
+<Exercise>
+  Fill in the let/const blank
+</Exercise>
+
+```ts
+/**
+ * Format a last name to indicate ownership (e.g. Calicci becomes Calicci's and Abrams becomes Abrams')
+ * @author Gabe Abrams
+ * @param lastName the last name of the person
+ * @returns last name in ownership form
+ */
+____ genOwnershipForm = (lastName: any) => {
+  // Last name that ends with "s" gets an apostrophe only
+  if (lastName.endsWith('s')) {
+    return `${lastName}'`;
+  }
+
+  // Other last names get "'s" suffix
+  return `${lastName}'s`;
+};
+
+// Print account status
+____ lastName = 'Calicci';
+console.log(`This is ${genOwnershipForm(lastName)} laptop.`);
+
+// Bonus points for finding other errors in the code
+```
+
+<Exercise>
+  Fill in the let/const blank
+</Exercise>
+
+```ts
+// Create a bank account
+____ checking: BankAccount = {
+  firstName: 'Gabe',
+  lastName: 'Abrams',
+  balance: 29,
+};
+
+// Deduct money from the account balance
+checking.balance -= 10;
+
+// Bonus points for finding other errors in the code
 ```
 
 We favor longer variable names that are descriptive: `mouseX` is better than `x`.
@@ -354,20 +582,6 @@ FavoriteFruits
 If a variable is an optional boolean, always name it such that `false` is the default value. For example, if users are usually online while using the tool, an optional status boolean should be named `isOffline` so that `false` can be the default value (instead of `isOnline` where `true` is the default value). You'll really appreciate this consistency farther down the line and when reading other people's code. This is especially useful in React with optional boolean component props which are only added if the boolean is true (if the default is false, it saves a lot of useless extra code).
 
 <Rule>
-  When naming css classes, always prefix every class with the name of the component
-</Rule>
-
-```css
-/* For component Favorite Fruits: */
-
-/* Good: */
-.FavoriteFruits-container
-
-/* Bad: */
-.container
-```
-
-<Rule>
   Name optional booleans such that false is the default value
 </Rule>
 
@@ -379,6 +593,28 @@ const isNotStudent?: boolean = ...
 
 // Good
 const isStudent?: boolean = ...
+```
+
+<Exercise>
+  Create better names for the following variables
+</Exercise>
+
+```ts
+// NOTE: This class represents a user in the database
+class customUser {
+  ...
+}
+
+// NOTE: This css class is used in the component called "MyButton"
+.button-label {
+  ...
+}
+
+// NOTE: Comments are usually not included
+let noComments = true;
+
+// NOTE: User age is usually included
+let userAgeKnown = false;
 ```
 
 All variables must have types. If typescript cannot infer a type, one must be explicitly defined.
@@ -414,6 +650,21 @@ If you have the option to choose units, here are our preferred set of units:
 - age = years
 - date = ms since epoch
 - video timestamp = seconds since start of video
+
+<Exercise>
+  Create acceptable names for the following variables
+</Exercise>
+
+```ts
+// NOTE: This is the time since the user was last active
+const lastActive = ...;
+
+// NOTE: This is the time to wait before playing the next video
+const videoDelay = 10;
+
+// NOTE: This is the current "feels like" temperature outside
+const feelsLike = 74;
+```
 
 We reserve single quotes for typescript and double quotes for JSX. This makes our code differentiable and nestable.
 
@@ -475,7 +726,7 @@ const user = { name: name, age: age };
 Always use `===` for equality. If you're using `==` there had better be a really good reason.
 
 <Rule>
-  Always use ===  or !== for equality comparisons
+  Always use === or !== for equality comparisons
 </Rule>
 
 ```ts
@@ -520,6 +771,36 @@ This works nicely with other mathematical operations:
 - Multiply: `age *= 3`
 - Divide: `age /= 5`
 - Subtract: `age -= 1`
+
+<Exercise>
+  Update this code to match our rules
+</Exercise>
+
+```ts
+// Get the restaurant hours
+const hours = await getHoursFromDB();
+
+// Create restaurant info object
+const restaurantInfo = {
+  name: 'Dosa House',
+  hours: hours,
+};
+
+// Create the order
+const foodOrder = { timestampMs: 12093840982,
+  cost: 12.78,
+  restaurantInfo: restaurantInfo,
+};
+
+// Ask the user for a tip
+const tip = await askUserForTip();
+
+// Update the cost to include the tip
+foodOrder.cost = (foodOrder.cost * (tip + 1));
+
+// Add a dollar to the cost as a kitchen surcharge
+foodOrder.cost++;
+```
 
 String addition must always be done using template strings.
 
@@ -646,6 +927,21 @@ const {
 } = person;
 ```
 
+## Errors
+
+We always use `try/catch` to handle errors (we don't use `.then` or `.catch` unless absolutely necessary).
+
+Errors must always contain two important ingredients:
+
+1. A human-readable message that explains the issue in plain and simple english without revealing any technical details or inner workings of the app.
+1. An error code in the form `ABC123`, where the letters are a code that's specific to the project or section of the project, and the number is a unique number assigned to the error.
+
+<Rule tall>
+  All errors must have a human-readable message and a unique error code
+</Rule>
+
+To make this possible, we use a custom error called `ErrorWithCode` which can be found in `dce-reactkit`.
+
 ## Functions
 
 We never use the `function` keyword. It's been outdated for years.
@@ -759,7 +1055,7 @@ const prepareCar = async (car: Car, raceType: RaceType): number => {
 
 ## Classes
 
-Ask yourself: should this code be a helper function or a class? One rule of thumb is that if code will only be instantiated once, it's probably best as a helper function.
+Ask yourself: should this code be a helper function or a class? One rule of thumb is that if code will only be instantiated once, it's probably best as a helper function. Also, if it doesn't have to maintain its own context (it's mostly data, maybe a couple helper functions that do not refer to "this") it could probably just be a type.
 
 All variables in the class must be defined at the top of the class (all `this.xyz` variable).
 
@@ -831,7 +1127,7 @@ class User {
 
 ## Types
 
-We use `Type` to define types (instead of `Interface`) because of some important advanced features that we leverage in React.
+We use `Type` to define types (instead of `Interface`) because of some important advanced features that we leverage in React. Note that many people disagree with Gabe on this, so be flexible in interviews, be ready to use `Interface` as well.
 
 <Rule>
   Wherever possible, use Type instead of Interface
@@ -880,6 +1176,22 @@ type Car = {
 };
 ```
 
+<Exercise>
+  Create a type for your favorite savory entree as if it were a customizable item on an online menu
+</Exercise>
+
+```ts
+// Example: Samosa Chaat
+type SamosaChaat = {
+  // Filling inside of the samosa
+  filling: string,
+  // If true, the chaat will be prepared with more spice
+  spicy: boolean,
+  // Number of samosas in the chaat
+  samosaQuantity: number,
+};
+```
+
 If a type can have multiple different structures, use `|`:
 
 <Rule>
@@ -904,6 +1216,75 @@ type Vehicle = (
     // True if truck has a trailer hitch
     hasTrailerHitch: boolean,
   }
+);
+```
+
+In the case where all forms of a type have shared parts, separate that out into a general section of the type:
+
+```ts
+type Vehicle = (
+  // Common parameters
+  {
+    // Number of wheels
+    numWheels: number,
+  }
+  // Type-dependent parameters
+  & (
+    // Car
+    | {
+      // Type of vehicle
+      type: 'car',
+      // True if car fits in a compact parking spot
+      isCompact: boolean,
+    }
+    // Truck
+    | {
+      // Type of vehicle
+      type: 'truck',
+      // True if truck has a trailer hitch
+      hasTrailerHitch: boolean,
+    }
+  )
+);
+```
+
+<Exercise>
+  Add an optional "side" for your entree. Add a "hasSide" boolean and if it's true, also define your "side" type
+</Exercise>
+
+```ts
+// Example: Samosa Chaat with Optional Drink
+type SamosaChaat = (
+  {
+    // Filling inside of the samosa
+    filling: string,
+    // If true, the chaat will be prepared with more spice
+    spicy: boolean,
+    // Number of samosas in the chaat
+    samosaQuantity: number,
+  } & (
+    // No side drink
+    | {
+      // If true, a side is included
+      hasSide: false,
+    }
+    // Includes side
+    | {
+      // If true, a side is included
+      hasSide: true,
+      // Description of side
+      side: {
+        // Name of the side
+        name: (
+          | 'Lassi'
+          | 'Water'
+          | 'Chai'
+        ),
+        // Additional cost of the side
+        costDollars: number,
+      },
+    }
+  )
 );
 ```
 
@@ -980,6 +1361,55 @@ enum Instrument {
 
 There are shorthands for numerical enums. To ensure readable database entries and debugging, we prefer string-valued enums, even if those values are just a lowercase version of the key.
 
+<Exercise>
+  Update your entree type to use enums
+</Exercise>
+
+```ts
+// Type of fillings
+enum Filling {
+  PotatoPea = 'PotatoPea',
+  Cauliflower = 'Cauliflower',
+}
+
+// Name of side
+enum SideName {
+  Lassi = 'Lassi',
+  Water = 'Water',
+  Chai = 'Chai',
+}
+
+// Example: Samosa Chaat with Optional Drink
+type SamosaChaat = (
+  {
+    // Filling inside of the samosa
+    filling: Filling,
+    // If true, the chaat will be prepared with more spice
+    spicy: boolean,
+    // Number of samosas in the chaat
+    samosaQuantity: number,
+  } & (
+    // No side drink
+    | {
+      // If true, a side is included
+      hasSide: false,
+    }
+    // Includes side
+    | {
+      // If true, a side is included
+      hasSide: true,
+      // Description of side
+      side: {
+        // Name of the side
+        name: SideName,
+        // Additional cost of the side
+        costDollars: number,
+      },
+    }
+  )
+);
+```
+
 ## Code Style
 
 To keep code readable and simple, if there are ever more than three of anything (arguments, values, anything), each must be on its own line.
@@ -997,24 +1427,24 @@ Arrays:
 ```js
 // Bad: first item is not on its own line
 const fruits = ['Apple',
-    'Orange',
-    'Pineapple',
-    'Mango',
+  'Orange',
+  'Pineapple',
+  'Mango',
 ];
 
 // Bad: last item is not on its own line
 const fruits = [
-    'Apple',
-    'Orange',
-    'Pineapple',
-    'Mango'];
+  'Apple',
+  'Orange',
+  'Pineapple',
+  'Mango'];
 
 // Good
 const fruits = [
-    'Apple',
-    'Orange',
-    'Pineapple',
-    'Mango',
+  'Apple',
+  'Orange',
+  'Pineapple',
+  'Mango',
 ];
 ```
 
@@ -1089,17 +1519,17 @@ Array functions are awesome. Replace loops with array functions wherever possibl
 ```ts
 // Good:
 fruits.forEach((fruit: Fruit) => {
-    console.log(`I love ${fruit}s`);
+  console.log(`I love ${fruit}s`);
 });
 
 // Bad:
 fruits.forEach(async (fruit: Fruit) => {
-    await fruit.waitToRipen();
+  await fruit.waitToRipen();
 });
 
 // Good
 for (let i = 0; i < fruits.length; i++) {
-    await fruits[i].waitToRipen();
+  await fruits[i].waitToRipen();
 }
 ```
 
@@ -1109,7 +1539,7 @@ for (let i = 0; i < fruits.length; i++) {
 const fruits = ['apple', 'orange', 'pineapple'];
 
 fruits.forEach((fruit: string) => {
-    console.log(`I love ${fruit}s`);
+  console.log(`I love ${fruit}s`);
 });
 
 // Output:
@@ -1122,7 +1552,7 @@ You can also get the element's index:
 
 ```ts
 fruits.forEach((fruit, i) => {
-    // ...
+  // ...
 });
 ```
 
@@ -1141,14 +1571,14 @@ const cars: Car[] = [
 ];
 
 const years: number[] = cars.map((car: Car) => {
-    return car.year;
+  return car.year;
 });
 
 const olderCars: Car[] = cars.map((car: Car) => {
-    return {
-        ...car,
-        year: car.year - 1,
-    };
+  return {
+    ...car,
+    year: car.year - 1,
+  };
 });
 ```
 
@@ -1159,17 +1589,17 @@ const olderCars: Car[] = cars.map((car: Car) => {
 ```ts
 // Bad:
 const olderCars: Car[] = cars.map((car: Car) => {
-    car.year -= 1;
+  car.year -= 1;
 
-    return car;
+  return car;
 });
 
 // Good:
 const olderCars: Car[] = cars.map((car: Car) => {
-    return {
-        ...car,
-        year: car.year - 1,
-    };
+  return {
+    ...car,
+    year: car.year - 1,
+  };
 });
 ```
 
@@ -1188,7 +1618,7 @@ const cars: Car[] = [
 ];
 
 const atLeastOneRed = cars.some((car: Car) => {
-    return (car.color === 'red');
+  return (car.color === 'red');
 });
 ```
 
@@ -1207,7 +1637,7 @@ const cars: Car[] = [
 ];
 
 const allCarsAreRed = cars.every((car: Car) => {
-    return (car.color === 'red');
+  return (car.color === 'red');
 });
 ```
 
@@ -1226,7 +1656,7 @@ const cars: Car[] = [
 ];
 
 const redCars = cars.filter((car: Car) => {
-    return (car.color === 'red');
+  return (car.color === 'red');
 });
 ```
 
@@ -1372,9 +1802,9 @@ If a module is a folder, leave off `index.tsx` when importing.
 ```ts
 // File structure
 MyComponent/
-    index.tsx
-    style.scss
-    MyButton.tsx
+  index.tsx
+  style.scss
+  MyButton.tsx
 
 // Bad:
 import MyComponent from './MyComponent/index';
@@ -1935,6 +2365,10 @@ We use JSDoc to document each file and every single function. Add one or more au
 
 Here's an example for a forgot password button:
 
+<Rule>
+  Add JSDoc to the top of every component file, describing the component
+</Rule>
+
 ```ts
 /**
  * Button that shows the "forgot password" panel
@@ -1943,12 +2377,28 @@ Here's an example for a forgot password button:
 ```
 
 <Rule tall>
-  Add JSDoc to the top of every component file, describing the component
+  Add JSDoc to the top of every named function
 </Rule>
 
 ### Git Norms
 
 **Commit frequently**. We will squash later, but it's nice to have a detailed history. Plus, this is great for your careers.
+
+### CSS Names
+
+<Rule>
+  When naming css classes, always prefix every class with the name of the component
+</Rule>
+
+```css
+/* For component Favorite Fruits: */
+
+/* Good: */
+.FavoriteFruits-container
+
+/* Bad: */
+.container
+```
 
 ### CSS Units
 
