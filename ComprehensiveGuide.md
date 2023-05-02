@@ -79,6 +79,10 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
 
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    
+    background-color: #54d2e2;
 
     border-bottom: 0.15rem solid #54d2e2;
     border-left: 0.15rem solid #54d2e2;
@@ -90,15 +94,17 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
 
   summary {
     text-align: center !important;
+    font-weight: bold;
+    color: white;
+  }
+
+  summary:after {
+    content: ' (click to view)',
   }
 
   details b {
     font-weight: bold;
     color: #54d2e2;
-  }
-
-  details:not([open]) summary:after {
-    content: ' (click to expand)',
   }
 
   h1 {
