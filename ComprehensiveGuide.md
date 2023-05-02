@@ -42,6 +42,10 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
     font-weight: bold;
     color: #54d2e2;
 
+    background-color: white;
+    position: relative;
+    z-index: 10;
+
     border: 0.15rem solid #54d2e2;
     border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem;
 
@@ -75,6 +79,9 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
     margin-left: 1em;
     margin-right: 1em;
 
+    position: relative;
+    z-index: -10;
+
     transform: translate(0, -1rem);
 
     padding-left: 0.5rem;
@@ -90,6 +97,10 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
 
     border-bottom-left-radius: 0.3rem;
     border-bottom-right-radius: 0.3rem;
+  }
+
+  details pre {
+    margin-bottom: 0.3rem !important;
   }
 
   summary {
@@ -1321,9 +1332,9 @@ function countSentences(text: string): number {
 <details>
 <summary>Example Result</summary>
 <pre>
-// NOTE: outside of function so it isn't initialized over and over
+<b>// NOTE: moved this outside of function so it isn't initialized over and over</b>
 // Define an array of characters that may end a sentence.
-const sentenceEnders = ['.', '!', '?']; // < Switch to single quotes
+const sentenceEnders = [<b>'.', '!', '?'</b>];
 
 const countSentences = (text: string): number => {
   // Initialize the sentence count to zero.
@@ -1335,15 +1346,13 @@ const countSentences = (text: string): number => {
     
     // If the character is a sentence ender, increment the sentence count.
     if (sentenceEnders.includes(char)) {
-      sentenceCount += 1; // < Switch to +=
+      sentenceCount <b>+=</b> 1;
     }
   }
   
   // Return the sentence count.
   return sentenceCount;
 }
-
-// Bonus points for optimizing the code too!
 </pre>
 </details>
 <br/>
