@@ -804,8 +804,6 @@ let <b>userAgeUnknown</b> = false;
 </details>
 <!-- End Example -->
 
-asdf
-
 All variables must have types. If typescript cannot infer a type, one must be explicitly defined.
 
 <Rule>
