@@ -71,13 +71,34 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
     border-bottom-right-radius: 0.3rem;
   }
 
+  details {
+    margin-left: 1em;
+    margin-right: 1em;
+
+    transform: translate(0, -1rem);
+
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+    border-bottom: 0.15rem solid #54d2e2;
+    border-left: 0.15rem solid #54d2e2;
+    border-right: 0.15rem solid #54d2e2;
+
+    border-bottom-left-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+  }
+
   summary {
-    text-align: center;
+    text-align: center !important;
   }
 
   details b {
     font-weight: bold;
     color: #54d2e2;
+  }
+
+  details:not([open]) summary:after {
+    content: ' (click to expand)',
   }
 
   h1 {
@@ -759,6 +780,8 @@ let <b>userAgeUnknown</b> = false;
 </details>
 <br/>
 <!-- End Example -->
+
+asdf
 
 All variables must have types. If typescript cannot infer a type, one must be explicitly defined.
 
