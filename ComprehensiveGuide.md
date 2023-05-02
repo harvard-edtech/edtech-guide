@@ -363,11 +363,10 @@ Please share your thoughts on the norms, suggest new norms, and help improve our
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
-
-  ```
-  Two teammates are working together and one person is dictating how the code should be developed while not listening to the other person's ideas
-  ```
+<summary>Example Result</summary>
+<pre>
+Two teammates are working together and one person is dictating how the code should be developed while not listening to the other person's ideas
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -378,13 +377,12 @@ Please share your thoughts on the norms, suggest new norms, and help improve our
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
+<summary>Example Result</summary>
+<pre>
+The most relevant norm would be "Take Space, Make Space" because it seems that one of the teammates doesn't have space to share their thoughts and opinions on the direction of the project.
 
-  ```
-  The most relevant norm would be "Take Space, Make Space" because it seems that one of the teammates doesn't have space to share their thoughts and opinions on the direction of the project.
-
-  Either the teammates could work it out together or one of them might ask Gabe for advice and Gabe could remind people of the "Take Space, Make Space" norm, asking the dominant team member to make space for the other teammate to share.
-  ```
+Either the teammates could work it out together or one of them might ask Gabe for advice and Gabe could remind people of the "Take Space, Make Space" norm, asking the dominant team member to make space for the other teammate to share.
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -523,16 +521,15 @@ const f = e.age;
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
-
-  ```ts
-  const a = 5 < 10; // boolean
-  const b = 'Hanalei'; // string
-  const c = [1, 7, 5]; // number[]
-  const d = 27; // number
-  const e = { name: 'Gabe' }; // object, { [k: string]: string }
-  const f = e.age; // undefined
-  ```
+<summary>Example Result</summary>
+<pre>
+const a = 5 < 10; // boolean
+const b = 'Hanalei'; // string
+const c = [1, 7, 5]; // number[]
+const d = 27; // number
+const e = { name: 'Gabe' }; // object, { [k: string]: string }
+const f = e.age; // undefined
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -604,31 +601,30 @@ console.log(`This is ${genOwnershipForm(lastName)} laptop.`);
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
+<summary>Example Result</summary>
+<pre>
+/**
+  * Format a last name to indicate ownership (e.g. Calicci becomes Calicci's and Abrams becomes Abrams')
+  * @author Gabe Abrams
+  * @param lastName the last name of the person
+  * @returns last name in ownership form
+  */
+[>const<] genOwnershipForm = (lastName: [>string<]) => {
+  // Last name that ends with "s" gets an apostrophe only
+  if (lastName.endsWith('s')) {
+    return `${lastName}'`;
+  }
 
-  ```ts
-  /**
-   * Format a last name to indicate ownership (e.g. Calicci becomes Calicci's and Abrams becomes Abrams')
-   * @author Gabe Abrams
-   * @param lastName the last name of the person
-   * @returns last name in ownership form
-   */
-  [>const<] genOwnershipForm = (lastName: [>string<]) => {
-    // Last name that ends with "s" gets an apostrophe only
-    if (lastName.endsWith('s')) {
-      return `${lastName}'`;
-    }
+  // Other last names get "'s" suffix
+  return `${lastName}'s`;
+};
 
-    // Other last names get "'s" suffix
-    return `${lastName}'s`;
-  };
+// Print account status
+[>const<] lastName = 'Calicci';
+console.log(`This is ${genOwnershipForm(lastName)} laptop.`);
 
-  // Print account status
-  [>const<] lastName = 'Calicci';
-  console.log(`This is ${genOwnershipForm(lastName)} laptop.`);
-
-  // Bonus points for finding other errors in the code
-  ```
+// Bonus points for finding other errors in the code
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -651,19 +647,18 @@ checking.balance -= 10;
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
+<summary>Example Result</summary>
+<pre>
+// Create a bank account
+[>const<] checking: BankAccount = {
+  firstName: 'Gabe',
+  lastName: 'Abrams',
+  balance: 29,
+};
 
-  ```ts
-  // Create a bank account
-  [>const<] checking: BankAccount = {
-    firstName: 'Gabe',
-    lastName: 'Abrams',
-    balance: 29,
-  };
-
-  // Deduct money from the account balance
-  checking.balance -= 10;
-  ```
+// Deduct money from the account balance
+checking.balance -= 10;
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -734,25 +729,24 @@ let userAgeKnown = false;
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
+<summary>Example Result</summary>
+<pre>
+// NOTE: This class represents a user in the database
+class CustomUser {
+  ...
+}
 
-  ```ts
-  // NOTE: This class represents a user in the database
-  class CustomUser {
-    ...
-  }
+// NOTE: This css class is used in the component called "MyButton"
+.MyButton-label {
+  ...
+}
 
-  // NOTE: This css class is used in the component called "MyButton"
-  .MyButton-label {
-    ...
-  }
+// NOTE: Comments are usually not included
+let commentsIncluded = true;
 
-  // NOTE: Comments are usually not included
-  let commentsIncluded = true;
-
-  // NOTE: User age is usually included
-  let userAgeUnknown = false;
-  ```
+// NOTE: User age is usually included
+let userAgeUnknown = false;
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -808,18 +802,17 @@ const feelsLike = 74;
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
+<summary>Example Result</summary>
+<pre>
+// NOTE: This is the time since the user was last active
+const lastActiveTimestamp = ...;
 
-  ```ts
-  // NOTE: This is the time since the user was last active
-  const lastActiveTimestamp = ...;
+// NOTE: This is the time to wait before playing the next video
+const videoDelaySec = 10;
 
-  // NOTE: This is the time to wait before playing the next video
-  const videoDelaySec = 10;
-
-  // NOTE: This is the current "feels like" temperature outside
-  const feelsLikeDeg = 74; // Fahrenheit
-  ```
+// NOTE: This is the current "feels like" temperature outside
+const feelsLikeDeg = 74; // Fahrenheit
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -961,34 +954,33 @@ foodOrder.cost++;
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
+<summary>Example Result</summary>
+<pre>
+// Get the restaurant hours
+const hours = await getHoursFromDB();
 
-  ```ts
-  // Get the restaurant hours
-  const hours = await getHoursFromDB();
+// Create restaurant info object
+const restaurantInfo = {
+  name: 'Dosa House',
+  hours: hours,
+};
 
-  // Create restaurant info object
-  const restaurantInfo = {
-    name: 'Dosa House',
-    hours: hours,
-  };
+// Create the order
+const foodOrder = {
+  restaurantInfo,
+  timestampMs: 12093840982,
+  cost: 12.78,
+};
 
-  // Create the order
-  const foodOrder = {
-    restaurantInfo,
-    timestampMs: 12093840982,
-    cost: 12.78,
-  };
+// Ask the user for a tip
+const tip = await askUserForTip();
 
-  // Ask the user for a tip
-  const tip = await askUserForTip();
+// Update the cost to include the tip
+foodOrder.cost *= (tip + 1);
 
-  // Update the cost to include the tip
-  foodOrder.cost *= (tip + 1);
-
-  // Add a dollar to the cost as a kitchen surcharge
-  foodOrder.cost += 1;
-  ```
+// Add a dollar to the cost as a kitchen surcharge
+foodOrder.cost += 1;
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -1121,52 +1113,51 @@ const isStudent = (
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
-
-  ```ts
-  // Required formatting:
-  const isStudent = (
-    inRoster
-    && (
-      !isTTM
-      || (
-        (studentEnrollments + observerEnrollments)
-        > 0
-      )
+<summary>Example Result</summary>
+<pre>
+// Required formatting:
+const isStudent = (
+  inRoster
+  && (
+    !isTTM
+    || (
+      (studentEnrollments + observerEnrollments)
+      > 0
     )
-  );
+  )
+);
 
-  // It's also okay to put enrollments on their own lines
-  const isStudent = (
-    inRoster
-    && (
-      !isTTM
-      || (
-        (
-          studentEnrollments
-          + observerEnrollments
-        )
-        > 0
+// It's also okay to put enrollments on their own lines
+const isStudent = (
+  inRoster
+  && (
+    !isTTM
+    || (
+      (
+        studentEnrollments
+        + observerEnrollments
       )
+      > 0
     )
-  );
+  )
+);
 
-  // Much better with comments:
-  const isStudent = (
-    // The user must be in the roster
-    inRoster
-    // ...and cannot be a TTM
-    && (
-      // The user is not a TTM
-      !isTTM
-      // ...or the user is a student/auditor
-      || (
-        (studentEnrollments + observerEnrollments)
-        > 0
-      )
+// Much better with comments:
+const isStudent = (
+  // The user must be in the roster
+  inRoster
+  // ...and cannot be a TTM
+  && (
+    // The user is not a TTM
+    !isTTM
+    // ...or the user is a student/auditor
+    || (
+      (studentEnrollments + observerEnrollments)
+      > 0
     )
-  );
-  ```
+  )
+);
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -1290,33 +1281,32 @@ function countSentences(text: string): number {
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
+<summary>Example Result</summary>
+<pre>
+// NOTE: outside of function so it isn't initialized over and over
+// Define an array of characters that may end a sentence.
+const sentenceEnders = ['.', '!', '?']; // < Switch to single quotes
 
-  ```ts
-  // NOTE: outside of function so it isn't initialized over and over
-  // Define an array of characters that may end a sentence.
-  const sentenceEnders = ['.', '!', '?']; // < Switch to single quotes
-
-  const countSentences = (text: string): number => {
-    // Initialize the sentence count to zero.
-    let sentenceCount = 0;
+const countSentences = (text: string): number => {
+  // Initialize the sentence count to zero.
+  let sentenceCount = 0;
+  
+  // Loop through each character in the text.
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
     
-    // Loop through each character in the text.
-    for (let i = 0; i < text.length; i++) {
-      const char = text[i];
-      
-      // If the character is a sentence ender, increment the sentence count.
-      if (sentenceEnders.includes(char)) {
-        sentenceCount += 1; // < Switch to +=
-      }
+    // If the character is a sentence ender, increment the sentence count.
+    if (sentenceEnders.includes(char)) {
+      sentenceCount += 1; // < Switch to +=
     }
-    
-    // Return the sentence count.
-    return sentenceCount;
   }
+  
+  // Return the sentence count.
+  return sentenceCount;
+}
 
-  // Bonus points for optimizing the code too!
-  ```
+// Bonus points for optimizing the code too!
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -1393,29 +1383,28 @@ const countSentences = (
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
-
-  ```ts
-  /**
-   * Count the number of sentences in a string
-   * @author Gabe Abrams
-   * @param opts object containing all arguments
-   * @param opts.text the text to analyze
-   * @param [opts.sentenceEnders] custom sentence ender punctuation marks
-   *   to use when counting sentences
-   * @param [opts.countEmptyLines] if true, count empty lines as sentences too
-   * @returns the number of sentences in the text
-   */
-  const countSentences = (
-    opts: {
-      text: string,
-      sentenceEnders?: string[],
-      countEmptyLines?: boolean,
-    },
-  ): number {
-    ...
-  };
-  ```
+<summary>Example Result</summary>
+<pre>
+/**
+  * Count the number of sentences in a string
+  * @author Gabe Abrams
+  * @param opts object containing all arguments
+  * @param opts.text the text to analyze
+  * @param [opts.sentenceEnders] custom sentence ender punctuation marks
+  *   to use when counting sentences
+  * @param [opts.countEmptyLines] if true, count empty lines as sentences too
+  * @returns the number of sentences in the text
+  */
+const countSentences = (
+  opts: {
+    text: string,
+    sentenceEnders?: string[],
+    countEmptyLines?: boolean,
+  },
+): number {
+  ...
+};
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -1980,37 +1969,36 @@ const studentLists = [getDCEStudents(),
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
+<summary>Example Result</summary>
+<pre>
+// Bit 1:
+const output = getOutput(
+  text, {
+    parse: true,
+    delimiter: ',',
+  },
+);
 
-  ```ts
-  // Bit 1:
-  const output = getOutput(
-    text, {
-      parse: true,
-      delimiter: ',',
-    },
-  );
+// Bit 2:
+const ageNextYear = (
+  ageAtLogin
+  + elapsedYears
+  + 1
+);
 
-  // Bit 2:
-  const ageNextYear = (
-    ageAtLogin
-    + elapsedYears
-    + 1
-  );
-
-  // Bit 3:
-  const studentLists = [
-    getDCEStudents(),
-    getFASUsers()
-      .roster
-      .filter((user) => {
-        return user.isStudent;
-      })
-      .map((user) => {
-        return user.userInfo;
-      }),
-  ];
-  ```
+// Bit 3:
+const studentLists = [
+  getDCEStudents(),
+  getFASUsers()
+    .roster
+    .filter((user) => {
+      return user.isStudent;
+    })
+    .map((user) => {
+      return user.userInfo;
+    }),
+];
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -2094,22 +2082,21 @@ const studentNames = ['Divardo', 'Calicci', 'Kai', 'Manu', 'Anini', 'Alli'];
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
+<summary>Example Result</summary>
+<pre>
+const studentNames = ['Divardo', 'Calicci', 'Kai', 'Manu', 'Anini', 'Alli'];
 
-  ```ts
-  const studentNames = ['Divardo', 'Calicci', 'Kai', 'Manu', 'Anini', 'Alli'];
+// Greet every other student
+studentNames.forEach((studentName, i) => {
+  // Skip even indexed students
+  if (i % 2 === 0) {
+    return;
+  }
 
-  // Greet every other student
-  studentNames.forEach((studentName, i) => {
-    // Skip even indexed students
-    if (i % 2 === 0) {
-      return;
-    }
-
-    // Greet the student
-    console.log(`Hello, ${studentName}`);
-  });
-  ```
+  // Greet the student
+  console.log(`Hello, ${studentName}`);
+});
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -2154,17 +2141,16 @@ const studentNames = ['Divardo', 'Calicci', 'Kai'];
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
+<summary>Example Result</summary>
+<pre>
+const studentNames = ['Divardo', 'Calicci', 'Kai'];
 
-  ```ts
-  const studentNames = ['Divardo', 'Calicci', 'Kai'];
-
-  // Prepend each student's name
-  const prependedStudentNames = studentNames.map((studentName) => {
-    // Add prefix
-    return `Legal Name: ${studentName}`;
-  });
-  ```
+// Prepend each student's name
+const prependedStudentNames = studentNames.map((studentName) => {
+  // Add prefix
+  return `Legal Name: ${studentName}`;
+});
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -2230,30 +2216,29 @@ const listB = ['Max', 'Clark', 'Ash'];
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
+<summary>Example Result</summary>
+<pre>
+const listA = ['Divardo', 'Calicci', 'Kai'];
+const listB = ['Max', 'Clark', 'Ash'];
 
-  ```ts
-  const listA = ['Divardo', 'Calicci', 'Kai'];
-  const listB = ['Max', 'Clark', 'Ash'];
+// Create a list of vowels
+const vowels = 'aeiou'.split('');
 
-  // Create a list of vowels
-  const vowels = 'aeiou'.split('');
+// Go through each list and check if a student's name ends with a vowel
+[listA,listB].forEach((studentNames) => {
+  const atLeastOneNameEndsWithVowel = studentNames.some((studentName) => {
+    // Get last letter
+    const lastLetter = (
+      studentName
+        .toLowerCase()
+        .substring(studentName.length - 1)
+    );
 
-  // Go through each list and check if a student's name ends with a vowel
-  [listA,listB].forEach((studentNames) => {
-    const atLeastOneNameEndsWithVowel = studentNames.some((studentName) => {
-      // Get last letter
-      const lastLetter = (
-        studentName
-          .toLowerCase()
-          .substring(studentName.length - 1)
-      );
-
-      // Check if last letter is a vowel
-      return vowels.includes(lastLetter);
-    });
+    // Check if last letter is a vowel
+    return vowels.includes(lastLetter);
   });
-  ```
+});
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -2302,27 +2287,26 @@ const listB = [
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
+<summary>Example Result</summary>
+<pre>
+const listA = [
+  { name: 'Divardo', age: 17 },
+  { name: 'Calicci', age: 18 },
+  { name: 'Kai', age: 19 },
+];
+const listB = [
+  { name: 'Max', age: 20 },
+  { name: 'Clark', age: 18 },
+  { name: 'Ash', age: 22 },
+];
 
-  ```ts
-  const listA = [
-    { name: 'Divardo', age: 17 },
-    { name: 'Calicci', age: 18 },
-    { name: 'Kai', age: 19 },
-  ];
-  const listB = [
-    { name: 'Max', age: 20 },
-    { name: 'Clark', age: 18 },
-    { name: 'Ash', age: 22 },
-  ];
-
-  // Go through each list and check if all students are 18+
-  [listA,listB].forEach((students) => {
-    const allStudentsAtLeast18 = students.every((student) => {
-      return (student.age >= 18);
-    });
+// Go through each list and check if all students are 18+
+[listA,listB].forEach((students) => {
+  const allStudentsAtLeast18 = students.every((student) => {
+    return (student.age >= 18);
   });
-  ```
+});
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -2374,29 +2358,28 @@ const students = [
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
+<summary>Example Result</summary>
+<pre>
+const students = [
+  { name: 'Divardo', age: 17 },
+  { name: 'Calicci', age: 18 },
+  { name: 'Kai', age: 19 },
+  { name: 'Max', age: 20 },
+  { name: 'Clark', age: 18 },
+  { name: 'Ash', age: 22 },
+  { name: 'Anna', age: 12 },
+];
 
-  ```ts
-  const students = [
-    { name: 'Divardo', age: 17 },
-    { name: 'Calicci', age: 18 },
-    { name: 'Kai', age: 19 },
-    { name: 'Max', age: 20 },
-    { name: 'Clark', age: 18 },
-    { name: 'Ash', age: 22 },
-    { name: 'Anna', age: 12 },
-  ];
-
-  // Filter to just teen students
-  const teens = students.filter((student) => {
-    return (
-      // Old enough
-      student.age >= 13
-      // ...and not too old
-      && student.age < 20
-    );
-  });
-  ```
+// Filter to just teen students
+const teens = students.filter((student) => {
+  return (
+    // Old enough
+    student.age >= 13
+    // ...and not too old
+    && student.age < 20
+  );
+});
+</pre>
 </details>
 <br/>
 <!-- End Example -->
@@ -2462,20 +2445,19 @@ const idToName = {
 
 <!-- Start Example -->
 <details>
-  <summary>Example Result</summary>
+<summary>Example Result</summary>
+<pre>
+const idToName = {
+  12459: 'Divardo',
+  50829: 'Calicci',
+  51628: 'Keala',
+};
 
-  ```ts
-  const idToName = {
-    12459: 'Divardo',
-    50829: 'Calicci',
-    51628: 'Keala',
-  };
-
-  // Extract the first two letters of each id number
-  const idPrefixes = Object.keys(idToName).map((id) => {
-    return id.substring(0, 2);
-  });
-  ```
+// Extract the first two letters of each id number
+const idPrefixes = Object.keys(idToName).map((id) => {
+  return id.substring(0, 2);
+});
+</pre>
 </details>
 <br/>
 <!-- End Example -->
