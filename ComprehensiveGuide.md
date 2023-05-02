@@ -71,6 +71,15 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
     border-bottom-right-radius: 0.3rem;
   }
 
+  summary {
+    text-align: center;
+  }
+
+  details b {
+    font-weight: bold;
+    color: #54d2e2;
+  }
+
   h1 {
     border-radius: 0.5rem;
     background-color: #333;
@@ -523,12 +532,12 @@ const f = e.age;
 <details>
 <summary>Example Result</summary>
 <pre>
-const a = 5 < 10; // boolean
-const b = 'Hanalei'; // string
-const c = [1, 7, 5]; // number[]
-const d = 27; // number
-const e = { name: 'Gabe' }; // object, { [k: string]: string }
-const f = e.age; // undefined
+const a = 5 < 10; <b>// boolean</b>
+const b = 'Hanalei'; <b>// string</b>
+const c = [1, 7, 5]; <b>// number[]</b>
+const d = 27; <b>// number</b>
+const e = { name: 'Gabe' }; <b>// object, { [k: string]: string }</b>
+const f = e.age; <b>// undefined</b>
 </pre>
 </details>
 <br/>
@@ -609,7 +618,7 @@ console.log(`This is ${genOwnershipForm(lastName)} laptop.`);
   * @param lastName the last name of the person
   * @returns last name in ownership form
   */
-[>const<] genOwnershipForm = (lastName: [>string<]) => {
+<b>const</b> genOwnershipForm = (lastName: <b>string</b>) => {
   // Last name that ends with "s" gets an apostrophe only
   if (lastName.endsWith('s')) {
     return `${lastName}'`;
@@ -620,7 +629,7 @@ console.log(`This is ${genOwnershipForm(lastName)} laptop.`);
 };
 
 // Print account status
-[>const<] lastName = 'Calicci';
+<b>const</b> lastName = 'Calicci';
 console.log(`This is ${genOwnershipForm(lastName)} laptop.`);
 
 // Bonus points for finding other errors in the code
@@ -650,7 +659,7 @@ checking.balance -= 10;
 <summary>Example Result</summary>
 <pre>
 // Create a bank account
-[>const<] checking: BankAccount = {
+<b>const</b> checking: BankAccount = {
   firstName: 'Gabe',
   lastName: 'Abrams',
   balance: 29,
@@ -732,20 +741,20 @@ let userAgeKnown = false;
 <summary>Example Result</summary>
 <pre>
 // NOTE: This class represents a user in the database
-class CustomUser {
+class <b>CustomUser</b> {
   ...
 }
 
 // NOTE: This css class is used in the component called "MyButton"
-.MyButton-label {
+.<b>MyButton-label</b> {
   ...
 }
 
 // NOTE: Comments are usually not included
-let commentsIncluded = true;
+let <b>commentsIncluded</b> = true;
 
 // NOTE: User age is usually included
-let userAgeUnknown = false;
+let <b>userAgeUnknown</b> = false;
 </pre>
 </details>
 <br/>
