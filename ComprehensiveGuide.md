@@ -80,7 +80,6 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
     margin-right: 1em;
 
     position: relative;
-    z-index: -10;
 
     transform: translate(0, -1rem);
 
@@ -115,7 +114,7 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
 
   details b {
     font-weight: bold;
-    color: #54d2e2;
+    color: #d14;
   }
 
   h1 {
@@ -415,7 +414,6 @@ Please share your thoughts on the norms, suggest new norms, and help improve our
 Two teammates are working together and one person is dictating how the code should be developed while not listening to the other person's ideas
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 <Exercise tall>
@@ -431,7 +429,6 @@ The most relevant norm would be "Take Space, Make Space" because it seems that o
 Either the teammates could work it out together or one of them might ask Gabe for advice and Gabe could remind people of the "Take Space, Make Space" norm, asking the dominant team member to make space for the other teammate to share.
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 # Project and File Management
@@ -578,7 +575,6 @@ const e = { name: 'Gabe' }; <b>// object, { [k: string]: string }</b>
 const f = e.age; <b>// undefined</b>
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 ## Creating Variables
@@ -669,11 +665,8 @@ console.log(`This is ${genOwnershipForm(lastName)} laptop.`);
 // Print account status
 <b>const</b> lastName = 'Calicci';
 console.log(`This is ${genOwnershipForm(lastName)} laptop.`);
-
-// Bonus points for finding other errors in the code
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 <Exercise>
@@ -707,7 +700,6 @@ checking.balance -= 10;
 checking.balance -= 10;
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 We favor longer variable names that are descriptive: `mouseX` is better than `x`. When apps are bundled and built, variable names are minified anyway. Don't minimize number of chars, minimize confusion and ambiguity.
@@ -795,7 +787,6 @@ let <b>commentsIncluded</b> = true;
 let <b>userAgeUnknown</b> = false;
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 asdf
@@ -854,16 +845,15 @@ const feelsLike = 74;
 <summary>Example Result</summary>
 <pre>
 // NOTE: This is the time since the user was last active
-const lastActiveTimestamp = ...;
+const <b>lastActiveTimestamp</b> = ...;
 
 // NOTE: This is the time to wait before playing the next video
-const videoDelaySec = 10;
+const <b>videoDelaySec></b> = 10;
 
 // NOTE: This is the current "feels like" temperature outside
-const feelsLikeDeg = 74; // Fahrenheit
+const <b>feelsLikeDeg</b> = 74; <b>// Fahrenheit</b>
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 We reserve single quotes for typescript and double quotes for JSX. This makes our code differentiable and nestable.
@@ -1011,27 +1001,26 @@ const hours = await getHoursFromDB();
 // Create restaurant info object
 const restaurantInfo = {
   name: 'Dosa House',
-  hours: hours,
+  <b>hours,</b>
 };
 
 // Create the order
 const foodOrder = {
-  restaurantInfo,
-  timestampMs: 12093840982,
+  <b>timestampMs: 12093840982,</b>
   cost: 12.78,
+  <b>restaurantInfo,</b>
 };
 
 // Ask the user for a tip
 const tip = await askUserForTip();
 
 // Update the cost to include the tip
-foodOrder.cost *= (tip + 1);
+foodOrder.cost <b>*= (tip + 1)</b>;
 
 // Add a dollar to the cost as a kitchen surcharge
-foodOrder.cost += 1;
+foodOrder.cost <b>+= 1</b>;
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 String addition must always be done using template strings.
@@ -1208,7 +1197,6 @@ const isStudent = (
 );
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 When retrieving values from objects or tuples (arrays of length 2), you can destructure. We prefer that you do not alias (do not rename destructured values). This helps other programmers follow data around your code and also helps when people use `find` or other searching mechanisms.
@@ -1355,7 +1343,6 @@ const countSentences = (text: string): number => {
 }
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 ### Documentation
@@ -1432,6 +1419,7 @@ const countSentences = (
 <details>
 <summary>Example Result</summary>
 <pre>
+<b>
 /**
   * Count the number of sentences in a string
   * @author Gabe Abrams
@@ -1442,6 +1430,7 @@ const countSentences = (
   * @param [opts.countEmptyLines] if true, count empty lines as sentences too
   * @returns the number of sentences in the text
   */
+</b>
 const countSentences = (
   opts: {
     text: string,
@@ -1453,7 +1442,6 @@ const countSentences = (
 };
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 ## Classes
@@ -2020,34 +2008,33 @@ const studentLists = [getDCEStudents(),
 <pre>
 // Bit 1:
 const output = getOutput(
-  text, {
-    parse: true,
-    delimiter: ',',
-  },
+  <b>text, {</b>
+    <b>parse: true,</b>
+    <b>delimiter: ',',</b>
+  <b>},</b>
 );
 
 // Bit 2:
 const ageNextYear = (
-  ageAtLogin
-  + elapsedYears
-  + 1
+  <b>ageAtLogin</b>
+  <b>+ elapsedYears</b>
+  <b>+ 1</b>
 );
 
 // Bit 3:
 const studentLists = [
-  getDCEStudents(),
-  getFASUsers()
-    .roster
-    .filter((user) => {
-      return user.isStudent;
-    })
-    .map((user) => {
-      return user.userInfo;
-    }),
+  <b>getDCEStudents(),</b>
+  <b>getFASUsers()</b>
+    <b>.roster</b>
+    <b>.filter((user) => {</b>
+      <b>return user.isStudent;</b>
+    <b>})</b>
+    <b>.map((user) => {</b>
+      <b>return user.userInfo;</b>
+    <b>}),</b>
 ];
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 For all arrays, function arguments, object definitions, and other comma-delineated objects, use trailing commas. This helps create clean git diffs and reduces typos.
@@ -2145,7 +2132,6 @@ studentNames.forEach((studentName, i) => {
 });
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 ### Array.map – create new value based on each item
@@ -2199,7 +2185,6 @@ const prependedStudentNames = studentNames.map((studentName) => {
 });
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 <Rule tall>
@@ -2287,7 +2272,6 @@ const vowels = 'aeiou'.split('');
 });
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 ### Array.every – returns true if all pass the test
@@ -2355,7 +2339,6 @@ const listB = [
 });
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 ### Array.filter – filters an array, keeping only items that pass the test
@@ -2428,7 +2411,6 @@ const teens = students.filter((student) => {
 });
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 ## Object Functions
@@ -2506,7 +2488,6 @@ const idPrefixes = Object.keys(idToName).map((id) => {
 });
 </pre>
 </details>
-<br/>
 <!-- End Example -->
 
 ## Default Params
