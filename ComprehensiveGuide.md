@@ -159,6 +159,7 @@ Getting Set Up:
 Team Info:
 
 - [Mission](#mission)
+- [Overview of Technologies](#overview-of-technologies)
 - [Team Norms](#team-norms)
 
 Programming and Testing:
