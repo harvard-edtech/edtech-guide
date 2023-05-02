@@ -3,6 +3,7 @@
 Last updated by Gabe Abrams in 2023. This will probably be out of date within minutes of this guide being published. Be alert and be flexible.
 
 <style>
+  /* Rule element for team rules */
   Rule {
     display: block;
     font-weight: bold;
@@ -20,12 +21,15 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
     content: '\2605  Rule: ';
     font-weight: normal;
   }
+  
+  /* <Rule tall> for rules that don't have a following pre with explanation */
   Rule[tall] {
     margin-bottom: 0.7rem;
     border-bottom-left-radius: 0.3rem;
     border-bottom-right-radius: 0.3rem;
   }
 
+  /* Extend rule border around following pre with explanation */
   Rule + .highlighter-rouge pre {
     border-bottom: 0.15rem solid #CB3048;
     border-left: 0.15rem solid #CB3048;
@@ -37,6 +41,7 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
     border-bottom-right-radius: 0.3rem;
   }
 
+  /* Exercise block with an assignment */
   Exercise {
     display: block;
     font-weight: bold;
@@ -58,12 +63,15 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
     content: '\270F  Exercise: ';
     font-weight: normal;
   }
+
+  /* <Exercise tall> for exercises that aren't followed by a pre with explanation */
   Exercise[tall] {
     margin-bottom: 0.7rem;
     border-bottom-left-radius: 0.3rem;
     border-bottom-right-radius: 0.3rem;
   }
 
+  /* Extend exercise border around following pre with explanation */
   Exercise + .highlighter-rouge pre {
     border-bottom: 0.15rem solid #54d2e2;
     border-left: 0.15rem solid #54d2e2;
@@ -75,6 +83,7 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
     border-bottom-right-radius: 0.3rem;
   }
 
+  /* Example response extend below exercise as a visual add-on */
   details {
     margin-left: 1em;
     margin-right: 1em;
@@ -98,25 +107,25 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
     border-bottom-right-radius: 0.3rem;
   }
 
+  /* Fix spacing below pre inside of example */
   details pre {
     margin-bottom: 0.3rem !important;
   }
 
+  /* Bold, white text for example title */
   summary {
     text-align: center !important;
     font-weight: bold;
     color: white;
   }
 
-  summary:after {
-    content: ' (click to view)',
-  }
-
+  /* Highlight color for code inside of example that's important <b>code</b> */
   details b {
     font-weight: bold;
     color: #d14;
   }
 
+  /* Boxes around main titles */
   h1 {
     border-radius: 0.5rem;
     background-color: #333;
@@ -127,8 +136,14 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
     padding-top: 0.5rem;
   }
 
+  /* Hide footer */
   .footer {
     display: none;
+  }
+
+  /* Wrap text in text-based pre tags */
+  pre[text] {
+    white-space: pre-wrap;
   }
 </style>
 
@@ -410,7 +425,7 @@ Please share your thoughts on the norms, suggest new norms, and help improve our
 <!-- Start Example -->
 <details>
 <summary>Example Result</summary>
-<pre>
+<pre text>
 Two teammates are working together and one person is dictating how the code should be developed while not listening to the other person's ideas
 </pre>
 </details>
@@ -423,7 +438,7 @@ Two teammates are working together and one person is dictating how the code shou
 <!-- Start Example -->
 <details>
 <summary>Example Result</summary>
-<pre>
+<pre text>
 The most relevant norm would be "Take Space, Make Space" because it seems that one of the teammates doesn't have space to share their thoughts and opinions on the direction of the project.
 
 Either the teammates could work it out together or one of them might ask Gabe for advice and Gabe could remind people of the "Take Space, Make Space" norm, asking the dominant team member to make space for the other teammate to share.
