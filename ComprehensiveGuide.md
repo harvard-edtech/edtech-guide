@@ -40,7 +40,7 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
     padding-right: 0.5rem;
   }
   Exercise::before {
-    content: '\25BA  Exercise: ';
+    content: '\270F  Exercise: ';
     font-weight: normal;
   }
   Exercise[tall] {
@@ -241,7 +241,7 @@ Everything we do will be aligned with our mission. The skills we develop, the pr
 
 Focus on diversity, equity, inclusion, and belonging: build tools that use inclusive language, foster a sense of belonging, and empower users to be themselves.
 
-Advance accessibility and improve access: meet and exceed accessibility standards, provide solutions for people with mobile devices, and prepare for weak internet connections and slow devices.
+Advance accessibility and improve access: meet and exceed accessibility standards, provide solutions for people with mobile devices, and prepare for weak internet connections and slow devices. Use simple, standard language.
 
 Design for synchronous, asynchronous, in-person, and distance users: incorporate flexible teaching and learning pedagogy into the technology we build.
 
@@ -303,6 +303,8 @@ We work hard to create safe spaces for everyone to feel like they can be their a
 
 We work hard to have flexible hours, schedules, and workloads to account for stuff in our lives that creates stress or anxiety (if possible, give warning to minimize impact on other team members).
 
+Because we're part of a collaborative team, equity becomes important. Thus, while prioritizing flexibility and work-life balance, we must be careful that such flexibility does not encroach on other teammates own wellbeing, flexibility, and work-life balance. Basically, we don't grant flexibility where it will cause hardship to another teammate, where it will create blockers for other people's creativity or work, or where it will impact another teammate's wellbeing.
+
 ## 4. Clear and Constructive Feedback
 
 We build a culture of constructive feedback. Gabe welcomes (and practically begs for) feedback. In return, Gabe works hard to give feedback to everyone on the team. If you ever feel unsure about how you're doing, please ask for feedback. Good conversations and sharing of feedback are how we create clarity and openness.
@@ -333,23 +335,37 @@ Time that you take to help others on the team is considered part of your work. T
 
 Please share your thoughts on the norms, suggest new norms, and help improve our norms.
 
-<Exercise>
+<Exercise tall>
   Come up with one challenge that we might face (tough deadlines, misunderstanding, someone said something hurtful, etc.)
 </Exercise>
 
-```
-Example: two teammates are working together and one person is dictating how the code should be developed while not listening to the other person's ideas
-```
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
 
-<Exercise>
+  ```
+  Two teammates are working together and one person is dictating how the code should be developed while not listening to the other person's ideas
+  ```
+</details>
+<br/>
+<!-- End Example -->
+
+<Exercise tall>
   Discuss which norms are relevant in this situation. How could we rely on our norms to resolve this? What norms might need to be added?
 </Exercise>
 
-```
-The most relevant norm would be "Take Space, Make Space" because it seems that one of the teammates doesn't have space to share their thoughts and opinions on the direction of the project.
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
 
-Either the teammates could work it out together or one of them might ask Gabe for advice and Gabe could remind people of the "Take Space, Make Space" norm, asking the dominant team member to make space for the other teammate to share.
-```
+  ```
+  The most relevant norm would be "Take Space, Make Space" because it seems that one of the teammates doesn't have space to share their thoughts and opinions on the direction of the project.
+
+  Either the teammates could work it out together or one of them might ask Gabe for advice and Gabe could remind people of the "Take Space, Make Space" norm, asking the dominant team member to make space for the other teammate to share.
+  ```
+</details>
+<br/>
+<!-- End Example -->
 
 # Project and File Management
 
@@ -470,12 +486,41 @@ MyComponent/
 - `Type/Interface` - a data type/interface
 - `Enum` - an enum (does not support dynamic keys or values that are objects)
 
+<Exercise>
+  Match each of the following values to their type
+</Exercise>
+
+```ts
+const a = 5 < 10;
+const b = 'Hanalei';
+const c = [1, 7, 5];
+const d = 27;
+const e = { name: 'Gabe' };
+const f = e.age;
+```
+
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  const a = 5 < 10; // boolean
+  const b = 'Hanalei'; // string
+  const c = [1, 7, 5]; // number[]
+  const d = 27; // number
+  const e = { name: 'Gabe' }; // object, { [k: string]: string }
+  const f = e.age; // undefined
+  ```
+</details>
+<br/>
+<!-- End Example -->
+
 ## Creating Variables
 
 Use `const` when defining variables. Only use `let` if absolutely necessary (a variable's value changes). It is unforgivable to use `var`.
 
 <Rule>
-  Use const to define vars. Only use let if necessary
+  Use const to define variables. Only use let if necessary
 </Rule>
 
 ```ts
@@ -493,7 +538,7 @@ age += 1;
 
 Object property modifications do **not** count as re-assigning:
 
-```js
+```ts
 // Still use const
 const user = {
   name: 'Divardo',
@@ -535,6 +580,37 @@ console.log(`This is ${genOwnershipForm(lastName)} laptop.`);
 // Bonus points for finding other errors in the code
 ```
 
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  /**
+   * Format a last name to indicate ownership (e.g. Calicci becomes Calicci's and Abrams becomes Abrams')
+   * @author Gabe Abrams
+   * @param lastName the last name of the person
+   * @returns last name in ownership form
+   */
+  [>const<] genOwnershipForm = (lastName: [>string<]) => {
+    // Last name that ends with "s" gets an apostrophe only
+    if (lastName.endsWith('s')) {
+      return `${lastName}'`;
+    }
+
+    // Other last names get "'s" suffix
+    return `${lastName}'s`;
+  };
+
+  // Print account status
+  [>const<] lastName = 'Calicci';
+  console.log(`This is ${genOwnershipForm(lastName)} laptop.`);
+
+  // Bonus points for finding other errors in the code
+  ```
+</details>
+<br/>
+<!-- End Example -->
+
 <Exercise>
   Fill in the let/const blank
 </Exercise>
@@ -549,14 +625,31 @@ ____ checking: BankAccount = {
 
 // Deduct money from the account balance
 checking.balance -= 10;
-
-// Bonus points for finding other errors in the code
 ```
 
-We favor longer variable names that are descriptive: `mouseX` is better than `x`.
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  // Create a bank account
+  [>const<] checking: BankAccount = {
+    firstName: 'Gabe',
+    lastName: 'Abrams',
+    balance: 29,
+  };
+
+  // Deduct money from the account balance
+  checking.balance -= 10;
+  ```
+</details>
+<br/>
+<!-- End Example -->
+
+We favor longer variable names that are descriptive: `mouseX` is better than `x`. When apps are bundled and built, variable names are minified anyway. Don't minimize number of chars, minimize confusion and ambiguity.
 
 <Rule>
-  Use appropriate naming conventions
+  Use appropriate naming conventions, be descriptive
 </Rule>
 
 ```ts
@@ -617,6 +710,31 @@ let noComments = true;
 let userAgeKnown = false;
 ```
 
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  // NOTE: This class represents a user in the database
+  class CustomUser {
+    ...
+  }
+
+  // NOTE: This css class is used in the component called "MyButton"
+  .MyButton-label {
+    ...
+  }
+
+  // NOTE: Comments are usually not included
+  let commentsIncluded = true;
+
+  // NOTE: User age is usually included
+  let userAgeUnknown = false;
+  ```
+</details>
+<br/>
+<!-- End Example -->
+
 All variables must have types. If typescript cannot infer a type, one must be explicitly defined.
 
 <Rule>
@@ -648,7 +766,7 @@ If you have the option to choose units, here are our preferred set of units:
 
 - timestamp/time = ms
 - age = years
-- date = ms since epoch
+- date = ms since epoch (number)
 - video timestamp = seconds since start of video
 
 <Exercise>
@@ -666,13 +784,32 @@ const videoDelay = 10;
 const feelsLike = 74;
 ```
 
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  // NOTE: This is the time since the user was last active
+  const lastActiveTimestamp = ...;
+
+  // NOTE: This is the time to wait before playing the next video
+  const videoDelaySec = 10;
+
+  // NOTE: This is the current "feels like" temperature outside
+  const feelsLikeDeg = 74; // Fahrenheit
+  ```
+</details>
+<br/>
+<!-- End Example -->
+
 We reserve single quotes for typescript and double quotes for JSX. This makes our code differentiable and nestable.
 
 <Rule>
-  Only use single quotes in typescript
+  Only use single quotes in typescript, reserve double quotes for jsx props
 </Rule>
 
 ```ts
+// Import other components
 import toggleButton from 'toggle-button';
 
 const name = 'Divardo';
@@ -686,8 +823,6 @@ Arrays that start off empty must have a declared type.
 
 ```ts
 const names: string[] = [];
-// or
-const names = new Array<string>();
 ```
 
 Objects must be defined with proper spacing to preserve clarity.
@@ -726,7 +861,7 @@ const user = { name: name, age: age };
 Always use `===` for equality. If you're using `==` there had better be a really good reason.
 
 <Rule>
-  Always use === or !== for equality comparisons
+  Always use === or !== for equality comparisons ("==" is banned)
 </Rule>
 
 ```ts
@@ -754,7 +889,7 @@ const x = (((a + b) * (c + d)) / e);
 It turns out few people understand the subtleties of `num++` or `num--`, so we do not use those operators except in for loops, where its use is well-understood.
 
 <Rule>
-  Only use ++ or -- in for loop declaration
+  Only use ++ or -- in for loop declarations
 </Rule>
 
 ```ts
@@ -801,6 +936,40 @@ foodOrder.cost = (foodOrder.cost * (tip + 1));
 // Add a dollar to the cost as a kitchen surcharge
 foodOrder.cost++;
 ```
+
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  // Get the restaurant hours
+  const hours = await getHoursFromDB();
+
+  // Create restaurant info object
+  const restaurantInfo = {
+    name: 'Dosa House',
+    hours: hours,
+  };
+
+  // Create the order
+  const foodOrder = {
+    restaurantInfo,
+    timestampMs: 12093840982,
+    cost: 12.78,
+  };
+
+  // Ask the user for a tip
+  const tip = await askUserForTip();
+
+  // Update the cost to include the tip
+  foodOrder.cost *= (tip + 1);
+
+  // Add a dollar to the cost as a kitchen surcharge
+  foodOrder.cost += 1;
+  ```
+</details>
+<br/>
+<!-- End Example -->
 
 String addition must always be done using template strings.
 
@@ -914,6 +1083,72 @@ const age = (
 );
 ```
 
+<Exercise>
+  Fix the formatting of the following boolean logic
+</Exercise>
+
+```ts
+const isStudent = (
+  inRoster && (!isTTM ||
+    (studentEnrollments +
+    observerEnrollments) >
+    0
+  )
+);
+```
+
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  // Required formatting:
+  const isStudent = (
+    inRoster
+    && (
+      !isTTM
+      || (
+        (studentEnrollments + observerEnrollments)
+        > 0
+      )
+    )
+  );
+
+  // It's also okay to put enrollments on their own lines
+  const isStudent = (
+    inRoster
+    && (
+      !isTTM
+      || (
+        (
+          studentEnrollments
+          + observerEnrollments
+        )
+        > 0
+      )
+    )
+  );
+
+  // Much better with comments:
+  const isStudent = (
+    // The user must be in the roster
+    inRoster
+    // ...and cannot be a TTM
+    && (
+      // The user is not a TTM
+      !isTTM
+      // ...or the user is a student/auditor
+      || (
+        (studentEnrollments + observerEnrollments)
+        > 0
+      )
+    )
+  );
+  ```
+</details>
+<br/>
+<!-- End Example -->
+
 When retrieving values from objects or tuples (arrays of length 2), you can destructure. We prefer that you do not alias (do not rename destructured values). This helps other programmers follow data around your code and also helps when people use `find` or other searching mechanisms.
 
 <Rule>
@@ -999,6 +1234,71 @@ name => { print(name); }
 }
 ```
 
+<Exercise>
+  Fix the function below to make it adhere to our standards
+</Exercise>
+
+```ts
+// NOTE: created by Chat GPT using this prompt:
+// Create a typescript function that takes a string and counts the number of sentences
+
+function countSentences(text: string): number {
+  // Define an array of characters that may end a sentence.
+  const sentenceEnders = [".", "!", "?"];
+  
+  // Initialize the sentence count to zero.
+  let sentenceCount = 0;
+  
+  // Loop through each character in the text.
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    
+    // If the character is a sentence ender, increment the sentence count.
+    if (sentenceEnders.includes(char)) {
+      sentenceCount++;
+    }
+  }
+  
+  // Return the sentence count.
+  return sentenceCount;
+}
+
+// Bonus points for optimizing the code too!
+```
+
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  // NOTE: outside of function so it isn't initialized over and over
+  // Define an array of characters that may end a sentence.
+  const sentenceEnders = ['.', '!', '?']; // < Switch to single quotes
+
+  const countSentences = (text: string): number => {
+    // Initialize the sentence count to zero.
+    let sentenceCount = 0;
+    
+    // Loop through each character in the text.
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i];
+      
+      // If the character is a sentence ender, increment the sentence count.
+      if (sentenceEnders.includes(char)) {
+        sentenceCount += 1; // < Switch to +=
+      }
+    }
+    
+    // Return the sentence count.
+    return sentenceCount;
+  }
+
+  // Bonus points for optimizing the code too!
+  ```
+</details>
+<br/>
+<!-- End Example -->
+
 ### Documentation
 
 All named functions absolutely must have JSDoc definitions. Include a description of the purpose of the function, add one or more author tags for people who worked on that function, and describe arguments and return.
@@ -1052,6 +1352,51 @@ const prepareCar = async (car: Car, raceType: RaceType): number => {
   ...
 };
 ```
+
+<Exercise>
+  Create JSDoc for the following function
+</Exercise>
+
+```ts
+const countSentences = (
+  opts: {
+    text: string,
+    sentenceEnders?: string[],
+    countEmptyLines?: boolean,
+  },
+): number {
+  ...
+};
+```
+
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  /**
+   * Count the number of sentences in a string
+   * @author Gabe Abrams
+   * @param opts object containing all arguments
+   * @param opts.text the text to analyze
+   * @param [opts.sentenceEnders] custom sentence ender punctuation marks
+   *   to use when counting sentences
+   * @param [opts.countEmptyLines] if true, count empty lines as sentences too
+   * @returns the number of sentences in the text
+   */
+  const countSentences = (
+    opts: {
+      text: string,
+      sentenceEnders?: string[],
+      countEmptyLines?: boolean,
+    },
+  ): number {
+    ...
+  };
+  ```
+</details>
+<br/>
+<!-- End Example -->
 
 ## Classes
 
@@ -1121,6 +1466,47 @@ class User {
   // Good:
   public getName(): string {
     return this.name;
+  }
+}
+```
+
+<Exercise>
+  Think of your favorite mode of transport as a kid (bike, tricycle, rip stick, scooter) and create a class that represents it (don't implement functions)
+</Exercise>
+
+```ts
+// Example:
+class Kayak {
+  // Number of seats in the kayak
+  private numSeats: number;
+  // Current location
+  private location: { x: number, y: number };
+  // Current direction
+  private direction: number; // degrees
+
+  /**
+   * Performs paddle operation, moving the kayak either forward or backward
+   * @author Gabe Abrams
+   * @param [backward] if true, paddle backward
+   */
+  public paddle(backward?: boolean) {
+    // TODO: implement
+  }
+
+  /**
+   * Either turns the kayak left (ccw) or right (cw)
+   * @author Gabe Abrams
+   * @param [opts] object containing all arguments
+   * @param [opts.direction=left] the direction to turn
+   * @param [opts.angle=45] number of degrees to turn the kayak
+   */
+  public turn(
+    opts: {
+      direction?: 'left' | 'right',
+      angle?: number,
+    } = {},
+  ) {
+    // TODO: implement
   }
 }
 ```
@@ -1344,6 +1730,20 @@ Avoid casting at all costs, but if it must be done, use the `as` keyword:
 const user = (await fetchUserFromAPI()) as User;
 ```
 
+Casting is different from value conversion:
+
+```ts
+// Convert to a string:
+const str = String(value);
+
+// Convert to a number:
+const int = Number.parseInt(value, 10);
+const fl = Number.parseFloat(value);
+
+// Convert to a boolean:
+const b = !!value;
+```
+
 ## Enums
 
 If a value can take on many pre-determined values, we use enums. However, we understand that enums are limited: keys are not dynamic and values cannot be complex objects. Use enums where possible.
@@ -1359,7 +1759,37 @@ enum Instrument {
 }
 ```
 
-There are shorthands for numerical enums. To ensure readable database entries and debugging, we prefer string-valued enums, even if those values are just a lowercase version of the key.
+There are shorthands for numerical enums. To ensure readable database entries and debugging, we prefer string-valued enums where the value is identical to the name.
+
+<Rule>
+  Keys and values of enums should be identical strings
+</Rule>
+
+```ts
+// Bad:
+enum Instrument {
+  Piano = 'piano',
+  Violin = 'violin',
+}
+
+// Bad:
+enum Instrument {
+  Piano,
+  Violin,
+}
+
+// Bad:
+enum Instrument {
+  Piano = 1,
+  Violin = 2,
+}
+
+// Good:
+enum Instrument {
+  Piano = 'Piano',
+  Violin = 'Violin',
+}
+```
 
 <Exercise>
   Update your entree type to use enums
@@ -1412,7 +1842,7 @@ type SamosaChaat = (
 
 ## Code Style
 
-To keep code readable and simple, if there are ever more than three of anything (arguments, values, anything), each must be on its own line.
+To keep code readable and simple, if there are ever more than three of anything (arguments, values, anything), each must be on its own line. Honestly, it's okay to put items on their own lines if there are two or more items.
 
 <Rule>
   If more than three elements, put each element on its own line
@@ -1421,6 +1851,10 @@ To keep code readable and simple, if there are ever more than three of anything 
 ```ts
 Additionally, whenever there is one item on its own line, all other items must be on their own lines as well.
 ```
+
+<Rule tall>
+  When an item is on its own line, only that item can be on the line (no parentheses, etc.)
+</Rule>
 
 Arrays:
 
@@ -1494,6 +1928,71 @@ startCar(
 );
 ```
 
+<Exercise>
+  Fix the following bits of code
+</Exercise>
+
+```ts
+// Bit 1:
+const output = getOutput(text, {
+  parse: true,
+  delimiter: ',',
+});
+
+// Bit 2:
+const ageNextYear = (
+  ageAtLogin
+  + elapsedYears
+  + 1);
+
+// Bit 3:
+const studentLists = [getDCEStudents(),
+  getFASUsers().roster
+    .filter((user) => {
+      return user.isStudent;
+    }).map((user) => {
+      return user.userInfo;
+    }),
+];
+```
+
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  // Bit 1:
+  const output = getOutput(
+    text, {
+      parse: true,
+      delimiter: ',',
+    },
+  );
+
+  // Bit 2:
+  const ageNextYear = (
+    ageAtLogin
+    + elapsedYears
+    + 1
+  );
+
+  // Bit 3:
+  const studentLists = [
+    getDCEStudents(),
+    getFASUsers()
+      .roster
+      .filter((user) => {
+        return user.isStudent;
+      })
+      .map((user) => {
+        return user.userInfo;
+      }),
+  ];
+  ```
+</details>
+<br/>
+<!-- End Example -->
+
 For all arrays, function arguments, object definitions, and other comma-delineated objects, use trailing commas. This helps create clean git diffs and reduces typos.
 
 <Rule>
@@ -1556,6 +2055,43 @@ fruits.forEach((fruit, i) => {
 });
 ```
 
+<Exercise>
+  Create code that greets every other student
+</Exercise>
+
+```ts
+const studentNames = ['Divardo', 'Calicci', 'Kai', 'Manu', 'Anini', 'Alli'];
+
+// TODO: implement
+
+// Output:
+// > Hello, Calicci
+// > Hello, Manu
+// > Hello, Alli
+```
+
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  const studentNames = ['Divardo', 'Calicci', 'Kai', 'Manu', 'Anini', 'Alli'];
+
+  // Greet every other student
+  studentNames.forEach((studentName, i) => {
+    // Skip even indexed students
+    if (i % 2 === 0) {
+      return;
+    }
+
+    // Greet the student
+    console.log(`Hello, ${studentName}`);
+  });
+  ```
+</details>
+<br/>
+<!-- End Example -->
+
 ### Array.map – create new value based on each item
 
 ```ts
@@ -1581,6 +2117,39 @@ const olderCars: Car[] = cars.map((car: Car) => {
   };
 });
 ```
+
+<Exercise>
+  Create code that prepends each student's name with "Legal Name: "
+</Exercise>
+
+```ts
+const studentNames = ['Divardo', 'Calicci', 'Kai'];
+
+// TODO: implement
+
+// Output: ['Legal Name: Divardo', 'Legal Name: Calicci', 'Legal Name: Kai']
+```
+
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  const studentNames = ['Divardo', 'Calicci', 'Kai'];
+
+  // Prepend each student's name
+  const prependedStudentNames = studentNames.map((studentName) => {
+    // Add prefix
+    return `Legal Name: ${studentName}`;
+  });
+  ```
+</details>
+<br/>
+<!-- End Example -->
+
+<Rule tall>
+  Prefer .forEach or .map over .reduce
+</Rule>
 
 <Rule>
   Never modify function arguments
@@ -1622,6 +2191,51 @@ const atLeastOneRed = cars.some((car: Car) => {
 });
 ```
 
+<Exercise>
+  Create code that checks if any of the students have a name that ends with a vowel
+</Exercise>
+
+```ts
+const listA = ['Divardo', 'Calicci', 'Kai'];
+const listB = ['Max', 'Clark', 'Ash'];
+
+// TODO: implement
+
+// Output:
+// > true
+// > false
+```
+
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  const listA = ['Divardo', 'Calicci', 'Kai'];
+  const listB = ['Max', 'Clark', 'Ash'];
+
+  // Create a list of vowels
+  const vowels = 'aeiou'.split('');
+
+  // Go through each list and check if a student's name ends with a vowel
+  [listA,listB].forEach((studentNames) => {
+    const atLeastOneNameEndsWithVowel = studentNames.some((studentName) => {
+      // Get last letter
+      const lastLetter = (
+        studentName
+          .toLowerCase()
+          .substring(studentName.length - 1)
+      );
+
+      // Check if last letter is a vowel
+      return vowels.includes(lastLetter);
+    });
+  });
+  ```
+</details>
+<br/>
+<!-- End Example -->
+
 ### Array.every – returns true if all pass the test
 
 ```ts
@@ -1641,6 +2255,56 @@ const allCarsAreRed = cars.every((car: Car) => {
 });
 ```
 
+<Exercise>
+  Create code that checks if every student is at least 18 years old
+</Exercise>
+
+```ts
+const listA = [
+  { name: 'Divardo', age: 17 },
+  { name: 'Calicci', age: 18 },
+  { name: 'Kai', age: 19 },
+];
+const listB = [
+  { name: 'Max', age: 20 },
+  { name: 'Clark', age: 18 },
+  { name: 'Ash', age: 22 },
+];
+
+// TODO: implement
+
+// Output:
+// > false
+// > true
+```
+
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  const listA = [
+    { name: 'Divardo', age: 17 },
+    { name: 'Calicci', age: 18 },
+    { name: 'Kai', age: 19 },
+  ];
+  const listB = [
+    { name: 'Max', age: 20 },
+    { name: 'Clark', age: 18 },
+    { name: 'Ash', age: 22 },
+  ];
+
+  // Go through each list and check if all students are 18+
+  [listA,listB].forEach((students) => {
+    const allStudentsAtLeast18 = students.every((student) => {
+      return (student.age >= 18);
+    });
+  });
+  ```
+</details>
+<br/>
+<!-- End Example -->
+
 ### Array.filter – filters an array, keeping only items that pass the test
 
 ```ts
@@ -1659,6 +2323,61 @@ const redCars = cars.filter((car: Car) => {
   return (car.color === 'red');
 });
 ```
+
+<Exercise>
+  Create code that creates a list of students who are teens
+</Exercise>
+
+```ts
+const students = [
+  { name: 'Divardo', age: 17 },
+  { name: 'Calicci', age: 18 },
+  { name: 'Kai', age: 19 },
+  { name: 'Max', age: 20 },
+  { name: 'Clark', age: 18 },
+  { name: 'Ash', age: 22 },
+  { name: 'Anna', age: 12 },
+];
+
+// TODO: implement
+
+// Output:
+// [
+//   { name: 'Divardo', age: 17 },
+//   { name: 'Calicci', age: 18 },
+//   { name: 'Kai', age: 19 },
+//   { name: 'Clark', age: 18 },
+// ]
+```
+
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  const students = [
+    { name: 'Divardo', age: 17 },
+    { name: 'Calicci', age: 18 },
+    { name: 'Kai', age: 19 },
+    { name: 'Max', age: 20 },
+    { name: 'Clark', age: 18 },
+    { name: 'Ash', age: 22 },
+    { name: 'Anna', age: 12 },
+  ];
+
+  // Filter to just teen students
+  const teens = students.filter((student) => {
+    return (
+      // Old enough
+      student.age >= 13
+      // ...and not too old
+      && student.age < 20
+    );
+  });
+  ```
+</details>
+<br/>
+<!-- End Example -->
 
 ## Object Functions
 
@@ -1682,11 +2401,11 @@ const ids = Object.keys(idToName);
 
 ### Object.values(...) – get an array of values
 
-```js
+```ts
 const idToName = {
   12459: 'Divardo',
   50829: 'Calicci',
-  50628: 'Keala',
+  51628: 'Keala',
 };
 
 const names = Object.values(idToName);
@@ -1701,6 +2420,43 @@ Object.values(idToName).forEach((name: string) => {
   console.log(`Hello, ${name}!`);
 });
 ```
+
+<Exercise>
+  Create an array containing just the first two digits of each student's id number
+</Exercise>
+
+```ts
+const idToName = {
+  12459: 'Divardo',
+  50829: 'Calicci',
+  51628: 'Keala',
+};
+
+// TODO: implement
+
+// Output:
+// [12, 50, 50]
+```
+
+<!-- Start Example -->
+<details>
+  <summary>Example Result</summary>
+
+  ```ts
+  const idToName = {
+    12459: 'Divardo',
+    50829: 'Calicci',
+    51628: 'Keala',
+  };
+
+  // Extract the first two letters of each id number
+  const idPrefixes = Object.keys(idToName).map((id) => {
+    return id.substring(0, 2);
+  });
+  ```
+</details>
+<br/>
+<!-- End Example -->
 
 ## Default Params
 
@@ -1727,9 +2483,11 @@ With types and defaults, arguments can take up a lot of space. As usual, if one 
 
 ```ts
 const helper = (
-  requiredParam1: string,
-  requiredParam2: number,
-  optionalParam: string = 'default value',
+  opts: {
+    requiredParam1: string,
+    requiredParam2: number,
+    optionalParam: string = 'default value',
+  },
 ) => {
   // ...
 };
