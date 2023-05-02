@@ -26,6 +26,17 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
     border-bottom-right-radius: 0.3rem;
   }
 
+  Rule + .highlighter-rouge pre {
+    border-bottom: 0.15rem solid #CB3048;
+    border-left: 0.15rem solid #CB3048;
+    border-right: 0.15rem solid #CB3048;
+
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+  }
+
   Exercise {
     display: block;
     font-weight: bold;
@@ -45,6 +56,17 @@ Last updated by Gabe Abrams in 2023. This will probably be out of date within mi
   }
   Exercise[tall] {
     margin-bottom: 0.7rem;
+    border-bottom-left-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+  }
+
+  Exercise + .highlighter-rouge pre {
+    border-bottom: 0.15rem solid #54d2e2;
+    border-left: 0.15rem solid #54d2e2;
+    border-right: 0.15rem solid #54d2e2;
+
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
     border-bottom-left-radius: 0.3rem;
     border-bottom-right-radius: 0.3rem;
   }
@@ -2383,7 +2405,7 @@ const students = [
 
 Object functions are great for iterating through objects. Use them whenever possible. But just like array functions, if using async/await inside the loop, you'll need a for loop.
 
-<Rule>
+<Rule tall>
   Use object functions whenever possible unless await is used inside
 </Rule>
 
