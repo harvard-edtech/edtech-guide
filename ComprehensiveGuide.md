@@ -541,6 +541,84 @@ MyComponent/
   MySubComponent.scss
 ```
 
+## Modules
+
+Our npm projects are divided into modules. We use es6 import/export syntax.
+
+### Creating a Module
+
+To create a module, create a `.tsx` file and at the end of the file, on one line, export the item of interest as the default export.
+
+<Rule>
+  Default export must be at the end of the file
+</Rule>
+
+```ts
+...
+
+export default MyComponent;
+```
+
+The file name must match the name of the default export. This helps with consistency and helps with automatic documentation.
+
+<Rule>
+  Default export name must match file name
+</Rule>
+
+```ts
+// Chart/index.tsx
+export default MyComponent;
+
+// MyButton.tsx
+export default MyButton;
+```
+
+If an item takes up more than one line, define it above and then export it on one line.
+
+<Rule>
+  Export must be on a single line
+</Rule>
+
+```ts
+const MyCar = {
+    ...
+};
+
+export default MyCar;
+```
+
+### Importing a Module
+
+When importing a module, leave out the extension if it's a `.ts` or `.tsx` file.
+
+<Rule>
+  When importing, leave off extension if ".tsx"
+</Rule>
+
+```ts
+import MyComponent from '../shared/MyComponent';
+```
+
+If a module is a folder, leave off `index.tsx` when importing.
+
+<Rule>
+  Leave off "index.tsx" when importing file modules
+</Rule>
+
+```ts
+// File structure
+MyComponent/
+  index.tsx
+  style.scss
+  MyButton.tsx
+
+// Bad:
+import MyComponent from './MyComponent/index';
+
+// Good:
+import MyComponent from './MyComponent';
+```
+
 # Typescript Basics
 
 ## Types
@@ -1457,6 +1535,46 @@ const countSentences = (
 </pre>
 </details>
 <!-- End Example -->
+
+### Default Argument Values
+
+To include a default value for an argument, do this:
+
+```ts
+const helper = (a: string, b: string = 'default value') => {
+  // ...
+};
+```
+
+<Rule>
+  All required params must come before default params
+</Rule>
+
+```ts
+// Bad:
+const helper = (text: string, greeting: string = 'hi', id: number) => {
+  ...
+};
+
+// Good:
+const helper = (text: string, id: number, greeting: string = 'hi') => {
+  ...
+};
+```
+
+With types and defaults, arguments can take up a lot of space. As usual, if one item is on another line, all items must be on their own lines. Here's how to do this with arguments:
+
+```ts
+const helper = (
+  opts: {
+    requiredParam1: string,
+    requiredParam2: number,
+    optionalParam: string = 'default value',
+  },
+) => {
+  // ...
+};
+```
 
 ## Classes
 
@@ -2503,119 +2621,6 @@ const idPrefixes = Object.keys(idToName).map((id) => {
 </pre>
 </details>
 <!-- End Example -->
-
-## Default Params
-
-To include a default value for a param, do this:
-
-```ts
-const helper = (a: string, b: string = 'default value') => {
-  // ...
-};
-```
-
-<Rule>
-  All required params must come before default params
-</Rule>
-
-```ts
-// Bad:
-const helper = (a: string, b: string = 'hi', c: number) => {
-  ...
-};
-```
-
-With types and defaults, arguments can take up a lot of space. As usual, if one item is on another line, all items must be on their own lines. Here's how to do this with arguments:
-
-```ts
-const helper = (
-  opts: {
-    requiredParam1: string,
-    requiredParam2: number,
-    optionalParam: string = 'default value',
-  },
-) => {
-  // ...
-};
-```
-
-## Modules
-
-Our npm projects are divided into modules. We use es6 import/export syntax.
-
-### Creating a Module
-
-To create a module, create a `.tsx` file and at the end of the file, on one line, export the item of interest as the default export.
-
-<Rule>
-  Default export must be at the end of the file
-</Rule>
-
-```ts
-...
-
-export default MyComponent;
-```
-
-The file name must match the name of the default export. This helps with consistency and helps with automatic documentation.
-
-<Rule>
-  Default export name must match file name
-</Rule>
-
-```ts
-// Chart/index.tsx
-export default MyComponent;
-
-// MyButton.tsx
-export default MyButton;
-```
-
-If an item takes up more than one line, define it above and then export it on one line.
-
-<Rule>
-  Export must be on a single line
-</Rule>
-
-```ts
-const MyCar = {
-    ...
-};
-
-export default MyCar;
-```
-
-### Importing a Module
-
-When importing a module, leave out the extension if it's a `.ts` or `.tsx` file.
-
-<Rule>
-  When importing, leave off extension if ".tsx"
-</Rule>
-
-```ts
-import MyComponent from '../shared/MyComponent';
-```
-
-If a module is a folder, leave off `index.tsx` when importing.
-
-<Rule>
-  Leave off "index.tsx" when importing file modules
-</Rule>
-
-```ts
-// File structure
-MyComponent/
-  index.tsx
-  style.scss
-  MyButton.tsx
-
-// Bad:
-import MyComponent from './MyComponent/index';
-
-// Good:
-import MyComponent from './MyComponent';
-```
 
 ## Asynchronous Code
 
