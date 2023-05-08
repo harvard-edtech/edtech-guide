@@ -379,6 +379,10 @@ Our technologies were chosen to fit our missions. Thinking about consistency, st
 
 Our top priority is health, wellbeing, a sense of belonging, and a feeling that you can bring your full authentic self to work. In some ways, this means a culture of learning, flexibility, and kindness: we will work hard to flex our work processes to be mindful of teammates' health, wellbeing, and sense of belonging. In some ways, this means inflexibility where necessary in order to create a culture of uncompromising inclusion: we require usage of people's names and pronouns and respect for people's cultures and identities.
 
+Health is extremely important. Remember that [flexible work arrangements](https://hr.harvard.edu/flexwork) and [workplace accommodations](https://accessibility.harvard.edu/workplace-accommodations) are available!
+
+To keep everyone healthy and safe, team members agree to not join in-person meetings while sick in any way. This includes colds and other minor sicknesses. Further, if a teammate isn't well enough to work or meet, we fully support that teammate in taking time to fully recover. This includes physical health, mental health, and general wellbeing. 
+
 ## 2. Welcome Sharing, but Don't Mandate
 
 We work hard to create safe spaces for everyone to feel like they can be their authentic selves at work. That said, it is everyone's choice to share. To advance the feeling of a safe space, we adopt a "model, don't mandate" mentality. Gabe might share things about themselves to create a space of openness, but this doesn't mean that sharing is required in any way. For example, Gabe will share their pronouns, but you needn't do that. If you don't share your pronouns, Gabe will simply not use gendered pronouns when referring to you and it'll be easy as pie.
