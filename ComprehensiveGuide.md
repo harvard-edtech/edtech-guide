@@ -401,7 +401,7 @@ All feedback should be structured in a way that is constructive and respectful. 
 
 ## 5. Prompt and Respectful Communication
 
-We use Slack for communication. If communication is happening outside of Slack, ping people in Slack. For example, if you left comments on someone's GitHub PR, ping them in Slack with a link to the GitHub PR. We expect prompt communication (get back to people within a day or two) but we only expect responses from each other on Monday, Tuesday, Wednesday, and Thursday (not Friday) from 9am to 5pm ET. Note: it's okay to send messages outside of hours, but there's no expectation to respond.
+We use Slack for communication. If communication is happening outside of Slack, ping people in Slack. For example, if you left comments on someone's GitHub PR, ping them in Slack with a link to the GitHub PR. We expect prompt communication (get back to people within a day or two) but we only expect responses from each other on Monday, Tuesday, Wednesday, and Thursday (not Friday) from 9am to 4pm ET. Note: it's okay to send messages outside of hours, but there's no expectation to respond.
 
 ## 6. Take Space, Make Space
 
