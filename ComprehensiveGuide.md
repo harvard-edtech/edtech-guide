@@ -357,7 +357,7 @@ Know your users: we design our tools for staff, teaching team members, and stude
 
 Listen to teaching and learning experts: combine your own passion about education with the expert advice, attention to research, and studies/focus groups that the teaching and learning team conducts. Gabe serves as the team's representative on the teaching and learning team, explaining updates and new findings as they come from the teaching and learning team.
 
-Prioritize impact over tech: we design for impact, we design to improve our courses, help students learn and find community, and help TTMs teach in exciting and engaging ways. Prioritizing impact over tech means that impact comes first and then we find the technologies that make that impact possible, instead of choosing technologies that we like and then seeing how we can make an impact with them.
+Prioritize impact over tech: we design for impact, we design to improve our courses, help students learn and find community, and help TTMs (Teaching Team Members) teach in exciting and engaging ways. Prioritizing impact over tech means that impact comes first and then we find the technologies that make that impact possible, instead of choosing technologies that we like and then seeing how we can make an impact with them.
 
 Collect data and provide analytics: work to collect data and analytics to help improve our tools and improve our courses, and create dashboards that provide insight to the teaching and learning team. This is important but cannot be an excuse for compromising student safety and privacy.
 
@@ -397,13 +397,15 @@ Because we're part of a collaborative team, equity becomes important. Thus, whil
 
 We build a culture of constructive feedback. Gabe welcomes (and practically begs for) feedback. In return, Gabe works hard to give feedback to everyone on the team. If you ever feel unsure about how you're doing, please ask for feedback. Good conversations and sharing of feedback are how we create clarity and openness.
 
+All feedback should be structured in a way that is constructive and respectful. In return, when receiving feedback, start by assuming that the person giving feedback is doing it with the best intent.
+
 ## 5. Prompt and Respectful Communication
 
-We use Slack for communication. If communication is happening outside of Slack, ping people in Slack. For example, if you left comments on someone's GitHub PR, ping them in Slack with a link to the GitHub PR. We expect prompt communication (get back to people within a day or two) but we only expect responses from each other on Monday, Tuesday, Wednesday, and Thursday (not Friday) from 9am to 5pm ET.
+We use Slack for communication. If communication is happening outside of Slack, ping people in Slack. For example, if you left comments on someone's GitHub PR, ping them in Slack with a link to the GitHub PR. We expect prompt communication (get back to people within a day or two) but we only expect responses from each other on Monday, Tuesday, Wednesday, and Thursday (not Friday) from 9am to 5pm ET. Note: it's okay to send messages outside of hours, but there's no expectation to respond.
 
 ## 6. Take Space, Make Space
 
-If you're someone who often takes up more space than others, try taking a little less space and leaving room for others to speak and contribute. If you're someone who often takes up less space than others, challenge yourself to speak and contribute more.
+If you're someone who often takes up more space than others, try taking a little less space and leaving room for others to speak and contribute. If you're someone who often takes up less space than others, challenge yourself to speak and contribute more. Taking space can take multiple forms depending on collaboration style - not just speaking up in meetings, but also things like contributing ideas via chat or Slack, offering help and giving feedback, helping with organization and brainstorming, and so much more.
 
 ## 7. No Standing Meetings on Fridays
 
