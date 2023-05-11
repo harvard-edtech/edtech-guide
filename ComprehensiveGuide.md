@@ -407,13 +407,13 @@ We use Slack for communication. If communication is happening outside of Slack, 
 
 If you're someone who often takes up more space than others, try taking a little less space and leaving room for others to speak and contribute. If you're someone who often takes up less space than others, challenge yourself to speak and contribute more. Taking space can take multiple forms depending on collaboration style - not just speaking up in meetings, but also things like contributing ideas via chat or Slack, offering help and giving feedback, helping with organization and brainstorming, and so much more.
 
-## 7. No Standing Meetings on Fridays
+## 7. No Friday/Weekend Standing Meetings
 
-We don't schedule regular meetings for Fridays.
+We don't schedule regular meetings for Fridays and we don't schedule any meetings on Saturdays or Sundays.
 
 ## 8. Respect People's Time
 
-Be punctual to meetings, end meetings on time.
+Be punctual to meetings, end meetings on time. For foreseeable circumstances, give at least 2 days of notice if you can't attend a meeting or if you need to cancel/move a meeting. Be understanding for emergency circumstances.
 
 ## 9. Ask for Help, Offer Help
 
