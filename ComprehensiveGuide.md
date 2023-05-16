@@ -405,6 +405,8 @@ All feedback should be structured in a way that is constructive and respectful. 
 
 We use Slack for communication. If communication is happening outside of Slack, ping people in Slack. For example, if you left comments on someone's GitHub PR, ping them in Slack with a link to the GitHub PR. We expect prompt communication (get back to people within a day or two) but we only expect responses from each other on Monday, Tuesday, Wednesday, and Thursday (not Friday) from 9am to 4pm ET. Note: it's okay to send messages outside of hours, but there's no expectation to respond.
 
+If you're very busy and don't have time to fully respond within one or two days, try to acknowledge the message (a quick thumbs up, for example) or give a time frame (e.g. "super busy, can we talk next week?"). Prompt communication is important because that teammate might be relying on you or blocking on you, but remember that we want to be kind and understanding; we all have a lot on our plates, so understand that prompt communication can be tough.
+
 ## 6. Take Space, Make Space
 
 If you're someone who often takes up more space than others, try taking a little less space and leaving room for others to speak and contribute. If you're someone who often takes up less space than others, challenge yourself to speak and contribute more. Taking space can take multiple forms depending on collaboration style - not just speaking up in meetings, but also things like contributing ideas via chat or Slack, offering help and giving feedback, helping with organization and brainstorming, and so much more.
