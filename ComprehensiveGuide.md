@@ -321,6 +321,8 @@ Get access to GitHub projects:
 
 Everything we do will be aligned with our mission. The skills we develop, the projects we work on, and the designs we create will all be informed by and aligned with our mission.
 
+What is a mission? It is something to _align_ your work with. It is not something that we expect to achieve, but rather, something that we expect to move toward. We think of our mission more as a _direction_ than a _mandate_. 
+
 ## 1. Inclusive and Flexible
 
 Focus on diversity, equity, inclusion, and belonging: build tools that use inclusive language, foster a sense of belonging, and empower users to be themselves.
@@ -341,7 +343,7 @@ Choose efficient and scalable technologies: use simple and scalable technologies
 
 ## 3. Seamless and Intuitive
 
-Always choose the simplest technology: whether it's a small or large library, always choose the simplest tech so we can focus on impact.
+Always choose the simplest technology: whether it's a small or large library, always choose the simplest tech so we can focus on impact. This helps users understand our tools and helps programmers work on and understand each other's code.
 
 Standardize design and UI: to create a seamless user experience, we will use the same design language and user interface elements across all projects. Gabe oversees the designs and makes sure UI and UX decisions are consistent across all tools. We also design to match the design of 3rd party tools (Canvas, Zoom, etc.) to create a seamless user experience.
 
