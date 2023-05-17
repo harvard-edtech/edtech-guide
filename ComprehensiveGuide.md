@@ -2028,6 +2028,12 @@ type SamosaChaat = (
 );
 ```
 
+It's important to know the type of item, not just the item itself, especially when reading other people's code. Also, some enums may have duplicate keys. This is why we don't destructure enums.
+
+<Rule tall>
+  Never destructure enums
+</Rule>
+
 ## Code Style
 
 To keep code readable and simple, if there are ever more than three of anything (arguments, values, anything), each must be on its own line. Honestly, it's okay to put items on their own lines if there are two or more items.
