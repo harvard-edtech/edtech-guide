@@ -950,7 +950,7 @@ const feelsLike = 74;
 const <b>lastActiveTimestamp</b> = ...;
 
 // NOTE: This is the time to wait before playing the next video
-const <b>videoDelaySec></b> = 10;
+const <b>videoDelaySec</b> = 10;
 
 // NOTE: This is the current "feels like" temperature outside
 const <b>feelsLikeDeg</b> = 74; <b>// Fahrenheit</b>
