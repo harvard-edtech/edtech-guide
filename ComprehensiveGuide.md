@@ -1109,12 +1109,12 @@ const restaurantInfo = {
 // Create the order
 const foodOrder = {
   <b>timestampMs: 12093840982,</b>
-  cost: 12.78,
+  cost: 12.78,<b> // USD</b>
   <b>restaurantInfo,</b>
 };
 
 // Ask the user for a tip
-const tip = await askUserForTip();
+const tip = await askUserForTip();<b> // percent</b>
 
 // Update the cost to include the tip
 foodOrder.cost <b>*= (tip + 1)</b>;
