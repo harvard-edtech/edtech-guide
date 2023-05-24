@@ -2224,7 +2224,11 @@ for (let i = 0; i < fruits.length; i++) {
 }
 ```
 
-### Array.forEach – loop
+Each array function takes an anonymous "operation function" that is called once for each element in the array. Each time the operation function is called, it receives one of the array elements as an argument. This occurs sequentially such that the operation function is called with the first element, then the second element, then the third, and so on.
+
+### array.forEach – Executes a provided function once for each array element
+
+The operation function holds the code that you want to run for each element.
 
 ```ts
 const fruits = ['apple', 'orange', 'pineapple'];
@@ -2282,7 +2286,9 @@ studentNames.forEach((studentName, i) => {
 </details>
 <!-- End Example -->
 
-### Array.map – create new value based on each item
+### array.map – Creates a new array by applying a function to each element
+
+The operation function takes an element of the original array, does some computation, and then returns the corresponding element for the new array.
 
 ```ts
 const cars: Car[] = [
@@ -2360,7 +2366,9 @@ const olderCars: Car[] = cars.map((car: Car) => {
 });
 ```
 
-### Array.some – returns true if at least one passes the test
+### array.some – Test whether an element in the array passes the test function
+
+The operation function takes an element in the array and returns true/truthy if this element passes the test. If any element results in the operation function returning true/truthy, `some` immediately returns true. If no elements result in the operation function returning true/truthy, `some` returns false after going through the entire array.
 
 ```ts
 const cars: Car[] = [
@@ -2422,7 +2430,9 @@ const vowels = 'aeiou'.split('');
 </details>
 <!-- End Example -->
 
-### Array.every – returns true if all pass the test
+### array.every – Test whether all elements in the array pass the test function
+
+The operation function takes an element in the array and returns true/truthy if this element passes the test. If all elements results in the operation function returning true/truthy, `every` returns true after going through the entire array. If at any point, one of the elements result in the operation function returning false/falsy, `every` immediately returns false.
 
 ```ts
 const cars: Car[] = [
@@ -2446,12 +2456,19 @@ const allCarsAreRed = cars.every((car: Car) => {
 </Exercise>
 
 ```ts
-const listA = [
+type Student = {
+  // First name
+  name: string,
+  // Age
+  age: number, // years
+};
+
+const listA: Student[] = [
   { name: 'Divardo', age: 17 },
   { name: 'Calicci', age: 18 },
   { name: 'Kai', age: 19 },
 ];
-const listB = [
+const listB: Student[] = [
   { name: 'Max', age: 20 },
   { name: 'Clark', age: 18 },
   { name: 'Ash', age: 22 },
@@ -2489,9 +2506,18 @@ const listB = [
 </details>
 <!-- End Example -->
 
-### Array.filter – filters an array, keeping only items that pass the test
+### array.filter – Create an array with elements that pass the test function
+
+The operation function takes an element in the array and returns true/truthy if this element passes the test. At the end, `filter` returns a new array that contains only the elements that pass the test.
 
 ```ts
+type Car = {
+  // Color of the body of the car
+  color: string,
+  // Year that the car was manufactured
+  year: number, // e.g. 1995
+};
+
 const cars: Car[] = [
   {
     color: 'red',
@@ -2513,7 +2539,14 @@ const redCars = cars.filter((car: Car) => {
 </Exercise>
 
 ```ts
-const students = [
+type Student = {
+  // First name
+  name: string,
+  // Age
+  age: number, // years
+};
+
+const students: Student[] = [
   { name: 'Divardo', age: 17 },
   { name: 'Calicci', age: 18 },
   { name: 'Kai', age: 19 },
@@ -2561,6 +2594,89 @@ const teens = students.filter((student) => {
 </details>
 <!-- End Example -->
 
+### array.find - Return the first element that satisfies the test function
+
+The operation function takes an element in the array and returns true/truthy if this element passes the test. At the end, `find` return the first element that passes the test. If no elements pass the test, `find` returns `undefined`.
+
+```ts
+type Car = {
+  // Color of the body of the car
+  color: string,
+  // Year that the car was manufactured
+  year: number, // e.g. 1995
+  // The first name of the owner of the car
+  owner: string,
+};
+
+
+const cars: Car[] = [
+  {
+    color: 'red',
+    year: 2015,
+    owner: 'Gabe',
+  },
+  {
+    color: 'blue',
+    year: 2018,
+    owner: 'Ben',
+  },
+];
+
+const bensCar = cars.find((car: Car) => {
+  return (car.owner === 'Ben');
+});
+```
+
+<Exercise>
+  Create code that finds a student who's name starts with 'A'
+</Exercise>
+
+```ts
+type Student = {
+  // First name
+  name: string,
+  // Age
+  age: number, // years
+};
+
+const students: Student[] = [
+  { name: 'Divardo', age: 17 },
+  { name: 'Calicci', age: 18 },
+  { name: 'Kai', age: 19 },
+  { name: 'Max', age: 20 },
+  { name: 'Clark', age: 18 },
+  { name: 'Ash', age: 22 },
+  { name: 'Anna', age: 12 },
+];
+
+// TODO: implement
+
+// Output:
+// { name: 'Ash', age: 22 }
+```
+
+<!-- Start Example -->
+<details>
+<summary>Example Result</summary>
+<pre>
+const students = [
+  { name: 'Divardo', age: 17 },
+  { name: 'Calicci', age: 18 },
+  { name: 'Kai', age: 19 },
+  { name: 'Max', age: 20 },
+  { name: 'Clark', age: 18 },
+  { name: 'Ash', age: 22 },
+  { name: 'Anna', age: 12 },
+];
+
+// Find a student who's name starts with 'A'
+<b>const studentWithNameStartingInA = students.find((student) => {</b>
+  <b>return student.name.startsWith('A');</b>
+<b>});</b>
+</pre>
+</details>
+<!-- End Example -->
+
 ## Object Functions
 
 Object functions are great for iterating through objects. Use them whenever possible. But just like array functions, if using async/await inside the loop, you'll need a for loop.
@@ -2569,9 +2685,9 @@ Object functions are great for iterating through objects. Use them whenever poss
   Use object functions whenever possible unless await is used inside
 </Rule>
 
-### Object.keys(...) – get an array of keys
+### Object.keys(...) – get an array that contains each key in the object
 
-```js
+```ts
 const idToName = {
   12459: 'Divardo',
   50829: 'Calicci',
@@ -2580,6 +2696,8 @@ const idToName = {
 
 const ids = Object.keys(idToName);
 ```
+
+Note: no matter what type of keys you use, `Object.keys` returns an array of strings. In the example above, `ids` is a string array with values `['12459', '50829', '50628']`.
 
 ### Object.values(...) – get an array of values
 
