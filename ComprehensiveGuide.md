@@ -171,6 +171,7 @@ Programming and Testing:
 - [Logging](#logging)
 - [Express Server](#express-server)
 - [React Component Unit Tests](#react-component-unit-tests)
+- [Helper Unit Tests](#helper-unit-tests)
 - [Automated UI Testing](#automated-ui-testing)
 - [Commonly Used Dependencies](#commonly-used-dependencies)
 
@@ -5857,6 +5858,82 @@ You can stub multiple requests and Raixa will automatically know which to stub b
 ## Running Tests
 
 Use `npm run test-client` to start the jest test runner.
+
+# Helper Unit Tests
+
+## Guiding Principles
+
+For each helper function that we test, we aim for high test coverage, but time is always limited, so we write tests in order of priority.
+
+Here's our order of priority:
+
+1. Usual inputs and outputs or side-effects
+1. Edge cases (unusual inputs or environment variables, for example)
+1. Features that have a higher chance of breaking later on
+1. Everything else
+
+There are some things that we do not test:
+
+1. Implementation details: these will change
+1. Dependencies and libs: these are unit tests, so we do not focus on dependencies and libs
+
+## Create a Test File
+
+Name your test the same as your component with a `.test.ts` filename:
+
+<Rule>
+  Tests use same name as the helper with .test.ts extension
+</Rule>
+
+```ts
+myHelper.ts // Helper
+myHelper.test.ts // Test
+```
+
+## Write a Test
+
+First, import the helper that you're going to test:
+
+```ts
+// Import helper to test
+import myHelper from './myHelper';
+```
+
+All of our helper unit tests are built using vanilla [Jest](https://jestjs.io/docs/getting-started) tests. We create our list of tests and each one becomes a call to the `test` function:
+
+Create a test:
+
+```ts
+test(
+  'description of test',
+  async () => {
+    ...
+  },
+);
+```
+
+Describe your test. Here are some examples for a helper function that divides two numbers:
+
+- "Divides two positive, nonzero numbers"
+- "Throws an error when one or both of the arguments are not numbers"
+- "Throws an error if the denominator is zero"
+- etc.
+
+If a test will take longer to execute, extend its timeout with a third argument:
+
+```ts
+test(
+  'description of test',
+  async () => {
+    ...
+  },
+  10000, // Timeout in ms
+});
+```
+
+## Running Tests
+
+Simply use `npm test` to run tests. If that doesn't work, ask Gabe to help set your project up with jest test running.
 
 # Automated UI Testing
 
