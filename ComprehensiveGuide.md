@@ -1869,9 +1869,9 @@ For your reference, here's a types cheatsheet with props that I use frequently:
 
 ```ts
 // Primitives
-string // String
-number // Number
-boolean // Boolean
+string // text or character (e.g. 'Hello' or 'h')
+number // integer or float (e.g. 4 or 4.73)
+boolean // true or false
 undefined // Unset value
 null // Absence of value
 
@@ -1883,7 +1883,7 @@ null // Absence of value
 string[] // Array of strings
 number[] // Array of numbers
 Car[] // Array containing objects of type Car
-Array<(string | Car)> // Array of strings or objects of type Car
+(string | Car)[] // Array of strings or objects of type Car
 
 // Enums
 EnumName // Enums also function as types
@@ -1943,7 +1943,9 @@ If a value can take on many pre-determined values, we use enums. However, we und
 
 ```ts
 enum Instrument {
+  // An upright piano
   Piano = 'Piano',
+  // A violin string instrument
   Violin = 'Violin',
 }
 ```
@@ -1975,7 +1977,9 @@ enum Instrument {
 
 // Good:
 enum Instrument {
+  // An upright piano
   Piano = 'Piano',
+  // A violin string instrument
   Violin = 'Violin',
 }
 ```
@@ -1987,14 +1991,19 @@ enum Instrument {
 ```ts
 // Type of fillings
 enum Filling {
+  // Potato and pea filling
   PotatoPea = 'PotatoPea',
+  // Cauliflower mash filling
   Cauliflower = 'Cauliflower',
 }
 
 // Name of side
 enum SideName {
+  // Mango or salty lassi
   Lassi = 'Lassi',
+  // Iced water
   Water = 'Water',
+  // Masala tea
   Chai = 'Chai',
 }
 
