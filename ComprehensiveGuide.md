@@ -2301,6 +2301,13 @@ studentNames.forEach((studentName, i) => {
 The operation function takes an element of the original array, does some computation, and then returns the corresponding element for the new array.
 
 ```ts
+type Car = {
+  // The color of the car
+  color: string,
+  // The year the car was made
+  year: number,
+};
+
 const cars: Car[] = [
   {
     color: 'red',
@@ -2381,6 +2388,13 @@ const olderCars: Car[] = cars.map((car: Car) => {
 The operation function takes an element in the array and returns true/truthy if this element passes the test. If any element results in the operation function returning true/truthy, `some` immediately returns true. If no elements result in the operation function returning true/truthy, `some` returns false after going through the entire array.
 
 ```ts
+type Car = {
+  // The color of the car
+  color: string,
+  // The year the car was made
+  year: number,
+};
+
 const cars: Car[] = [
   {
     color: 'red',
@@ -2445,6 +2459,13 @@ const vowels = 'aeiou'.split('');
 The operation function takes an element in the array and returns true/truthy if this element passes the test. If all elements results in the operation function returning true/truthy, `every` returns true after going through the entire array. If at any point, one of the elements result in the operation function returning false/falsy, `every` immediately returns false.
 
 ```ts
+type Car = {
+  // The color of the car
+  color: string,
+  // The year the car was made
+  year: number,
+};
+
 const cars: Car[] = [
   {
     color: 'red',
@@ -2522,10 +2543,10 @@ The operation function takes an element in the array and returns true/truthy if 
 
 ```ts
 type Car = {
-  // Color of the body of the car
+  // The color of the car
   color: string,
-  // Year that the car was manufactured
-  year: number, // e.g. 1995
+  // The year the car was made
+  year: number,
 };
 
 const cars: Car[] = [
