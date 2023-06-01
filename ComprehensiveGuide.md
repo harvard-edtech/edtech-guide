@@ -259,9 +259,10 @@ If you want, install optional VSCode extensions:
 
 1. `Path Intellisense` by Christian Kohler - helps auto-complete local imports
 1. `npm Intellisense` by Christian Kohler - helps auto-complete lib imports
-1. `Auto Close Tag` by Jun Han - automatically closes html tags
 1. `gitignore` by michelemelluso - right click and add to gitignore
 1. `Thunder Client` by Ranga Vadhineni - lets you easily send api requests for testing
+1. `Duplicate action` by mrmlnc - lets you easily duplicate files
+1. `vscode-icons` by vscodeicons.team - makes folders much more visual in the file tree
 
 Update these VSCode settings:
 
