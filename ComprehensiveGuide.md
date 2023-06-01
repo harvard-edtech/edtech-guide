@@ -277,6 +277,59 @@ If eslint isn't working on the project, first try reinstalling it: Shift + CMD/C
 
 If that doesn't fix it, try the solutions in this [ESLint Troubleshooting Checklist](https://dev.to/tillsanders/eslint-not-working-in-vscode-help-build-a-troubleshooting-checklist-fdc).
 
+## Set Up a Sandboxes
+
+### Typescript Sandbox
+
+1. Create a folder on your machine, call it `ts-sandbox`
+1. Visit the folder in terminal and run `npm init -y` (don't add the "-y" except for creating sandboxes)
+1. Run `npm init dce-eslint@latest` and confirm to set up eslint
+1. Install node types by running `npm install --save-dev @types/node`
+1. Open the `.eslintrc` file and remove the following lines: `'react-app',` and `'react-app/jest',` under the `extends` section
+1. Create a `tsconfig.json` file in the top directory and paste in the following content:
+    ```json
+    {
+      "compilerOptions": {
+        "target": "es5",
+        "lib": [
+          "esnext"
+        ],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": false,
+        "outDir": "./build",
+        "rootDir": "./src",
+        "removeComments": false,
+        "declaration": true
+      },
+      "include": [
+        "src"
+      ]
+    }
+    ```
+1. Create a `/src` folder. Note that all your sandbox typescript files should go into this folder
+
+Each time you want to create a new sandbox file, simply go into the `/src` folder and create a new `nameOfFile.ts` file.
+
+To run one of your sandbox files:
+1. In the terminal, navigate to the `/src` folder
+1. Run `ts-node nameOfFile.ts`
+
+Note: if you get an error saying `ts-node: command not found`, install `ts-node` using `npm install -g ts-node`
+
+### React Sandbox
+
+Visit the [CACCL Docs](bit.ly/caccl) and set up a react-based project, using `npm init caccl@latest`.
+
 # Get Access to Harvard Tools
 
 If you don't have a HarvardKey, claim your HarvardKey:
