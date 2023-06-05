@@ -418,6 +418,66 @@ Prioritize impact over tech: we design for impact, we design to improve our cour
 
 Collect data and provide analytics: work to collect data and analytics to help improve our tools and improve our courses, and create dashboards that provide insight to the teaching and learning team. This is important but cannot be an excuse for compromising student safety and privacy.
 
+## Placement for our Mission
+
+Let's take a moment to go over the DCE Senior Leadership Team's DCE-wide list of goals for 2023 to 2025 and take a moment with each one to work on placing our work within that greater vision.
+
+### A. Build a stronger pipeline of new students to grow enrollments
+
+DCE is working to grow its enrollments, so this is a general mission targeted at increasing the size of our student population, thus increasing our budgets. This mission is broad and covers the DCE marketing team, enrollment services, alumni network, and lots of outreach and community work. Although our work might not obviously fit into the work of recruitment, we do have the ability to make an impact here.
+
+One thing we see over and over again is that, with online eduction, powerful and seamless technologies are becoming the baseline for what students expect. Of course, this connects with our mission: `Seamless and Intuitive`. That said, student's don't stop there; they search for learning environments that give them a sense of community, a sense of belonging, the opportunity to build peer networks, and the feeling that our programs and technologies are human-centered and learning-centered. That is why our `Informed and Impactful` mission is key with this DCE-wide mission. If we can create informed and impactful technologies, students will see that our technologies help them learn and they will return for more classes, tell others about our courses, and will share positive reviews and build the DCE brand. Finally, surveys show that students stick around because they feel a sense of community and purpose. We don't just want students who come for one class and then leave. We want students who feel like they're part of something bigger, students who feel like they belong and are part of our community. Those are the students who come back and grow our enrollments. That's why our `Inclusive and Flexible` mission is so important here.
+
+We advance this DCE-wide mission through our `Seamless and Intuitive`, `Informed and Impactful`, and `Inclusive and Flexible` missions.
+
+### B. Enhance future-focused student-centered engagement philosophy and built strategies to support it for both new and returning students
+
+This DCE-wide mission articulates what is our bread and butter: creating student-centered engagement opportunities that push the envelope of what's possible with technology. We are the EdTech Innovations team and we are a huge part of bringing this DCE-wide mission to life. Our work, partnered with other Teaching and Learning Team work on teaching practice and pedagogy, builds the "strategies" to support new and returning students. In summary, our team exists because of this DCE-wide mission.
+
+We advance this DCE-wide mission through the combination of all of our missions because all of our projects are chosen to advance this mission.
+
+### C. Explore shorter term credit programming with digital badging and micro credentials
+
+This DCE-wide mission focuses on smaller engagement opportunities (weekends, professional development programs, etc.) that require enormous scaling all while maintaining a standard of pedagogy-first design and student-centered engagement. Because these shorter programs happen more frequently and in larger numbers, it becomes really important that we build tools that help with scalability and make self-service more available. For example, instead of three rounds of setting up courses (Spring, Summer, Fall), we might need to set up new courses every few weeks. This is where our `Scalable and Self-Service` mission becomes critical. We simply don't have the staff time to make this new shorter term programming model possible, and so we turn to scaling and self-service.
+
+We advance this DCE-wide mission through our `Scalable and Self-Service` mission.
+
+### D. Recruit and engage FAS (and Harvard) faculty to teach in DCE programs through targeted outreach strategies
+
+This DCE-wide mission aims to make it very appealing for Harvard teachers to join our programs. Other teams at DCE work on outreach. The Teaching and Learning Team is called in once faculty have already decided to join DCE. Our contribution to this mission is to make that onboarding process as easy as possible (our `Seamless and Intuitive` mission), give teachers tools and insight that they don't get at other parts of Harvard (the `Self-Service` part of our `Scalable and Self-Service` mission), tools that help them teach in exciting new ways (our `Informed and Impactful` mission), and give them flexibility to teach how they dream of teaching (the `Flexible` part of `Inclusive and Flexible`).
+
+We advance this DCE-wide mission through our `Scalable and Self-Service`, `Informed and Impactful` and `Inclusive and Flexible` missions.
+
+### E. Utilize Harvard Summer School as an innovation incubator
+
+This DCE-wide mission is pretty simple: the goal is to use our summer programs as an opportunity to test out new teaching practices and tools. We're already doing this because most of our projects start their pilots during the summer.
+
+We advance this DCE-wide mission not through our own missions, but through our piloting schedule and process.
+
+### F. Create and execute an international strategy meant to drive enrollments, increase classroom diversity, and further cultivate a DCE global presence
+
+This DCE-wide mission aims to bring in students across the world, increase our enrollments, and increase classroom diversity. There are two steps to this DCE-wide mission: first, we need to recruit those students and bring them into our programs, second, we need to help those students learn and feel like they belong. The first step is driven by our marketing and enrollment services teams, but the second step is driven by the Teaching and Learning Team and by the tools that we build. In particular, especially with international students, we need tools that are extremely scalable and lightweight (slow internet connections, VPNs), but also self-service so that they can use our tools during hours where our teams are offline, thus calling forth our `Scalable and Self-Service` mission. It's not enough to simply have a more diverse student body. We need to embrace their different time zones, educational backgrounds, identities, cultures, and learning styles. Thus, we build tools that are both `Informed and Impactful` and `Inclusive and Flexible`. 
+
+We advance this DCE-wide mission through our `Scalable and Self-Service`, `Informed and Impactful` and `Inclusive and Flexible` missions.
+
+### G. Identify/create explicit opportunity pairings between academic units (EXT, HSS, PDP, HILR) and departments. 
+
+Many of our tools are used across all DCE courses and programs. Thus, creating `Informed and Impactful` tools already requires us to work across different academic units. The very structure of our team is already situated between two teams, so it's fair to say that we are the embodiment of such explicit opportunities for collaborative pairings.
+
+We advance this DCE-wide mission through our `Informed and Impactful` mission.
+
+### H. Re-imagine our master’s degree offerings for the 21st century adult learner
+
+This DCE-wide mission is mostly targeted toward our curriculum planning and program development groups at DCE. That said, their work requires new technologies to scale the new programs and degree offerings. Once these programs are created, we will begin to work with program heads and experts on the Teaching and Learning Team to identify projects to advance this DCE-wide mission.
+
+We will work to advance this DCE-wide mission once our new master's degree offerings have been developed. Gabe is in meetings where they will get updates on the progress of this work and they will loop in the team once those projects have matured to the point where clear technologies are needed.
+
+### I. Develop a noncredit strategy across DCE and develop and launch new programs
+
+This DCE-wide mission aims to create other reasons for students to come to our programs, instead of only coming for credit.
+
+We will work to advance this DCE-wide mission once our noncredit strategy has been developed. Gabe is in meetings where they will get updates on the progress of this work and they will loop in the team once those projects have matured to the point where clear technologies are needed.
+
 # Overview of Technologies
 
 Our technologies were chosen to fit our missions. Thinking about consistency, stability, scalability, etc. we've landed on the following stack:
@@ -2116,7 +2176,7 @@ Additionally, whenever there is one item on its own line, all other items must b
 
 Arrays:
 
-```js
+```ts
 // Bad: first item is not on its own line
 const fruits = ['Apple',
   'Orange',
@@ -2260,6 +2320,65 @@ See the examples above. Look for trailing commas.
 
 Note: this is not supported in `.json` files. Thus, when possible, we prefer `.tsx` for data if possible.
 ```
+
+<Rule>
+  Use "guard clauses" if possible
+</Rule>
+
+```ts
+// Bad:
+const showTeacherInfo = () => {
+  // Make sure there's at least one enrolled user
+  if (enrollments.length > 0) {
+    // Print
+    console.log('This course has at least one enrolled user');
+
+    // Check if the course has a teacher
+    const hasTeacher = enrollments.some((enrollment) => {
+      return (enrollment.type === 'TTM');
+    });
+    if (hasTeacher) {
+      // Print
+      console.log('This course already has an assigned teacher');
+
+      // Update the UI
+      dispatch({
+        type: ActionType.ShowTeacherInfo,
+      });
+    }
+  }
+};
+
+// Good:
+const showTeacherInfo = () => {
+  // Make sure there's at least one enrolled user
+  if (enrollments.length === 0) {
+    return;
+  }
+
+  // Print
+  console.log('This course has at least one enrolled user');
+
+  // Check if the course has a teacher
+  const hasTeacher = enrollments.some((enrollment) => {
+    return (enrollment.type === 'TTM');
+  });
+  if (!hasTeacher) {
+    return;
+  }
+  
+  // Print
+  console.log('This course already has an assigned teacher');
+
+  // Update the UI
+  dispatch({
+    type: ActionType.ShowTeacherInfo,
+  });
+};
+```
+
+Guard clauses are `if` statements that terminate execution. Using guard clauses removes the need for nesting.
+
 
 # Typescript Advanced Stuff
 
