@@ -3014,6 +3014,60 @@ const funcName = async (): Promise<number> => {
 await Promise.all(tasks);
 ```
 
+<Exercise>
+  Create an async function that creates a unique test assignment in a sandbox course
+</Exercise>
+
+```ts
+// Import caccl-api
+import initAPI from 'caccl-api';
+
+// Initialize the API
+const api = initAPI({
+  // TODO: fill this in
+});
+
+// TODO: create a function "createTestAssignment" that creates a unique assignment in the course and returns it
+// NOTE: check out the caccl-api docs at bit.ly/caccl-api
+```
+
+<!-- Start Example -->
+<details>
+<summary>Example Result</summary>
+<pre>
+// Import caccl-api
+import initAPI from 'caccl-api';
+
+// Initialize the API
+const api = initAPI({
+  <b>canvasHost: 'canvas.harvard.edu',</b>
+  <b>accessToken: '1895~sdjfoa9me098fjoiasnudo8f7am9sod8ufnoaisdunfkuasdf',</b>
+  <b>defaultCourseId: 53450,</b>
+});
+
+<b>/**</b>
+ <b>* Create a unique test assignment within the sandbox course</b>
+ <b>* @author Gabe Abrams</b>
+ <b>* @returns assignment object that was created</b>
+ <b>*/</b>
+<b>const createTestAssignment = async () => {</b>
+  <b>// Generate a unique assignment name</b>
+  <b>const uniqueAssignmentName = `Test Assignment[${Date.now()}-${Math.random()}]`;</b>
+
+  <b>// Create an assignment</b>
+  <b>const assignment = await api.course.assignment.create({</b>
+    <b>name: uniqueAssignmentName,</b>
+    <b>submissionTypes: ['none'],</b>
+    <b>published: true,</b>
+  <b>});</b>
+
+  <b>// Return the new assignment</b>
+  <b>return assignment;</b>
+<b>};</b>
+</pre>
+</details>
+<!-- End Example -->
+
 ### Waiting for async tasks
 
 To wait for an async task, always use `await` instead of `.then`.
@@ -3061,6 +3115,66 @@ const data1 = await doTask1();
 const data2 = await doTask2();
 ```
 
+<Exercise>
+  Create an assignment and then get the full list of assignments
+</Exercise>
+
+```ts
+// Import caccl-api
+import initAPI from 'caccl-api';
+
+// Initialize the API
+const api = initAPI({
+  // TODO: fill this in
+});
+
+// TODO: implement the solution
+// NOTE: check out the caccl-api docs at bit.ly/caccl-api
+```
+
+<!-- Start Example -->
+<details>
+<summary>Example Result</summary>
+<pre>
+// Import caccl-api
+import initAPI from 'caccl-api';
+
+// Initialize the API
+const api = initAPI({
+  <b>canvasHost: 'canvas.harvard.edu',</b>
+  <b>accessToken: '1895~sdjfoa9me098fjoiasnudo8f7am9sod8ufnoaisdunfkuasdf',</b>
+  <b>defaultCourseId: 53450,</b>
+});
+
+<b>/**</b>
+ <b>* Create a unique test assignment within the sandbox course</b>
+ <b>* @author Gabe Abrams</b>
+ <b>* @returns assignment object that was created</b>
+ <b>*/</b>
+<b>const createTestAssignment = async () => {</b>
+  <b>// Generate a unique assignment name</b>
+  <b>const uniqueAssignmentName = `Test Assignment [${Date.now()}-${Math.random()}]`;</b>
+
+  <b>// Create an assignment</b>
+  <b>const assignment = await api.course.assignment.create({</b>
+    <b>name: uniqueAssignmentName,</b>
+    <b>submissionTypes: ['none'],</b>
+    <b>published: true,</b>
+  <b>});</b>
+
+  <b>// Return the new assignment</b>
+  <b>return assignment;</b>
+<b>};</b>
+
+<b>// First, create an assignment</b>
+<b>await createTestAssignment();</b>
+
+<b>// Then, get the full list of assignments</b>
+<b>const assignments = await api.course.assignment.list();</b>
+</pre>
+</details>
+<!-- End Example -->
+
 ### Parallel execution
 
 Combine `await` with `Promise.all` for parallel execution.
@@ -3074,6 +3188,157 @@ const [
   doTask2(),
 ]);
 ```
+
+<Exercise>
+  In parallel, get the list of pages, assignments, and discussion topics
+</Exercise>
+
+```ts
+// Import caccl-api
+import initAPI from 'caccl-api';
+
+// Initialize the API
+const api = initAPI({
+  // TODO: fill this in
+});
+
+// TODO: implement the solution
+// NOTE: check out the caccl-api docs at bit.ly/caccl-api
+```
+
+<!-- Start Example -->
+<details>
+<summary>Example Result</summary>
+<pre>
+// Import caccl-api
+import initAPI from 'caccl-api';
+
+// Initialize the API
+const api = initAPI({
+  <b>canvasHost: 'canvas.harvard.edu',</b>
+  <b>accessToken: '1895~sdjfoa9me098fjoiasnudo8f7am9sod8ufnoaisdunfkuasdf',</b>
+  <b>defaultCourseId: 53450,</b>
+});
+
+<b>// In parallel, get course content</b>
+<b>const [</b>
+  <b>pages,</b>
+  <b>assignments,</b>
+  <b>discussionTopics,</b>
+<b>] = await Promise.all([</b>
+  <b>// List pages</b>
+  <b>api.course.page.list(),</b>
+  <b>// List assignments</b>
+  <b>api.course.assignment.list(),</b>
+  <b>// List discussion topics</b>
+  <b>api.course.discussionTopic.list(),</b>
+<b>]);</b>
+</pre>
+</details>
+<!-- End Example -->
+
+<Exercise>
+  Run two tasks in parallel: 1. create a unique assignment and then get the list of assignments, 2. create a unique page and then get the list of pages
+</Exercise>
+
+```ts
+// Import caccl-api
+import initAPI from 'caccl-api';
+
+// Initialize the API
+const api = initAPI({
+  // TODO: fill this in
+});
+
+// TODO: implement the solution
+// NOTE: check out the caccl-api docs at bit.ly/caccl-api
+```
+
+<!-- Start Example -->
+<details>
+<summary>Example Result</summary>
+<pre>
+// Import caccl-api
+import initAPI from 'caccl-api';
+
+// Initialize the API
+const api = initAPI({
+  <b>canvasHost: 'canvas.harvard.edu',</b>
+  <b>accessToken: '1895~sdjfoa9me098fjoiasnudo8f7am9sod8ufnoaisdunfkuasdf',</b>
+  <b>defaultCourseId: 53450,</b>
+});
+
+<b>/**</b>
+ <b>* Create a unique test assignment within the sandbox course</b>
+ <b>* @author Gabe Abrams</b>
+ <b>* @returns assignment object that was created</b>
+ <b>*/</b>
+<b>const createTestAssignment = async () => {</b>
+  <b>// Generate a unique assignment name</b>
+  <b>const uniqueAssignmentName = `Test Assignment [${Date.now()}-${Math.random()}]`;</b>
+
+  <b>// Create an assignment</b>
+  <b>const assignment = await api.course.assignment.create({</b>
+    <b>name: uniqueAssignmentName,</b>
+    <b>submissionTypes: ['none'],</b>
+    <b>published: true,</b>
+  <b>});</b>
+
+  <b>// Return the new assignment</b>
+  <b>return assignment;</b>
+<b>};</b>
+
+<b>/**</b>
+ <b>* Create a unique test page within the sandbox course</b>
+ <b>* @author Gabe Abrams</b>
+ <b>* @returns page object that was created</b>
+ <b>*/</b>
+<b>const createTestPage = async () => {</b>
+  <b>// Generate a unique page title</b>
+  <b>const uniquePageTitle = `Test Page [${Date.now()}-${Math.random()}]`;</b>
+
+  <b>// Create a page</b>
+  <b>const page = await api.course.pages.create({</b>
+    <b>title: uniquePageTitle,</b>
+    <b>body: 'This is a test page.',</b>
+    <b>published: true,</b>
+  <b>});</b>
+
+  <b>// Return the new assignment</b>
+  <b>return assignment;</b>
+<b>};</b>
+
+<b>// Run create + list tasks in parallel</b>
+<b>const [</b>
+  <b>assignments,</b>
+  <b>pages,</b>
+<b>] = await Promise.all([</b>
+  <b>// Create an assignment and then get the list of assignments</b>
+  <b>(async () => {</b>
+    <b>// Create an assignment</b>
+    <b>await createTestAssignment();</b>
+
+    <b>// Get the list of assignments</b>
+    <b>const assignments = await api.course.assignment.list();</b>
+
+    <b>// Return the list of assignments</b>
+    <b>return assignments;</b>
+  <b>})(),</b>
+  <b>// Create a page and then get the list of pages</b>
+  <b>(async () => {</b>
+    <b>// Create a page</b>
+    <b>await createTestPage();</b>
+
+    <b>// Get the list of pages</b>
+    <b>const pages = await api.course.page.list();</b>
+
+    <b>// Return the list of pages</b>
+    <b>return pages;</b>
+  <b>})(),</b>
+<b>]);</b>
+</pre>
+</details>
+<!-- End Example -->
 
 ### Callbacks
 
