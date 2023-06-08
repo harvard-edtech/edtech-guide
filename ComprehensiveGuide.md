@@ -2974,6 +2974,15 @@ const funcName = async () => {
 };
 ```
 
+For asynchronous functions that have return values, simply wrap the return type in `Promise<...>`:
+
+```ts
+// For example, here's an async function that returns a number
+const funcName = async (): Promise<number> => {
+  ...
+};
+```
+
 Always use the `async` keyword instead of returning `Promise` objects. In fact, refrain from referencing `Promise` except in types and when using `Promise.all`.
 
 <Rule>
