@@ -3349,6 +3349,141 @@ const api = initAPI({
 </details>
 <!-- End Example -->
 
+### Error Handling
+
+With asynchronous code, error handling is nearly the same: simply wrap your code in a `try/catch` block:
+
+```ts
+// Async task that doesn't return anything
+try {
+  await doAsyncTask();
+} catch (err) {
+  // Handle error
+}
+
+// Async task that returns something
+let userEmail: string;
+try {
+  userEmail = await getUserEmail();
+} catch (err) {
+  // Handle error
+}
+```
+
+The most important thing to remember is that asynchronous tasks must be _awaited from inside the try/catch_ otherwise, code execution will continue and leave the `try/catch` block before the error occurs.
+
+When handling errors that occur in `Promise.all` parallel execution, it's important to note that `Promise.all` throws an error immediately as soon as any of the promises passed into it throw an error. If an error occurs, only the first error will be thrown by `Promise.all`. Other tasks will continue to execute, but their results will be ignored.
+
+If you don't want all of the tasks in the `Promise.all` to be ignored if one of the tasks encounters an error, simply group them together and wrap the internal tasks with `try/catch` blocks. The best way to explain this is by example:
+
+Here's what it would look like if we wanted the code to quit if any of the tasks fail:
+
+```ts
+try {
+  const [
+    pages,
+    assignments,
+    serverList,
+  ] = await Promise.all([
+    api.course.page.list(),
+    api.course.assignment.list(),
+    getListOfServers(),
+  ]);
+} catch (err) {
+  // Handle error
+}
+```
+
+However, let's say that we want it to work such that if one of two first Canvas-based tasks fails, we don't want the `getListOfServers` task to be ignored. We could separate the Canvas-based tasks into a separate asynchronous function and handle the error within that function:
+
+```ts
+/**
+ * Load pages and assignments. If a failure occurs, instead of failing, we
+ *   will return an empty array
+ * @author Gabe Abrams
+ * @returns pages and assignments
+ */
+const loadCanvasData = async () => {
+  try {
+    const [
+      pages,
+      assignments,
+    ] = await Promise.all([
+      api.course.page.list(),
+      api.course.assignment.list(),
+    ]);
+
+    return {
+      pages,
+      assignments,
+    };
+  } catch (err) {
+    return {
+      pages: [],
+      assignments: [],
+    };
+  }
+};
+
+try {
+  const [
+    canvasData,
+    serverList,
+  ] = await Promise.all([
+    loadCanvasData(),
+    getListOfServers(),
+  ]);
+
+  const {
+    pages,
+    assignments,
+  } = canvasData;
+} catch (err) {
+  // Handle error
+}
+```
+
+If the tasks are simple and it's convenient to put the asynchronous task inline, you can skip the step of creating a named function by instead creating an anonymous function and immediately calling it:
+
+```ts
+try {
+  const [
+    canvasData,
+    serverList,
+  ] = await Promise.all([
+    (async () => {
+      try {
+        const [
+          pages,
+          assignments,
+        ] = await Promise.all([
+          api.course.page.list(),
+          api.course.assignment.list(),
+        ]);
+
+        return {
+          pages,
+          assignments,
+        };
+      } catch (err) {
+        return {
+          pages: [],
+          assignments: [],
+        };
+      }
+    })(),
+    getListOfServers(),
+  ]);
+
+  const {
+    pages,
+    assignments,
+  } = canvasData;
+} catch (err) {
+  // Handle error
+}
+```
+
 ### Callbacks
 
 Refrain from using callbacks unless absolutely necessary. If it's a lib function that requires a callback, wrap it in a helper and then use the helper.
