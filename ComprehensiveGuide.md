@@ -4558,6 +4558,93 @@ export default MyClass;
 
 Writing JSX code takes some getting used to. In many cases, it looks and feels just like HTML, but on certain cases, it differs in very small ways. Let's go through JSX by reviewing some of my favorite tips.
 
+### Injecting Typescript
+
+JSX is a combination of HTML and Typescript. The most important thing you'll learn about JSX is how to inject typescript into html. Typescript is always surrounded by `{...}` within our JSX blocks. Let's learn through examples:
+
+Add a dynamically generated template string for the button aria-label:
+
+```jsx
+<button
+  type="button"
+  className="btn btn-warning"
+  aria-label={`log out ${currentUserName}`}
+>
+  Log Out
+</button>
+```
+
+Add a variable as the value for an onClick function:
+
+```jsx
+<button
+  type="button"
+  className="btn btn-warning"
+  onClick={logOut}
+>
+  Log Out
+</button>
+```
+
+Add an inline function that's called when the user clicks a button:
+
+```jsx
+<button
+  type="button"
+  className="btn btn-warning"
+  onClick={() => {
+    console.log('Logging out now!');
+  }}
+>
+  Log Out
+</button>
+```
+
+This works for props and also normal html contents:
+
+```jsx
+<button
+  type="button"
+  className="btn btn-warning"
+>
+  Log Out
+  {' '}
+  {numActiveUsers}
+  {' '}
+  Users
+</button>
+```
+
+Any typescript can be placed inside the `{...}`, for example, math:
+
+```jsx
+<button
+  type="button"
+  className="btn btn-warning"
+>
+  Log Out
+  {' '}
+  {numActiveUsers + 1}
+  {' '}
+  Users
+</button>
+```
+
+We can also use conditional logic, just like usual in typescript:
+
+```jsx
+<button
+  type="button"
+  className="btn btn-warning"
+>
+  {
+    numActiveUsers === 1
+      ? 'Log Out Current User'
+      : `Log Out ${numActiveUsers} Users`
+  }
+</button>
+```
+
 ### Classes
 
 Instead of using `class="..."`, we use `className="..."` in JSX.
