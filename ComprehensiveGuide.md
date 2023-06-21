@@ -4077,6 +4077,97 @@ const FADE_OUT_DURATION = 1500; // ms
 
 Remember that all numbers must include their units.
 
+<Exercise tall>
+  Create a simple button component that takes a label, onClick function, variant, and ariaLabel as props
+</Exercise>
+
+<!-- Start Example -->
+<details>
+<summary>Example Result</summary>
+<pre>
+/**
+ * Bootstrap button component
+ * @author Gabe Abrams
+ */
+
+// Import React
+import React from 'react';
+
+// Import dce-reactkit
+import { Variant } from 'dce-reactkit';
+
+/*------------------------------------------------------------------------*/
+/* -------------------------------- Types ------------------------------- */
+/*------------------------------------------------------------------------*/
+
+// Props definition
+type Props = {
+  // Button label
+  label?: React.ReactNode,
+  // Children as button label
+  children?: React.ReactNode,
+  // Human-readable accessible description of button
+  ariaLabel: string,
+  // Button variant
+  variant?: Variant,
+  // Handler for when the button is clicked
+  onClick: () => void,
+};
+
+/*------------------------------------------------------------------------*/
+/* ------------------------------ Component ----------------------------- */
+/*------------------------------------------------------------------------*/
+
+const CustomButton: React.FC<Props> = (props) => {
+  /*------------------------------------------------------------------------*/
+  /* -------------------------------- Setup ------------------------------- */
+  /*------------------------------------------------------------------------*/
+
+  /* -------------- Props ------------- */
+
+  // Destructure all props
+  const {
+    ariaLabel,
+    variant = Variant.Primary,
+    onClick,
+  } = props;
+  const label = (
+    props.label
+    ?? props.children
+    ?? 'Unlabeled Button'
+  );
+
+  /*------------------------------------------------------------------------*/
+  /* ------------------------------- Render ------------------------------- */
+  /*------------------------------------------------------------------------*/
+
+  /*----------------------------------------*/
+  /* --------------- Main UI -------------- */
+  /*----------------------------------------*/
+
+  return (
+    <button
+      type="button"
+      className={`btn btn-${variant}`}
+      aria-label={ariaLabel}
+      onClick={onClick}
+    >
+      {label}
+    </button>
+  );
+};
+
+/*------------------------------------------------------------------------*/
+/* ------------------------------- Wrap Up ------------------------------ */
+/*------------------------------------------------------------------------*/
+
+// Export component
+export default CustomButton;
+
+</pre>
+</details>
+<!-- End Example -->
+
 ### State
 
 You may be familiar with the React `useState` hook. We take a more rigorous approach to component state, always requiring that state be managed by reducers. This forces us to keep our views and controllers separate. Thus, we achieve a fully separate MVC design.
@@ -4298,6 +4389,165 @@ switch (expression) {
   }
 }
 ```
+
+<Exercise tall>
+  Create a closeable alert that becomes invisible after being closed
+</Exercise>
+
+<!-- Start Example -->
+<details>
+<summary>Example Result</summary>
+<pre>
+/**
+ * Closeable alert
+ * @author Gabe Abrams
+ */
+
+// Import React
+import React, { useReducer } from 'react';
+
+// Import dce-reactkit
+import { Variant } from 'dce-reactkit';
+
+/*------------------------------------------------------------------------*/
+/* -------------------------------- Types ------------------------------- */
+/*------------------------------------------------------------------------*/
+
+// Props definition
+type Props = {
+  // Alert variant
+  variant?: Variant,
+  // Children as contents of alert
+  children: React.ReactNode,
+};
+
+/*------------------------------------------------------------------------*/
+/* -------------------------------- State ------------------------------- */
+/*------------------------------------------------------------------------*/
+
+/* -------- State Definition -------- */
+
+type State = {
+  // If true, the alert is visible
+  visible: boolean,
+};
+
+/* ------------- Actions ------------ */
+
+// Types of actions
+enum ActionType {
+  // Hide the alert
+  Hide = 'Hide',
+}
+
+// Action definitions
+type Action = (
+  | {
+    // Action type
+    type: (
+      | ActionType.Hide
+    ),
+  }
+);
+
+/**
+ * Reducer that executes actions
+ * @author Gabe Abrams
+ * @param state current state
+ * @param action action to execute
+ */
+const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case ActionType.Hide: {
+      return {
+        ...state,
+        visible: false,
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+/*------------------------------------------------------------------------*/
+/* ------------------------------ Component ----------------------------- */
+/*------------------------------------------------------------------------*/
+
+const CloseableAlert: React.FC<Props> = (props) => {
+  /*------------------------------------------------------------------------*/
+  /* -------------------------------- Setup ------------------------------- */
+  /*------------------------------------------------------------------------*/
+
+  /* -------------- Props ------------- */
+
+  // Destructure all props
+  const {
+    variant = Variant.Warning,
+    children,
+  } = props;
+
+  /* -------------- State ------------- */
+
+  // Initial state
+  const initialState: State = {
+    visible: true,
+  };
+
+  // Initialize state
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  // Destructure common state
+  const {
+    visible,
+  } = state;
+
+  /*------------------------------------------------------------------------*/
+  /* ------------------------------- Render ------------------------------- */
+  /*------------------------------------------------------------------------*/
+
+  /*----------------------------------------*/
+  /* --------------- Main UI -------------- */
+  /*----------------------------------------*/
+
+  // If not visible, return empty div
+  if (!visible) {
+    return (
+      <div className="CloseableAlert-hidden d-none" />
+    );
+  }
+
+  // Visible
+  return (
+    <div
+      className={`alert alert-${variant}`}
+      role="alert"
+    >
+      {children}
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        onClick={() => {
+          dispatch({
+            type: ActionType.Hide,
+          });
+        }}
+      />
+    </div>
+  );
+};
+
+/*------------------------------------------------------------------------*/
+/* ------------------------------- Wrap Up ------------------------------ */
+/*------------------------------------------------------------------------*/
+
+// Export component
+export default CloseableAlert;
+
+</pre>
+</details>
+<!-- End Example -->
 
 ### Static Helpers
 
