@@ -3700,6 +3700,7 @@ type Action = (
  * @author Add Your Name
  * @param state current state
  * @param action action to execute
+ * @returns updated state
  */
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -4220,7 +4221,7 @@ type Action = (
   | {
     // Action type
     type: (
-      ActionType.ResetForm
+      | ActionType.ResetForm
       | ActionType.ShowSendingIndicator
     ),
   }
@@ -4235,6 +4236,7 @@ Finally, create a reducer that executes the state updates. This function can get
  * @author Divardo Calicci
  * @param state current state
  * @param action action to execute
+ * @returns updated state
  */
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
