@@ -4473,6 +4473,63 @@ useEffect(
 );
 ```
 
+<Exercise tall>
+  Create an app that lists the assignments in the course and allows the user to delete an assignment
+</Exercise>
+
+#### useEffect Hook
+
+In each of the lifecycle functions we learned above, you'll see effective usage of the `useEffect` hook, which is one of the more complex hooks. It's not necessary that you fully understand this hook in order to do software development at DCE, but it's a good hook to understand. Thus, we'll go over it in some detail just for fun. This is a slightly simplified and modified description, see the docs for full detail.
+
+The `useEffect` hook is used to watch for changes to prop variables (so we can make updates when prop variables change) and also to watch for destruction of such variables (we we can do cleanup). Here's how it works:
+
+`useEffect` takes two arguments. The first argument is the effect function that is called when the changes are detected. The second argument is the list of prop variables to watch.
+
+When any of the prop variables in the list change, the effect function is called. Also, on mount, those prop variables go from not existing to having values (that counts as a change), so the effect function is called on mount. The effect function contains the code that React should run when the changes are detected, and that is quite straightforward. But, the effect function also does something a little tricky: it's allowed to return another function (a cleanup function) that will be called when the component unmounts (this is a simplification).
+
+Let's go through a few examples to make sense of this:
+
+```ts
+useEffect(
+  () => {
+    console.log('Hello!');
+  },
+  [],
+);
+```
+
+In the example above, the array of prop variables to watch is empty. Thus, the effect function will be called on mount (because it's always called on mount) but will not be triggered at any point afterward. The effect function contains just a console.log and does not return a cleanup function, so there is no code here that will be called upon unmount. That's why we consider this `useEffect` usage to be a "Mount" function.
+
+```ts
+useEffect(
+  () => {
+    console.log('Hello!');
+  },
+  [users],
+);
+```
+
+In the example above, the array of prop variables contains the "users" prop. Thus, the effect function will be called on mount and will also be called whenever the "users" prop changes value. The effect function contains just a console.log and does not return a cleanup function, so there is no code here that will be called upon unmount. That's why we consider this `useEffect` usage to be an "Update" function.
+
+```ts
+useEffect(
+  () => {
+    return () => {
+      console.log('Hello!');
+    };
+  },
+  [],
+);
+```
+
+In the example above, the array of prop variables to watch is empty. Thus, the effect function will be called on mount (because it's always called on mount) but will not be triggered at any point afterward. The effect function only contains a return statement and does not run any other code, so in effect, there is no code to run on mount but there is code to run on unmount (the returned function will be called on unmount). That's why we consider this `useEffect` usage to be an "Unmount" function.
+
+At DCE, these are the only three usages that we'll allow for `useEffect`, but at other organizations they may allow much more complex `useEffect` implementations. We keep things simple and clear for understandability and readability.
+
+<Rule tall>
+  Only use the "useEffect" hook statements that are listed in the template
+</Rule>
+
 ### Render
 
 You may have noticed that we separate sections of our code with comment blocks. Aside from the usual very large and wide comment block delimiting sections of the code, we use two smaller types of comment blocks to organize our render functions.
