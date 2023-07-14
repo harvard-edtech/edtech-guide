@@ -4902,15 +4902,15 @@ If state must be shared between multiple components, put those state variables i
 This can cause what is called "prop drilling", where state is passed through multiple layers of children via their props. If this becomes particularly cumbersome, it might be one of the cases where we use a React Context Provider to create a shared state, but this needs to be a full team decision.
 
 <Rule tall>
-  Never create a React Context Provider without a discussion with your manager and the rest of the team
+  Never create a React Context Provider without discussing with the rest of the team
 </Rule>
 
 ### No Images
 
-Unless absolutely necessary, never use images. Great alternatives are glyphs via `FontAwesome` or svg vector graphics. If you think that an image is required, ask your manager before continuing. We do this to aggressively keep our apps small in size. We have students all over the world, many with very slow internet connections, so load time is very important.
+Unless absolutely necessary, never use images. Great alternatives are glyphs via `FontAwesome` or svg vector graphics. If you think that an image is required, discuss the situation with the team. We do this to aggressively keep our apps small in size. We have students all over the world, many with very slow internet connections, so load time is very important.
 
 <Rule tall>
-  Never use an image without permission from your manager
+  Never use an image without discussing with the rest of the team
 </Rule>
 
 ### "Fat" Reducers
