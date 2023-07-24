@@ -4305,6 +4305,49 @@ switch (expression) {
 }
 ```
 
+If some of your actions can only be dispatched from within specific views, break your reducer into multiple sections surrounded with `if` statements:
+
+```ts
+/**
+ * Reducer that executes actions
+ * @author Divardo Calicci
+ * @param state current state
+ * @param action action to execute
+ * @returns updated state
+ */
+const reducer = (state: State, action: Action): State => {
+  /* --------- Assignment List -------- */
+  
+  if (state.view === View.AssignmentList) {
+    switch (action.type) {
+      case ActionType.FilterAssignments: {
+        ...
+      }
+      default: {
+        return state;
+      }
+    }
+  }
+
+  /* ------------ Page List ----------- */
+
+  if (state.view === View.PageList) {
+    switch (action.type) {
+      case ActionType.FilterPages: {
+        ...
+      }
+      default: {
+        return state;
+      }
+    }
+  }
+
+  /* ------------- Default ------------ */
+
+  return state;
+};
+```
+
 <Exercise tall>
   Create a closeable alert that becomes invisible after being closed
 </Exercise>
