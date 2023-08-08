@@ -5887,7 +5887,7 @@ app.get(
       videoId: ParamType.Int,
       transcriptId: ParamType.Int,
       format: ParamType.String,
-      language: ParamType.String,
+      language: ParamType.StringOptional,
     },
     ...
   }),
@@ -5984,7 +5984,12 @@ app.get(
       } = params;
 
       // Get the transcript
-      const transcript = getTranscript(videoId, transcriptId, format, language);
+      const transcript = getTranscript({
+        videoId,
+        transcriptId,
+        format,
+        language,
+      });
 
       // Add user info to the transcript
       const transcriptWithUserInfo = augmentWithUserInfo(transcript, userId, userFirstName);
