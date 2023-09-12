@@ -6678,11 +6678,11 @@ You can stub multiple requests and Raixa will automatically know which to stub b
 
 ## Running Tests
 
-Use `npm run test-client` to start the jest test runner.
+Use `npm run test:client` to start the jest test runner.
 
-If `test-client` is not set up yet, here's how you add that script:
+If `test:client` is not set up yet, here's how you add that script:
 
-1. In the top-level `package.json` file, add a new script: `"test-client": "cd client && npm run test"`
+1. In the top-level `package.json` file, add a new script: `"test:client": "cd client && npm run test"`
 2. Then, in `client/package.json`, modify the "test" script to include the --runInBand flag: `"test": "react-scripts test --runInBand"`
 
 # Helper Unit Tests
