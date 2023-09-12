@@ -6447,6 +6447,13 @@ There are some things that we do not test:
 
 When writing tests, first write each assertion with the opposite type of test (if a button should be enabled, test if it's disabled) and make sure the test will fail. Writing tests that succeed is easy. Writing tests that fail when appropriate is very hard.
 
+One way to identify all the tests that you need to write is to start with each prop and state variable:
+
+1. How does each prop or state variable impact the functionality/rendering/interactivity of the component?
+1. What kinds of special cases might arise for props/state variables? For example, negative numbers, empty strings, empty arrays, etc.
+1. How should the props/state react to errors?
+1. How does the component render, what content should it create based on each type of prop passed in?
+
 ## Create a Test File
 
 Name your test the same as your component with a `.test.tsx` filename:
@@ -6498,7 +6505,7 @@ Raixa.render(
   <MyComponent
     prop1={value}
     prop2="value"
-  />
+  />,
 );
 ```
 
@@ -6590,7 +6597,7 @@ test(
       <EmailForm
         sender="test@harvard.edu"
         onSent={() => {}}
-      />
+      />,
     );
 
     // Type an invalid recipient
@@ -6616,7 +6623,7 @@ test(
       <EmailForm
         sender="test@harvard.edu"
         onSent={() => {}}
-      />
+      />,
     );
 
     // Type a valid recipient
@@ -6649,7 +6656,7 @@ test(
       <EmailForm
         sender="test@harvard.edu"
         onSent={() => {}}
-      />
+      />,
     );
 
     // Type a valid recipient
@@ -6662,7 +6669,7 @@ test(
     Raixa.click('.EmailForm-send-button');
 
     // Make sure the server's error is visible
-    Raixa.assertExists('.EmailForm-error-occurred');
+    Raixa.waitForElementPresent('.EmailForm-error-occurred');
   },
 );
 ```
@@ -6672,6 +6679,11 @@ You can stub multiple requests and Raixa will automatically know which to stub b
 ## Running Tests
 
 Use `npm run test-client` to start the jest test runner.
+
+If `test-client` is not set up yet, here's how you add that script:
+
+1. In the top-level `package.json` file, add a new script: `"test-client": "cd client && npm run test"`
+2. Then, in `client/package.json`, modify the "test" script to include the --runInBand flag: `"test": "react-scripts test --runInBand"`
 
 # Helper Unit Tests
 
@@ -6788,7 +6800,7 @@ Our test case files follow a strict folder structure: there should only be one t
 
 Our tests are written in the `Groovy` language, which looks like `Java`.
 
-Check out the [Kaixa Docs](https://harvard-edtech.github.io/create-kaixa/) for guides on how to write end-to-end tests, but it should feel just like writing tests with [Raixa](bit.ly/dce-raixa).
+Check out the [Kaixa Docs](https://harvard-edtech.github.io/create-kaixa/) for guides on how to write end-to-end tests, but it should feel just like writing tests with [Raixa](https://bit.ly/dce-raixa).
 
 ## Running a Test
 
