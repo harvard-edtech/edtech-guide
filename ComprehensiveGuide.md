@@ -5925,7 +5925,8 @@ Handler functions can take any of the following requirements, depending on what'
 - `req`: the express request object
 - `next`: a function to call to call the next express handler in the stack `next()`
 - `send`: send a raw text response to the client `send(text: string, [status: number])`
-- `renderErrorPage`: render a pretty html page that displays a server-side error (should not be used for API endpoint), takes an object that contain any of the following strings: `title`, `description`, `code`, `pageTitle`, as well as an optional `status` number
+- `renderErrorPage`: render a pretty html page that displays a server-side error (should not be used for API endpoints), takes an object that contain any of the following strings: `title`, `description`, `code`, `pageTitle`, as well as an optional `status` number
+- `renderInfoPage`: render a pretty html page that displays server-side info (should not be used for API endpoints), takes an object that contains the following strings: `title`, `body`.
 
 Additional params added to the `params` object in addition to params defined by `paramTypes`:
 
