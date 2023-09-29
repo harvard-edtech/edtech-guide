@@ -5936,6 +5936,7 @@ Additional params added to the `params` object in addition to params defined by 
  * @param {string} userFirstName the user's first name from Canvas
  * @param {string} userLastName the user's last name from Canvas
  * @param {string} userEmail the user's primary email from Canvas
+ * @param {string} userAvatarURL a link to the user's profile image
  * @param {boolean} isLearner true if the user is a learner (student) in the Canvas course
  * @param {boolean} isTTM true if the user is a teacher, TA, or other teaching team member in the Canvas course
  * @param {boolean} isAdmin true if the user is a Canvas admin
