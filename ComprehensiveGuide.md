@@ -278,6 +278,8 @@ If eslint isn't working on the project, first try reinstalling it: Shift + CMD/C
 
 If that doesn't fix it, try the solutions in this [ESLint Troubleshooting Checklist](https://dev.to/tillsanders/eslint-not-working-in-vscode-help-build-a-troubleshooting-checklist-fdc).
 
+If opening the project in VSCode, try only opening the project itself (not a parent directory).
+
 ## Set Up a Sandboxes
 
 ### Typescript Sandbox
