@@ -330,7 +330,7 @@ Note: if you get an error saying `ts-node: command not found`, install `ts-node`
 
 ### React Sandbox
 
-Visit the [CACCL Docs](bit.ly/caccl) and set up a react-based project, using `npm init caccl@latest`.
+Visit the [CACCL Docs](https://bit.ly/caccl) and set up a react-based project, using `npm init caccl@latest`.
 
 # Get Access to Harvard Tools
 
@@ -517,7 +517,7 @@ We build a culture of constructive feedback. Gabe welcomes (and practically begs
 
 All feedback should be structured in a way that is constructive and respectful. In return, when receiving feedback, start by assuming that the person giving feedback is doing it with the best intent.
 
-If you have feedback and you'd like to remain anonymous, submit it through [bit.ly/feedback-for-gabe](bit.ly/feedback-for-gabe)
+If you have feedback and you'd like to remain anonymous, submit it through [https://bit.ly/feedback-for-gabe](https://bit.ly/feedback-for-gabe)
 
 ## 5. Prompt and Respectful Communication
 
@@ -6484,7 +6484,7 @@ import Raixa from 'raixa';
 import MyComponent from './MyComponent';
 ```
 
-We use a custom-built wrapper for [React Testing Library (RTL)](https://testing-library.com/docs/react-testing-library/intro/) that we call [Raixa](bit.ly/dce-raixa). Although we do not directly interact with RTL, for your own professional development, we recommend that you take some time to learn it. But for our purposes, if a testing functionality is not available in [Raixa](bit.ly/dce-raixa), we will add the functionality to [Raixa](bit.ly/dce-raixa) instead of using RTL.
+We use a custom-built wrapper for [React Testing Library (RTL)](https://testing-library.com/docs/react-testing-library/intro/) that we call [Raixa](https://bit.ly/dce-raixa). Although we do not directly interact with RTL, for your own professional development, we recommend that you take some time to learn it. But for our purposes, if a testing functionality is not available in [Raixa](https://bit.ly/dce-raixa), we will add the functionality to [Raixa](https://bit.ly/dce-raixa) instead of using RTL.
 
 Create a test:
 
@@ -6514,7 +6514,7 @@ Raixa.render(
 );
 ```
 
-Once you've rendered your component, use [Raixa functions](bit.ly/dce-raixa) to test the component.
+Once you've rendered your component, use [Raixa functions](https://bit.ly/dce-raixa) to test the component.
 
 ```ts
 // Click the "start email button"
