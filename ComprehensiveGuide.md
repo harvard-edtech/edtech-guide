@@ -248,7 +248,6 @@ Install required VSCode extensions:
 
 1. `Code Spell Checker` by Street Side Software - flags spelling errors in your code
 1. `ESLint` by Microsoft - required for eslint enforcement
-1. `npm` by Microsoft - required for code highlighting
 1. `TODO Highlight` by Wayou Liu (alternative is okay) - highlights TODOs
 
 Remove banned extensions or disable them on all our projects:
@@ -517,6 +516,8 @@ Because we're part of a collaborative team, equity becomes important. Thus, whil
 We build a culture of constructive feedback. Gabe welcomes (and practically begs for) feedback. In return, Gabe works hard to give feedback to everyone on the team. If you ever feel unsure about how you're doing, please ask for feedback. Good conversations and sharing of feedback are how we create clarity and openness.
 
 All feedback should be structured in a way that is constructive and respectful. In return, when receiving feedback, start by assuming that the person giving feedback is doing it with the best intent.
+
+If you have feedback and you'd like to remain anonymous, submit it through [bit.ly/feedback-for-gabe](bit.ly/feedback-for-gabe)
 
 ## 5. Prompt and Respectful Communication
 
