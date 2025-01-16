@@ -1,6 +1,6 @@
 # Comprehensive EdTech Development Guide
 
-Last updated by Gabe Abrams in 2024. This will probably be out of date within minutes of this guide being published. Be alert and be flexible.
+Last updated by Gabe Abrams in 2025. This will probably be out of date within minutes of this guide being published. Be alert and be flexible.
 
 <style>
   /* Rule element for team rules */
