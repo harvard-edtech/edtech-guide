@@ -6806,10 +6806,23 @@ Our tests are written in the `Groovy` language, which looks like `Java`.
 
 Check out the [Kaixa Docs](https://harvard-edtech.github.io/create-kaixa/) for guides on how to write end-to-end tests, but it should feel just like writing tests with [Raixa](https://bit.ly/dce-raixa).
 
+### Where to Find Docs
+
+For general commands (clicking, typing, waiting, etc.) use the [Kaixa Docs](https://harvard-edtech.github.io/create-kaixa/). For project-specific docs, open Katalon, in the file browser go to "Keywords" and find the keyword file that is _not_ `Kaixa.groovy`. For example, the Immersive Classroom keyword is called `IC.groovy` and the Gather keyword is called `Gather.groovy`. Within that file, there are many custom functions that represent automation tasks that we expect to perform quite frequently for that project. Each function contains inline JSDoc that outlines the functions use and each argument you might pass in.
+
+### How to Choose CSS Selectors
+
+When clicking, typing, asserting, waiting for, or doing any other task that requires specifying an element on the page, you'll need a CSS selector.
+
+Open the app in your browser and poke around until you see the element that you want to target, then right click it and select "Inspect". In your element inspector, you'll see the code for the html. The element may have an `id` or `class`. You're welcome to use either. The main mission is to select something that's unique and descriptive. It _must_ start with the name of the component (e.g. `BookmarkDashboard-something-else`) and cannot be one of the all lowercase formatting classes (e.g. `text-center` or `pb-2`).
+
+If there isn't an obvious class name or id that you can use, _do not_ get creative. Instead, we'll go into the code of the app and add unique class names and ids.
+
 ## Running a Test
 
-1. Start a development copy of the app (server and/or client)
+1. Make sure the app you're testing is running and ready to be tested
 1. Open the test case
+1. Choose a profile
 1. Next to the play button, click the dropdown and choose a browser
 
 # Commonly Used Dependencies
