@@ -6774,7 +6774,7 @@ We use Katalon for all our end-to-end automated cross browser testing.
 
 ### 1. Install Katalon:
 
-Visit [Katalon.com](https://www.katalon.com/katalon-studio/), create an account, and then install the free version of the tool.
+Visit [Katalon](https://katalon.com/download-studio-free), create an account, and then install the free version of the tool.
 
 ### 2. Modify Katalon Preferences:
 
