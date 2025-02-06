@@ -1,6 +1,6 @@
 # Comprehensive EdTech Development Guide
 
-Last updated by Gabe Abrams in 2024. This will probably be out of date within minutes of this guide being published. Be alert and be flexible.
+Last updated by Gabe Abrams in 2025. This will probably be out of date within minutes of this guide being published. Be alert and be flexible.
 
 <style>
   /* Rule element for team rules */
@@ -248,7 +248,6 @@ Install required VSCode extensions:
 
 1. `Code Spell Checker` by Street Side Software - flags spelling errors in your code
 1. `ESLint` by Microsoft - required for eslint enforcement
-1. `npm` by Microsoft - required for code highlighting
 1. `TODO Highlight` by Wayou Liu (alternative is okay) - highlights TODOs
 
 Remove banned extensions or disable them on all our projects:
@@ -331,7 +330,7 @@ Note: if you get an error saying `ts-node: command not found`, install `ts-node`
 
 ### React Sandbox
 
-Visit the [CACCL Docs](bit.ly/caccl) and set up a react-based project, using `npm init caccl@latest`.
+Visit the [CACCL Docs](https://bit.ly/caccl) and set up a react-based project, using `npm init caccl@latest`.
 
 # Get Access to Harvard Tools
 
@@ -517,6 +516,8 @@ Because we're part of a collaborative team, equity becomes important. Thus, whil
 We build a culture of constructive feedback. Gabe welcomes (and practically begs for) feedback. In return, Gabe works hard to give feedback to everyone on the team. If you ever feel unsure about how you're doing, please ask for feedback. Good conversations and sharing of feedback are how we create clarity and openness.
 
 All feedback should be structured in a way that is constructive and respectful. In return, when receiving feedback, start by assuming that the person giving feedback is doing it with the best intent.
+
+If you have feedback and you'd like to remain anonymous, submit it through [https://bit.ly/feedback-for-gabe](https://bit.ly/feedback-for-gabe)
 
 ## 5. Prompt and Respectful Communication
 
@@ -6483,7 +6484,7 @@ import Raixa from 'raixa';
 import MyComponent from './MyComponent';
 ```
 
-We use a custom-built wrapper for [React Testing Library (RTL)](https://testing-library.com/docs/react-testing-library/intro/) that we call [Raixa](bit.ly/dce-raixa). Although we do not directly interact with RTL, for your own professional development, we recommend that you take some time to learn it. But for our purposes, if a testing functionality is not available in [Raixa](bit.ly/dce-raixa), we will add the functionality to [Raixa](bit.ly/dce-raixa) instead of using RTL.
+We use a custom-built wrapper for [React Testing Library (RTL)](https://testing-library.com/docs/react-testing-library/intro/) that we call [Raixa](https://bit.ly/dce-raixa). Although we do not directly interact with RTL, for your own professional development, we recommend that you take some time to learn it. But for our purposes, if a testing functionality is not available in [Raixa](https://bit.ly/dce-raixa), we will add the functionality to [Raixa](https://bit.ly/dce-raixa) instead of using RTL.
 
 Create a test:
 
@@ -6513,7 +6514,7 @@ Raixa.render(
 );
 ```
 
-Once you've rendered your component, use [Raixa functions](bit.ly/dce-raixa) to test the component.
+Once you've rendered your component, use [Raixa functions](https://bit.ly/dce-raixa) to test the component.
 
 ```ts
 // Click the "start email button"
@@ -6773,7 +6774,7 @@ We use Katalon for all our end-to-end automated cross browser testing.
 
 ### 1. Install Katalon:
 
-Visit [Katalon.com](https://www.katalon.com/katalon-studio/), create an account, and then install the free version of the tool.
+Visit [Katalon](https://katalon.com/download-studio-free), create an account, and then install the free version of the tool.
 
 ### 2. Modify Katalon Preferences:
 
