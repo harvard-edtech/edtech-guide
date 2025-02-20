@@ -6786,7 +6786,15 @@ In Katalon's preferences panel, make the following changes:
 
 `General > Editors > Text Editors > Displayed Tab Width` – Set this to "2"
 
-`General > Editors > Text Editors > Insert Spaces for Tabs` – Turn this on (check the box)
+Also, edit your default text editor profile:
+
+`General > Editors > Text Editors > New...`
+
+Create a new profile called "DCE Automated Testing" and click "OK"
+
+Under the "Indentation" section, change "Tab policy" to "Spaces Only" and change both "Indentation size" and "Tab size" to "2"
+
+Click "Apply", "OK", make sure "DCE Automated Testing" is your active profile, then click "Apply" and then "Apply and Close"
 
 ## Keep Katalon Up-to-date
 
