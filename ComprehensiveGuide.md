@@ -6019,6 +6019,145 @@ app.get(
 
 If `skipSessionCheck` is true, `dce-reactkit` will skip its usual session checks (user must have launched via LTI and must have a valid session).
 
+### Cross-Server Requests
+
+To send requests between caccl-based servers that use dce-reactkit, you'll need to create cross-server endpoints on the receiving server and you'll need to use a special function to send the cross-server request.
+
+#### Set Up Receiving Server
+
+Create a `Scope.ts` enum for the project, in `/server/src/shared/types` that contains an enum that lists all cross-server API scopes.
+
+For example:
+
+```ts
+/**
+ * Cross-server API scopes
+ * @author Your Name
+ */
+enum Scope {
+  // Add a student to the course
+  AddStudent = 'AddStudent',
+  // Remove a student from the course
+  RemoveStudent = 'RemoveStudent',
+  // List all students in the course
+  ListStudents = 'ListStudents',
+}
+
+export default Scope;
+```
+
+Next, create a cross-server credential collection that will hold the encoded credentials for servers that are allowed to make requests to the current server:
+
+Update to `mongo.ts`:
+
+```ts
+// Import dce-reactkit
+import {
+  initCrossServerCredentialCollection,
+  CrossServerCredential,
+} from 'dce-reactkit';
+
+...
+
+// Cross server credentials
+export const crossServerCredentialCollection = (
+  initCrossServerCredentialCollection(Collection) as Collection<CrossServerCredential>
+);
+```
+
+Finally, add `REACTKIT_CRED_ENCODING_SALT` environment variable to the receiving server. Fill it with random characters (no whitespace).
+
+#### Set Up Sending Server
+
+From any project that uses `dce-reactkit`, run the following command:
+
+```bash
+npm run gen-reactkit-cross-server-secret --description="Name of Sending Server" --key=short-name --host=receiving-server.dcex.harvard.edu --salt="receiving server credential encoding salt"
+```
+
+Where `--description` is a human-readable description of the server that will _send_ the requests, `--key` is a short unique key for the server that will _send_ the requests, and `--host` is the hostname for the server that will _receive_ the requests.
+
+Example (requests will  be sent from Hello Harvard Prod to Immersive Classroom):
+
+```bash
+npm run gen-reactkit-cross-server-secret --description="Hello Harvard Prod" --key=hello-prod --host=immersive.dcex.harvard.edu
+```
+
+Once the credential has been generated, you'll see instructions on what to do next:
+
+First, you'll need to _append_ a string to the `REACTKIT_CROSS_SERVER_CREDENTIALS` environment variable on the server that will _send_ the requests. To append, copy down the value into a text editor, make the changes, then paste the changes into the dev wizard (don't accidentally _replace_ the contents instead of appending). If the environment variable does not exist, add it. The format of the appended text should be: `|host:key:secret|`.
+
+Second, you'll need to add the credential to the CrossServerCredential collection on the server that will _receive_ the requests. You'll be given a JSON object to insert into the database. Insert it, then append scopes to the `scopes` array for all of the scopes that the server should have access to.
+
+A server may send requests to any number of other servers. This is why the `REACTKIT_CROSS_SERVER_CREDENTIALS` value can contain many credentials concatenated together: `|host1:key1:secret1||host2:key2:secret2|...`. Also, a server may both send cross-server requests and receive cross-server requests. In that case, you'll need to follow the instructions above in both directions.
+
+#### How to Add a Cross-server Endpoint to the Receiving Server
+
+Use the `genRouteHandler` function as with other endpoints, but add one important `crossServerScope` parameter, and remember that `params` will not automatically populate session-based info like `userFirstName` or `isAdmin`. Instead, authorization will be based on whether the server that makes the request has approval to use that scope and information like `userFirstName` _must_ be passed through with the request.
+
+Example:
+
+```ts
+// Import shared types
+import Scope from '../shared/types/Scope';
+
+...
+
+/**
+ * Add a student to the course
+ * @author Gabe Abrams
+ * @param userFirstName the first name of the student to add to the course
+ * @param userLastName the last name of the student to add to the course
+ * @returns id of the new user
+ */
+app.post(
+  '/api/cross-server/students',
+  genRouteHandler({
+    crossServerScope: Scope.AddStudent,
+    paramTypes: {
+      userFirstName: ParamType.String,
+      userLastName: ParamType.String,
+    },
+    handler: async ({ params }) => {
+      // Destructure params
+      const {
+        userFirstName,
+        userLastName,
+      } = params;
+
+      // TODO: implement
+
+      return userId;
+    },
+  }),
+);
+```
+
+#### How to Send Cross-Server Requests
+
+On the server that will _send_ the cross-server request, use the `visitEndpointOnAnotherServer` function that is exported from `dce-reactkit`:
+
+```ts
+// Import dce-reactkit
+import { visitEndpointOnAnotherServer } from 'dce-reactkit';
+
+...
+
+const userId = await visitEndpointOnAnotherServer({
+  method: 'POST',
+  host: 'immersive.dcex.harvard.edu',
+  path: '/api/cross-server/students',
+  params: {
+    userFirstName: 'Kino',
+    userLastName: 'Greene',
+  },
+});
+```
+
+Remember that the `host` field _must_ match a credential in the sending server's `REACTKIT_CROSS_SERVER_CREDENTIALS` environment variable.
+
+If the request is deemed inauthentic (credentials invalid, scope not added, etc.), you will get a `401` error.
+
 ## Mongo/DocDB
 
 ### When to Add a Database
