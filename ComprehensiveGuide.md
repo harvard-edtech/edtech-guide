@@ -5794,17 +5794,17 @@ Shared files go into the `/server/src/shared/` folder:
 
 ## Adding API Endpoints and Other Routes
 
-In each server, there should be a `/server/src/addRoutes` module that contains all routes. Divide routes into sensible categories, and put them in a nested tree structure such that the top-level `index.ts` file only needs to call one route adder: `/server/src/addRoutes/index.ts`.
+In each server, there should be a `/server/src/addRoutes` module that contains all routes. Divide routes into sensible categories, ideally separated by feature, and put them in a nested tree structure such that the top-level `index.ts` file only needs to call one route adder: `/server/src/addRoutes/index.ts`.
 
-For example, let's say you have an app where there are really three types of routes: student API routes, teaching team member (TTM) API routes, and admin API routes. Within TTM routes, that is further subdivided into two sub-categories: teacher routes and TA routes. Thus, we'd divide our routes into the following folder structure:
+For example, let's say you have an app where there are really three key features: an app store, a training locator, and a meeting scheduler. In that example, it would make sense to have three route adders: `addAppStoreRoutes`, `addTrainingLocatorRoutes` and `addMeetingSchedulerRoutes`. If those key features themselves contain subfeatures, add subfeature route adders and make the parent route adders into folders. Here's an example in action:
 
 ```
 /addRoutes/index.ts – a route adder function that calls all route adder subfolders
-/addRoutes/addStudentAPIRoutes.ts – adds all student API routes
-/addRoutes/addTTMAPIRoutes/index.ts – calls all adder TTM adder functions
-/addRoutes/addTTMAPIRoutes/addTeacherRoutes.ts – adds all teacher routes
-/addRoutes/addTTMAPIRoutes/addTARoutes.ts – adds all teacher routes
-/addRoutes/addAdminRoutes.ts – adds all admin routes
+/addRoutes/addAppStoreRoutes.ts – adds all app store routes
+/addRoutes/addTrainingLocatorRoutes/index.ts – calls all training locator route adder functions
+/addRoutes/addTrainingLocatorRoutes/addTrainingManagerRoutes.ts – adds routes for the training manager subfeature
+/addRoutes/addTrainingLocatorRoutes/addTrainingLauncherRoutes.ts – adds routes for the training launcher subfeature
+/addRoutes/addTTMAPIRoutes/addMeetingSchedulerRoutes.ts – adds all teacher routes
 ```
 
 ### Standard Route Path Naming
@@ -5820,6 +5820,8 @@ Additionally, if only certain types of users can access the route, add another p
 <Rule tall>
   TTM API routes must start with `/api/ttm`, admin API routes must start with `/api/admin`
 </Rule>
+
+Why do we do this? `dce-reactkit` automatically applies security and authorization rules to endpoints based on the prefix in the path.
 
 For the endpoint method, follow these rules:
 
