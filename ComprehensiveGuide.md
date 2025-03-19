@@ -5128,7 +5128,7 @@ $border-width: 0.5rem;
 
 # Logging
 
-To improve our tools, inform teaching practices, and provide analytics to faculty and staff, we log user errors and actions. Because logging is done so commonly, we use a common logging service from `dce-reactkit`.
+To improve our tools, inform teaching practices, and provide analytics to faculty and staff, we log user errors and actions. Because logging is done so commonly, we use a common logging service from `dce-reactkit` and `dce-expresskit.
 
 ## Preparation
 
@@ -5136,11 +5136,11 @@ To improve our tools, inform teaching practices, and provide analytics to facult
 
 In your app, make sure you've followed [instructions on setting up connections to the database](#mongodocdb). Then, add another "Log" collection to your `/server/src/shared/helpers/mongo.ts` file:
 
-Import `dce-reactkit` dependencies at the top of the file:
+Import `dce-expresskit` dependencies at the top of the file:
 
 ```ts
-// Import dce-reactkit
-import { initLogCollection, Log } from 'dce-reactkit';
+// Import dce-expresskit
+import { initLogCollection, Log } from 'dce-expresskit';
 ```
 
 Initialize the log collection near the bottom of the file:
@@ -5152,20 +5152,20 @@ export const logCollection = initLogCollection(Collection) as Collection<Log>;
 
 And as always, whenever you make a change to this file, increment the `schemaVersion` variable.
 
-Then, in the server index of your app, initialize `dce-reactkit` by importing the appropriate dependencies near the top:
+Then, in the server index of your app, initialize `dce-expresskit` by importing the appropriate dependencies near the top:
 
 ```ts
 // Import CACCL
-import initCACCL, { getLaunchInfo } from 'caccl/server';
+import initCACCL from 'caccl/server';
 
-// Import dce-reactkit
-import { initServer } from 'dce-reactkit';
+// Import dce-expresskit
+import { initServer } from 'dce-expresskit';
 
-// Import log collection
-import { logCollection } from './shared/helpers/mongo';
+// Import mongo
+import { logCollection, crossServerCredentialCollection } from './shared/helpers/mongo';
 ```
 
-Then, within the `initCACCL`, at the top of the `express.postprocessor` function, add code to initialize `dce-reactkit` with logging:
+Then, within the `initCACCL`, at the top of the `express.postprocessor` function, add code to initialize `dce-expresskit` with logging:
 
 ```ts
 const main = async () => {
@@ -5174,11 +5174,11 @@ const main = async () => {
     ...
     express: {
       postprocessor: (app) => {
-        // Initialize dce-reactkit
+        // Initialize dce-expresskit
         initServer({
           app,
-          getLaunchInfo,
           logCollection,
+          crossServerCredentialCollection,
         });
 
         ...
@@ -5329,8 +5329,8 @@ Another way you can organize logs is through tags. These tags are flexible, opti
 If you choose to use tags, once you've decided on a list of tags, add them to your `LogMetadata.ts` file:
 
 ```ts
-// Import dce-reactkit
-import { LogMetadataType } from 'dce-reactkit';
+// Import dce-expresskit
+import { LogMetadataType } from 'dce-expresskit';
 
 /**
  * Log contexts, tags, and other metadata
@@ -5366,11 +5366,11 @@ logServerEvent({
 });
 ```
 
-Where `LogLevel` can be imported from `dce-reactkit`:
+Where `LogLevel` can be imported from `dce-expresskit`:
 
 ```ts
-// Import dce-reactkit
-import { LogLevel } from 'dce-reactkit';
+// Import dce-expresskit
+import { LogLevel } from 'dce-expresskit';
 ```
 
 ### Metadata
@@ -5397,7 +5397,7 @@ Where `metadata` can be any JSON object, however, we do prefer shallow metadata 
 
 ### Automatically Added Organization
 
-Whenever you log using `dce-reactkit`, a whole bunch of useful data is added to each log entry:
+Whenever you log using `dce-reactkit` or `dce-expresskit`, a whole bunch of useful data is added to each log entry:
 
 #### User Information
 
@@ -5490,7 +5490,7 @@ If the log entry was created on the client, the entry will automatically include
 }
 ```
 
-Where `LogSource` can be found in `dce-reactkit`.
+Where `LogSource` can be found in `dce-reactkit` or `dce-expresskit`.
 
 If the log entry was created on the server, the entry will automatically include the following source flag:
 
@@ -5566,7 +5566,7 @@ logClientEvent({
 });
 ```
 
-Where `LogLevel` can be imported from `dce-reactkit`: `import { LogLevel } from 'dce-reactkit';`.
+Where `LogLevel` can be imported from `dce-reactkit` or `dce-expresskit`.
 
 We automatically record `error.message`, `error.code`, and `error.stack`. If you want to manually determine those, try creating a `new ErrorWithCode`:
 
@@ -5647,7 +5647,7 @@ logClientEvent({
 });
 ```
 
-Where `LogLevel` can be imported from `dce-reactkit`: `import { LogLevel } from 'dce-reactkit';`.
+Where `LogLevel` can be imported from `dce-reactkit` or `dce-expresskit`.
 
 ## Querying Logs
 
@@ -5723,18 +5723,18 @@ If your app requires a server, it _must_ use Express.
 
 ## Dependencies
 
-Make sure `caccl`, `dotenv`, and `dce-reactkit` are added to your project dependencies.
+Make sure `caccl`, `dotenv`, and `dce-expresskit` are added to your project dependencies.
 
 ## Setting up Server
 
 In the top-level `/server/src/index.ts` file, make sure you have the following key components of initialization:
 
-```
+```ts
 // Import CACCL
-import initCACCL, { getLaunchInfo } from 'caccl/server';
+import initCACCL from 'caccl/server';
 
-// Import dce-reactkit
-import { initServer } from 'dce-reactkit';
+// Import dce-expresskit
+import { initServer } from 'dce-expresskit';
 
 // Import environment
 import 'dotenv/config';
@@ -5751,9 +5751,9 @@ const init = async () => {
   await initCACCL({
     express: {
       postprocessor: (app) => {
-        // Initialize dce-reactkit
+        // Initialize dce-expresskit
         initServer({
-          getLaunchInfo,
+          ...
         });
 
         // Call route adders
@@ -6019,15 +6019,15 @@ app.get(
 
 #### genRouteHandler: skipSessionCheck
 
-If `skipSessionCheck` is true, `dce-reactkit` will skip its usual session checks (user must have launched via LTI and must have a valid session).
+If `skipSessionCheck` is true, `dce-expresskit` will skip its usual session checks (user must have launched via LTI and must have a valid session).
 
 ### Cross-Server Requests
 
-To send requests between caccl-based servers that use dce-reactkit, you'll need to create cross-server endpoints on the receiving server and you'll need to use a special function to send the cross-server request.
+To send requests between caccl-based servers that use dce-expresskit, you'll need to create cross-server endpoints on the receiving server and you'll need to use a special function to send the cross-server request.
 
 #### Set Up Receiving Server
 
-Create a `Scope.ts` enum for the project, in `/server/src/shared/types` that contains an enum that lists all cross-server API scopes.
+Create a `APIScope.ts` enum for the project, in `/server/src/shared/types` that contains an enum that lists all cross-server API scopes.
 
 For example:
 
@@ -6036,7 +6036,7 @@ For example:
  * Cross-server API scopes
  * @author Your Name
  */
-enum Scope {
+enum APIScope {
   // Add a student to the course
   AddStudent = 'AddStudent',
   // Remove a student from the course
@@ -6045,7 +6045,7 @@ enum Scope {
   ListStudents = 'ListStudents',
 }
 
-export default Scope;
+export default APIScope;
 ```
 
 Next, create a cross-server credential collection that will hold the encoded credentials for servers that are allowed to make requests to the current server:
@@ -6057,7 +6057,7 @@ Update to `mongo.ts`:
 import {
   initCrossServerCredentialCollection,
   CrossServerCredential,
-} from 'dce-reactkit';
+} from 'dce-expresskit';
 
 ...
 
@@ -6067,14 +6067,14 @@ export const crossServerCredentialCollection = (
 );
 ```
 
-Finally, add `REACTKIT_CRED_ENCODING_SALT` environment variable to the receiving server. Fill it with random characters (no whitespace).
+Finally, add `DCEKIT_CRED_ENCODING_SALT` environment variable to the receiving server. Fill it with random characters (no whitespace).
 
 #### Set Up Sending Server
 
-From any project that uses `dce-reactkit`, run the following command:
+From any project that uses `dce-expresskit`, run the following command:
 
 ```bash
-npm run gen-reactkit-cross-server-secret --description="Name of Sending Server" --key=short-name --host=receiving-server.dcex.harvard.edu --salt="receiving server credential encoding salt"
+npm run gen-dcekit-cross-server-secret --description="Name of Sending Server" --key=short-name --host=receiving-server.dcex.harvard.edu --salt="receiving server credential encoding salt"
 ```
 
 Where `--description` is a human-readable description of the server that will _send_ the requests, `--key` is a short unique key for the server that will _send_ the requests, and `--host` is the hostname for the server that will _receive_ the requests.
@@ -6082,16 +6082,16 @@ Where `--description` is a human-readable description of the server that will _s
 Example (requests will  be sent from Hello Harvard Prod to Immersive Classroom):
 
 ```bash
-npm run gen-reactkit-cross-server-secret --description="Hello Harvard Prod" --key=hello-prod --host=immersive.dcex.harvard.edu
+npm run gen-dcekit-cross-server-secret --description="Hello Harvard Prod" --key=hello-prod --host=immersive.dcex.harvard.edu
 ```
 
 Once the credential has been generated, you'll see instructions on what to do next:
 
-First, you'll need to _append_ a string to the `REACTKIT_CROSS_SERVER_CREDENTIALS` environment variable on the server that will _send_ the requests. To append, copy down the value into a text editor, make the changes, then paste the changes into the dev wizard (don't accidentally _replace_ the contents instead of appending). If the environment variable does not exist, add it. The format of the appended text should be: `|host:key:secret|`.
+First, you'll need to _append_ a string to the `DCEKIT_CROSS_SERVER_CREDENTIALS` environment variable on the server that will _send_ the requests. To append, copy down the value into a text editor, make the changes, then paste the changes into the dev wizard (don't accidentally _replace_ the contents instead of appending). If the environment variable does not exist, add it. The format of the appended text should be: `|host:key:secret|`.
 
 Second, you'll need to add the credential to the CrossServerCredential collection on the server that will _receive_ the requests. You'll be given a JSON object to insert into the database. Insert it, then append scopes to the `scopes` array for all of the scopes that the server should have access to.
 
-A server may send requests to any number of other servers. This is why the `REACTKIT_CROSS_SERVER_CREDENTIALS` value can contain many credentials concatenated together: `|host1:key1:secret1||host2:key2:secret2|...`. Also, a server may both send cross-server requests and receive cross-server requests. In that case, you'll need to follow the instructions above in both directions.
+A server may send requests to any number of other servers. This is why the `DCEKIT_CROSS_SERVER_CREDENTIALS` value can contain many credentials concatenated together: `|host1:key1:secret1||host2:key2:secret2|...`. Also, a server may both send cross-server requests and receive cross-server requests. In that case, you'll need to follow the instructions above in both directions.
 
 #### How to Add a Cross-server Endpoint to the Receiving Server
 
@@ -6101,7 +6101,7 @@ Example:
 
 ```ts
 // Import shared types
-import Scope from '../shared/types/Scope';
+import APIScope from '../shared/types/APIScope';
 
 ...
 
@@ -6115,7 +6115,7 @@ import Scope from '../shared/types/Scope';
 app.post(
   '/api/cross-server/students',
   genRouteHandler({
-    crossServerScope: Scope.AddStudent,
+    crossServerScope: APIScope.AddStudent,
     paramTypes: {
       userFirstName: ParamType.String,
       userLastName: ParamType.String,
@@ -6137,11 +6137,11 @@ app.post(
 
 #### How to Send Cross-Server Requests
 
-On the server that will _send_ the cross-server request, use the `visitEndpointOnAnotherServer` function that is exported from `dce-reactkit`:
+On the server that will _send_ the cross-server request, use the `visitEndpointOnAnotherServer` function that is exported from `dce-expresskit`:
 
 ```ts
-// Import dce-reactkit
-import { visitEndpointOnAnotherServer } from 'dce-reactkit';
+// Import dce-expresskit
+import { visitEndpointOnAnotherServer } from 'dce-expresskit';
 
 ...
 
@@ -6156,7 +6156,7 @@ const userId = await visitEndpointOnAnotherServer({
 });
 ```
 
-Remember that the `host` field _must_ match a credential in the sending server's `REACTKIT_CROSS_SERVER_CREDENTIALS` environment variable.
+Remember that the `host` field _must_ match a credential in the sending server's `DCEKIT_CROSS_SERVER_CREDENTIALS` environment variable.
 
 If the request is deemed inauthentic (credentials invalid, scope not added, etc.), you will get a `401` error.
 
