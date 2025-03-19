@@ -6067,7 +6067,11 @@ export const crossServerCredentialCollection = (
 );
 ```
 
-Finally, add `DCEKIT_CRED_ENCODING_SALT` environment variable to the receiving server. Fill it with random characters (no whitespace).
+Finally, generate a `DCEKIT_CRED_ENCODING_SALT` environment variable for the receiving server. To generate a new secret, navigate to the `/server` folder in the project and run this command:
+
+```bash
+npm explore dce-expresskit -- npm run gen-cross-server-salt
+```
 
 #### Set Up Sending Server
 
