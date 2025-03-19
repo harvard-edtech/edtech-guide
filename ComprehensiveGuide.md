@@ -6071,10 +6071,10 @@ Finally, add `DCEKIT_CRED_ENCODING_SALT` environment variable to the receiving s
 
 #### Set Up Sending Server
 
-From any project that uses `dce-expresskit`, from the top-level folder, run the following command:
+From any project that uses `dce-expresskit`, from the `/server` folder, run the following command:
 
 ```bash
-cd server && npm explore dce-expresskit -- npm run gen-cross-server-secret && cd ..
+npm explore dce-expresskit -- npm run gen-cross-server-secret
 ```
 
 A wizard will appear and walk you through the credential generation process. It will ask you for four pieces of information:
