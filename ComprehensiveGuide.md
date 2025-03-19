@@ -6071,19 +6071,18 @@ Finally, add `DCEKIT_CRED_ENCODING_SALT` environment variable to the receiving s
 
 #### Set Up Sending Server
 
-From any project that uses `dce-expresskit`, navigate to the `/server` folder and run the following command:
+From any project that uses `dce-expresskit`, from the top-level folder, run the following command:
 
 ```bash
-npm explore dce-expresskit -- npm run gen-cross-server-secret --description="Name of Sending Server" --key=short-name --host=receiving-server.dcex.harvard.edu --salt="receiving server credential encoding salt"
+cd server && npm explore dce-expresskit -- npm run gen-cross-server-secret && cd ..
 ```
 
-Where `--description` is a human-readable description of the server that will _send_ the requests, `--key` is a short unique key for the server that will _send_ the requests, and `--host` is the hostname for the server that will _receive_ the requests.
+A wizard will appear and walk you through the credential generation process. It will ask you for four pieces of information:
 
-Example (requests will  be sent from Hello Harvard Prod to Immersive Classroom):
-
-```bash
-npm explore dce-expresskit -- npm run gen-cross-server-secret --description="Hello Harvard Prod" --key=hello-prod --host=immersive.dcex.harvard.edu
-```
+- Salt (the value in the receiving server's `DCEKIT_CRED_ENCODING_SALT` env var)
+- Host (the host name of the receiving server)
+- Key (a short, unique key for the sending server with no whitespace, for example `gather-prod`)
+- Description ( a long, human-readable description for the sending server, for example `Gather Prod`)
 
 Once the credential has been generated, you'll see instructions on what to do next:
 
