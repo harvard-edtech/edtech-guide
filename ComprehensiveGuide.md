@@ -330,7 +330,21 @@ Note: if you get an error saying `ts-node: command not found`, install `ts-node`
 
 ### React Sandbox
 
-Visit the [CACCL Docs](https://bit.ly/caccl) and set up a react-based project, using `npm init caccl@latest`.
+Create a new, empty folder on your machine that'll hold your react sandbox.
+
+Navigate to the folder in terminal and initialize the React project:
+
+```bash
+npm create vite@latest client -- --template react-ts
+```
+
+Navigate to the client foler `cd client` and set it up:
+
+```bash
+npm install
+```
+
+To run a local copy of the app, use `npm run dev`.
 
 # Get Access to Harvard Tools
 
