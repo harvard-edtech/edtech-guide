@@ -6098,7 +6098,7 @@ npm explore dce-expresskit -- npm run gen-cross-server-secret
 A wizard will appear and walk you through the credential generation process. It will ask you for four pieces of information:
 
 - Salt (the value in the receiving server's `DCEKIT_CRED_ENCODING_SALT` env var)
-- Host (the host name of the receiving server)
+- Host (the host name of the receiving server, for example `imhere-stage.dcx.harvard.edu`)
 - Key (a short, unique key for the sending server with no whitespace, for example `gather-prod`)
 - Description ( a long, human-readable description for the sending server, for example `Gather Prod`)
 
