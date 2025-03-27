@@ -5835,7 +5835,7 @@ Additionally, if only certain types of users can access the route, add another p
   TTM API routes must start with `/api/ttm`, admin API routes must start with `/api/admin`
 </Rule>
 
-Why do we do this? `dce-reactkit` automatically applies security and authorization rules to endpoints based on the prefix in the path.
+Why do we do this? `dce-expresskit` automatically applies security and authorization rules to endpoints based on the prefix in the path.
 
 For the endpoint method, follow these rules:
 
@@ -5892,10 +5892,10 @@ app.get(
 );
 ```
 
-All API routes should use the `dce-reactkit` function for generating a route handler: `genRouteHandler`, which handles auth, session management, security and privacy, parameter parsing, automatic error handling, crash prevention, and so much more.
+All API routes should use the `dce-expresskit` function for generating a route handler: `genRouteHandler`, which handles auth, session management, security and privacy, parameter parsing, automatic error handling, crash prevention, and so much more.
 
 <Rule tall>
-  API route handlers should use "genRouteHandler" from dce-reactkit if possible
+  API route handlers should use "genRouteHandler" from dce-expresskit if possible
 </Rule>
 
 The second argument of the express `app.get`, `app.post`, `app.put`, `app.delete`, or `app.all` function is a route handler. Use `genRouteHandler` to create such a handler.
@@ -5921,7 +5921,7 @@ app.get(
 );
 ```
 
-We use the `dce-reactkit` special param type enum called `ParamType`, which supports the following types:
+We use the `dce-expresskit` special param type enum called `ParamType`, which supports the following types:
 
 ```ts
 Boolean – required boolean
@@ -5942,7 +5942,7 @@ Note that it doesn't make sense to make a URL parameter be an optional param bec
 
 The handler function is key because it handles the request. The handler function is an `async` function that is tasked with either returning the value that should be sent in the response to the client, or the handler function should throw an error which would also be sent to the client.
 
-To send an error code to the client, use the `dce-reactkit` custom error called `ErrorWithCode`.
+To send an error code to the client, use the `dce-expresskit` custom error called `ErrorWithCode`.
 
 To send a response to the client, simply return the value that you want to send to the client. If you don't want to return anything, simply `return undefined;`.
 
@@ -6067,7 +6067,7 @@ Next, create a cross-server credential collection that will hold the encoded cre
 Update to `mongo.ts`:
 
 ```ts
-// Import dce-reactkit
+// Import dce-expresskit
 import {
   initCrossServerCredentialCollection,
   CrossServerCredential,
