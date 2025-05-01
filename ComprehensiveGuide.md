@@ -6975,6 +6975,68 @@ All of our tests will be organized in a GitHub repo that's separate from the cod
 
 Our test case files follow a strict folder structure: there should only be one top-level folder called "All Tests" inside of the "Test Cases" folder. Then, inside "All Tests", we create one folder for each feature of the project. Name your test cases in a descriptive manner. Example: "User can log in after password is reset"
 
+## Define a Test
+
+Before writing a test, it's important to gather and prepare important resources. Let's go through a preparation checklist:
+
+#### Project Repo
+
+Define which test repo the test should be created under.
+
+#### Test Folder
+
+Within the "All Tests" folder, define which folder (category) the test should live in
+
+#### Global Configuration
+
+Determine which parts of the configuration in the test are global, shared across many tests, and should be stored globally. For each of those values, either find existing global values or create new ones in each profile.
+
+#### Global Credentials
+
+Determine which parts of the required credentials in the test are global, shared across many tests, and should be stored globally. For each of those values, either find existing global values or create new ones in each profile.
+
+#### Define Path
+
+Write down the path that the user agent will take through the app, from start to finish. The path may be linear (step 1, 2, 3, 4, etc.) or may diverge (step 1, 2, 3, if a warning appears, do step 4a, if it doesn't appear, do step 4b, etc.)
+
+#### Divide Path into Setup/Test/Teardown
+
+For each of the steps, place them into either the setup, test, or teardown sections. When writing the test, these sections are delimited by wide comments that show the boundaries of the sections.
+
+#### Update UI with ClassNames
+
+Trace through each step on the path and make sure that there is either existing automation code to perform the step or, if it is a new step, inspect the elements that the test must interact with in any way, and make sure that each element contains a test-ready className. Add missing classNames to the UI code, create a PR, review it, and deploy the version to a test instance of the app.
+
+To determine if an element has a test-ready className, make sure that the element can be uniquely located in a DOM that _may_ contain other instances of the element. You are *only* allowed to use classNames that start with the name of the component. For example, `btn btn-secondary` is not allowed, but `EmailForm-submit-button` is allowed. XPaths are also not allowed. There will need to be exceptions, especially in cases where the UI code is not DCE-controlled. These should be handled on a case-by-case basis but exceptions should be seen as a last resort.
+
+In addition to validating classNames, if the _contents_ of an element will be used to locate it, make sure that the contents are unique and note down any contents that should be uniquely generated using the `Kaixa.uniquify(...)` function.
+
+#### Create Project Groovy Functions
+
+Like global variables for configuration and credentials that are used across multiple tests, we also create global _functions_ for reusable interactions with the app. For example, in Gather, a common operation is to create a new test event. So, we created a `Gather.createEvent` function that takes as arguments the name of the event, type of the event, and so on.
+
+Determine which pieces of the test are reusable and separate that logic out into project groovy functions and add them to the `Keywords > ProjectName.groovy` file. Each project groovy function must be clear about its arguments, assumptions (i.e. when the function is called, the user must be on the homepage of the app), must return relevant ids, and must perform its own assertions to make sure it runs properly (i.e. if it's creating an event, after creating the event, it must check that the event was successfully created and shows up in the list).
+
+Then, revise the steps in the path to use these functions and update other tests that do similar work to use the created functions.
+
+#### Determine Relevant Test Users
+
+Determine which test users are required for the test. For example, a test may require that an admin configure something, then a summer student who interacts with something, then an FAS student who is not permitted to interact with something.
+
+For each user, make sure that the profile contains a test user who has access to the appropriate resources, sandbox, etc.
+
+#### Create Resources
+
+Many tests have text, images, videos, links, or other resources that are required to be successful. For example, if creating an event, the test would require an event name. Or, if the test visits a video in the Immersive Classroom, the test would require a link to an active and available video.
+
+For text, make sure it is unique or uniquifiable using `Kaixa.uniquify`. For images, videos, and links to such resources, make sure they're stable and will last for a long time (we don't want resources to be the reason that a test fails).
+
+#### Prepare Cleanup
+
+Make sure that each test "leaves no trace" at the very least. Work with the app to undo any changes that the test has made, clean up created content, and reset the state. This is the bare minimum for a test.
+
+If possible, also have each test be "parallelizable" such that it can be run while other tests are running on a similar feature, or with the same resources and test users.
+
 ## Write a Test
 
 Our tests are written in the `Groovy` language, which looks like `Java`.
