@@ -174,6 +174,7 @@ Programming and Testing:
 - [Helper Unit Tests](#helper-unit-tests)
 - [Automated UI Testing](#automated-ui-testing)
 - [Commonly Used Dependencies](#commonly-used-dependencies)
+- [Updating and Patching](#updating-and-patching)
 
 Creating Projects:
 
@@ -7075,6 +7076,12 @@ If you're looking for a module that does one of the operations below, use these 
 <Rule tall>
   Use dependencies listed above instead of seeking out alternatives
 </Rule>
+
+# Updating and Patching
+
+### Updating Container Node Version
+
+Check the current LTS version of node, make sure the Dockerfile's `FROM:` starts with `node:[LTS MAJOR VERSION]` (for example, `node:22`).
 
 # Creating React Projects
 
