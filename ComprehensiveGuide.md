@@ -7079,9 +7079,13 @@ If you're looking for a module that does one of the operations below, use these 
 
 # Updating and Patching
 
+### Auto-checking Container Node Version
+
+Every time you go to deploy an app, the dev wizard will automatically check the version of node against the current published even LTS version (the most up-to-date stable version of node) and will tell you the status of your deployed node version.
+
 ### Updating Container Node Version
 
-Check the current LTS version of node, make sure the Dockerfile's `FROM:` starts with `node:[LTS MAJOR VERSION]` (for example, `node:22`).
+Check the current LTS version of node, make sure the Dockerfile's `FROM:` starts with `node:[LTS MAJOR VERSION]-alpine` (for example, `node:22`).
 
 # Creating React Projects
 
