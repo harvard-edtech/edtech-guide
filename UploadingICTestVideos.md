@@ -2,16 +2,17 @@
 
 It's best to upload a video to both Prod and Opencast Dev 10.
 
-1. Open the OC Admin Dashboard: (Prod)[admin-prod.dcex.harvard.edu) or (Opencast Dev 10)[admin-dev-10.dcex.harvard.edu]
-2. Click "+ Zoom"
-3. Check the "Allow multiple ingests (production admin users only)"
-4. Paste the "Host" recording link into "Recording Link or ID"
-5. Choose the IC test series `19990189995` which should show up as: `IC Automated Test Videos (DO NOT USE FOR MANUAL TESTING)`
-6. Wait for approximately second email from Opencast saying "transcripts were attached" (approx. 10min + duration of the video)
-7. Open the OC Admin Dashboard
-8. Click the filter icon, filter by series, paste in `19990189995`
-9. Find the video, click the blue bar chart, UID = "[MPID]", Source = "ZIP-[Zoom UUID]", Location = "Zoom [MeetingId]"
-10. Double click the Title, change the title, click "Save" (changes will take a few minutes to apply)
+1. Open Cisco, join vpn.dce.harvard.edu, type your HarvardKey password, handle duo
+2. Open the OC Admin Dashboard: (Prod)[admin-prod.dcex.harvard.edu) or (Opencast Dev 10)[admin-dev-10.dcex.harvard.edu]
+3. Click "+ Zoom"
+4. Check the "Allow multiple ingests (production admin users only)"
+5. Paste the "Host" recording link into "Recording Link or ID"
+6. Choose the IC test series `19990189995` which should show up as: `IC Automated Test Videos (DO NOT USE FOR MANUAL TESTING)`
+7. Wait for approximately second email from Opencast saying "transcripts were attached" (approx. 10min + duration of the video)
+8. Open the OC Admin Dashboard
+9. Click the filter icon, filter by series, paste in `19990189995`
+10. Find the video, click the blue bar chart, UID = "[MPID]", Source = "ZIP-[Zoom UUID]", Location = "Zoom [MeetingId]"
+11. Double click the Title, change the title, click "Save" (changes will take a few minutes to apply)
 
 ## If LHT joins/leaves:
 
