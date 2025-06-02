@@ -3,7 +3,7 @@
 It's best to upload a video to both Prod and Opencast Dev 10.
 
 1. Open Cisco, join vpn.dce.harvard.edu, type your HarvardKey password, handle duo
-2. Open the OC Admin Dashboard: (Prod)[admin-prod.dcex.harvard.edu] or (Opencast Dev 10)[admin-dev-10.dcex.harvard.edu]
+2. Open the OC Admin Dashboard: [Prod](admin-prod.dcex.harvard.edu) or (Opencast Dev 10)[admin-dev-10.dcex.harvard.edu]
 3. Click "+ Zoom"
 4. Check the "Allow multiple ingests (production admin users only)"
 5. Paste the "Host" recording link into "Recording Link or ID"
