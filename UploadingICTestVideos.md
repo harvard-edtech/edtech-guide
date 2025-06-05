@@ -14,6 +14,12 @@ It's best to upload a video to both Prod and Opencast Dev 10.
 10. Find the video, click the blue bar chart, UID = "[MPID]", Source = "ZIP-[Zoom UUID]", Location = "Zoom [MeetingId]"
 11. Double click the Title, change the title, click "Save" (changes will take a few minutes to apply)
 
+## View Videos:
+
+[Prod Video Listing Page](https://matterhorn.dce.harvard.edu/engage/ui/index.html?series=19990189995#/1999/01/89995)
+
+[Opencast Dev 10 Video Listing Page](https://opencast-dev-10.dcex.harvard.edu/engage/ui/index.html?series=19990189995#/1999/01/89995)
+
 ## If LHT joins/leaves:
 
 ### Update the List of Users who Have Access
