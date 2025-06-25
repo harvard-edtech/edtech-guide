@@ -6947,17 +6947,15 @@ Visit [Katalon](https://katalon.com/download-studio-free), create an account, an
 
 In Katalon's preferences panel, make the following changes:
 
-`Katalon > Git > Enable Git Integration` – Turn this off (uncheck the box)
+In `Katalon > Test Case`, set `Default Open View` to "Script View"
 
-`Katalon > Test Case > Default Open View` – Set to "Script View"
+In `General > Editors > Text Editors`, set `Displayed Tab Width` to 2, check "Insert spaces for tabs", check "Remove multiple spaces on backspace/delete"
 
-`General > Editors > Text Editors > Displayed Tab Width` – Set this to "2"
+Also, edit your text editor profile:
 
-Also, edit your default text editor profile:
+In `Java > Code Style > Formatter`, click "New" to create a new profile called "DCE Automated Testing" and click "OK".
 
-`General > Editors > Text Editors > New...`
-
-Create a new profile called "DCE Automated Testing" and click "OK"
+Click "Edit" next to the profile and edit the profile as follows:
 
 Under the "Indentation" section, change "Tab policy" to "Spaces Only" and change both "Indentation size" and "Tab size" to "2"
 
@@ -6976,6 +6974,65 @@ All of our tests will be organized in a GitHub repo that's separate from the cod
 
 Our test case files follow a strict folder structure: there should only be one top-level folder called "All Tests" inside of the "Test Cases" folder. Then, inside "All Tests", we create one folder for each feature of the project. Name your test cases in a descriptive manner. Example: "User can log in after password is reset"
 
+## Global Credentials, Resources, and Values
+
+You _must_ create three keywords files in every Katalon project: `GlobalCredentials`, `GlobalResources`, and `GlobalValues`.
+
+Kaixa merges global variables from the currently selected profile, `GlobalCredentials`, `GlobalResources`, and `GlobalValues`.
+
+Each of these must contain a public class that contains public static properties that are of type either `String` or `Map<String,String>`. If a property always takes on the same value, set it to type `String`. Example:
+
+```java
+...
+public class GlobalValues {
+  // CanvasId for the test course
+  public static String courseId = 19161;
+}
+```
+
+Independently of the location of that global value (the selected profile, `GlobalCredentials`, `GlobalResources`, or `GlobalValues`), if a value depends on some other global value, use type `Map<String,String>` and on the first line of the map, add an entry: `dependsOn: '<nameOfVarItDependsOn>'`. Then, each other entry in the map enumerates (`dependentVariableValue -> value`) what this value should take on if the dependency variable takes on a certain value. Example:
+
+```java
+...
+public class GlobalValues {
+  // If "true", the current instance is a prod instance
+  public static Map<String,String> isProd = [
+    dependsOn: 'instanceHost',
+    'immersive.dcex.harvard.edu': 'true', // If host is immersive.dcex..., isProd is 'true'
+    'immersive-stage.dcex.harvard.edu': 'false', // If host is immersive-stage.dcex..., isProd is 'false'
+    'immersive-dev.dcex.harvard.edu': 'false', // If host is immersive-dev.dcex..., isProd is 'false'
+  ];
+}
+```
+
+You can add as many public static `String` or `Map<String,String>` properties to each of the three global keyword files, but do not add anything else to these files (no methods, no private variables, etc.)
+
+#### GlobalCredentials.groovy – Stores all sensitive data and credentials
+
+Anything that should not be checked into Git must be placed into GlobalCredentials.groovy. Remember to add this file to your .gitignore.
+
+Examples of this are passwords, usernames, tokens, keys, tokens, etc.
+
+If the credentials depend on something (for example, which instance is being used), remember to use `Map<String,String>` properties.
+
+#### GlobalResources.groovy – Stores all reusable resources
+
+Create a repository of test resources here, including videos, images, links, audio, etc.
+
+Examples of this are videoIds, media package ids, links to publicly stored videos, etc.
+
+If a resource depends on something (for example, whether we're testing in prod), remember to use `Map<String,String>` properties.
+
+#### GlobalValues.groovy – Stores all other global values that are not credentials or resources
+
+This is a catch-all global variable file that you can use in a project-specific fashion. Try to keep it organized.
+
+## Profiles
+
+Do not use your `default` profile in Katalon. Remove all variables from it, leave it empty, and never use it.
+
+Instead, create profiles that contain as little information in them as possible. For example, the name of the instance that's being tested. For most projects, that is all that should exist in the profile. Most everything else can be placed in `GlobalCredentials`, `GlobalResources`, and `GlobalValues`. If a value changes depending on the profile, then put it in one of the 3 global files and make it into a `Map<String,String>` property. If a value truly only exists in certain profiles, think about whether your tests are built correctly.
+
 ## Define a Test
 
 Before writing a test, it's important to gather and prepare important resources. Let's go through a preparation checklist:
@@ -6988,13 +7045,13 @@ Define which test repo the test should be created under.
 
 Within the "All Tests" folder, define which folder (category) the test should live in
 
-#### Global Configuration
+#### Global Resources and Values
 
-Determine which parts of the configuration in the test are global, shared across many tests, and should be stored globally. For each of those values, either find existing global values or create new ones in each profile.
+Determine which parts of the test are global, shared across many tests, and should be stored globally. For each of those values, put them into either `GlobalResources` or `GlobalValues`.
 
 #### Global Credentials
 
-Determine which parts of the required credentials in the test are global, shared across many tests, and should be stored globally. For each of those values, either find existing global values or create new ones in each profile.
+Determine which parts of the required credentials in the test are global, shared across many tests, and should be stored globally. For each of those values, store them in `GlobalCredentials`.
 
 #### Define Path
 
@@ -7031,6 +7088,8 @@ For each user, make sure that the profile contains a test user who has access to
 Many tests have text, images, videos, links, or other resources that are required to be successful. For example, if creating an event, the test would require an event name. Or, if the test visits a video in the Immersive Classroom, the test would require a link to an active and available video.
 
 For text, make sure it is unique or uniquifiable using `Kaixa.uniquify`. For images, videos, and links to such resources, make sure they're stable and will last for a long time (we don't want resources to be the reason that a test fails).
+
+Put each of these created resources into `GlobalResources` if they are reusable or if they depend on the context/profile. 
 
 #### Prepare Cleanup
 
