@@ -6990,7 +6990,7 @@ public class GlobalValues {
 }
 ```
 
-Independently of the location of that global value (the selected profile, `GlobalCredentials`, `GlobalResources`, or `GlobalValues`), if a value depends on some other global value, use type `Map<String,String>` and on the first line of the map, add an entry: `dependsOn: '<nameOfVarItDependsOn>'`. Then, each other entry in the map enumerates (`dependentVariableValue -> value`) what this value should take on if the dependency variable takes on a certain value. Example:
+Independently of the location of that global value (the selected profile, `GlobalCredentials`, `GlobalResources`, or `GlobalValues`), if a value depends on some other global value, use type `Map<String,String>` and on the first line of the map, add an entry: `dependsOn: '<nameOfVarItDependsOn>'`. Then, each other entry in the map enumerates (`dependentVariableValue -> value`) what this value should take on if the dependency variable takes on a certain value. If you want to have a default value in the case where the dependentVariableValue doesn't match any of the items in the map. Example:
 
 ```java
 ...
@@ -6998,6 +6998,7 @@ public class GlobalValues {
   // If "true", the current instance is a prod instance
   public static Map<String,String> isProd = [
     dependsOn: 'instanceHost',
+    'default': 'false',
     'immersive.dcex.harvard.edu': 'true', // If host is immersive.dcex..., isProd is 'true'
     'immersive-stage.dcex.harvard.edu': 'false', // If host is immersive-stage.dcex..., isProd is 'false'
     'immersive-dev.dcex.harvard.edu': 'false', // If host is immersive-dev.dcex..., isProd is 'false'
