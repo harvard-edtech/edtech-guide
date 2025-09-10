@@ -154,6 +154,8 @@ Replace CRA scripts with Vite commands:
 }
 ```
 
+Remove any additional scripts that mention `react-scripts`. Keep track of these because we probably would like to find equivalent versions of them with Vite.
+
 ### 7. Set Up Testing with Vitest
 
 ```bash
