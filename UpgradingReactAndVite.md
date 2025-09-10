@@ -8,7 +8,7 @@ This document outlines the steps required to migrate our application from React 
 
 ```bash
 # Update React core packages
-npm install react@^18 react-dom@^18 @types/react@^18 @types/react-dom@^18
+npm install --save react@^18 react-dom@^18 @types/react@^18 @types/react-dom@^18
 ```
 
 ### 2. Update Testing Libraries
