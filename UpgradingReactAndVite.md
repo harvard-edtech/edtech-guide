@@ -136,6 +136,8 @@ Create `index.html` in the client root directory:
 
 Compare this `index.html` file to your `/client/public/index.html` file (the old one) and bring over any metadata or icons that you want to preserve. Remove any mention of `%PUBLIC_URL%`.
 
+Delete `/client/public/index.html`.
+
 ### 6. Update Package.json Scripts
 
 Replace CRA scripts with Vite commands:
