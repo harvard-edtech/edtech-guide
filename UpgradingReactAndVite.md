@@ -95,7 +95,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      'src': resolve(__dirname, 'src')
+      'src': resolve(__dirname, 'src'),
     },
   },
   server: {
@@ -105,12 +105,12 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:8080',
         changeOrigin: true,
-      }
-    }
+      },
+    },
   },
   build: {
     outDir: 'build',
-  }
+  },
 });
 ```
 
