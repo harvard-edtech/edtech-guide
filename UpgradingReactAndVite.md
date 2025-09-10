@@ -55,7 +55,7 @@ root.render(
 ### 1. Uninstall Create React App
 
 ```bash
-npm uninstall react-scripts
+npm uninstall --save react-scripts
 ```
 
 
