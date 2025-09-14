@@ -60,7 +60,17 @@ npm install --save-dev @types/node@latest
 ```bash
 npm install --save-dev vite @vitejs/plugin-react vite-tsconfig-paths vite-plugin-node-polyfills
 ```
-### 4. Create Vite Configuration File
+
+### 4. Ignore vite.config.mjs from ESLint
+
+Add the following to your `.eslintrc.js` file:
+```js
+  ignorePatterns: [
+    'vite.config.*',
+  ],
+```
+
+### 5. Create Vite Configuration File
 Create `vite.config.mjs` in the client directory:
 ```javascript
 import { defineConfig } from 'vite';
@@ -98,7 +108,7 @@ export default defineConfig({
   }
 });
 ```
-### 5. Create HTML Entry Point
+### 6. Create HTML Entry Point
 Copy the existing `index.html` from the `public` folder to the client root directory and update it:
 Then update the copied file to:
 1. Replace any `%PUBLIC_URL%` references with `/`
@@ -123,7 +133,7 @@ Example:
   </body>
 </html>
 ```
-### 6. Update Package.json Scripts
+### 7. Update Package.json Scripts
 Replace CRA scripts with Vite commands:
 ```json
 "scripts": {
@@ -136,7 +146,7 @@ Replace CRA scripts with Vite commands:
   "test": "vitest run"
 }
 ```
-### 7. Set Up Testing with Vitest
+### 8. Set Up Testing with Vitest
 ```bash
 # Install Vitest and related packages
 npm install --save-dev vitest jsdom
@@ -154,4 +164,26 @@ export default defineConfig({
     setupFiles: './src/setupTests.ts',
   },
 });
+```
+
+### 9. Update SCSS Files: Replace @import with @use
+
+You should replace all `@import` statements with `@use` statements in your SCSS files. Also, variables from `shared.scss` must now be accessed as `shared.$variable-name`.
+
+```scss
+// Old way with @import
+@import './shared.scss';
+
+.my-component {
+  color: $primary-color;
+  margin: div(16px, 2);
+}
+
+// New way with @use
+@use './shared.scss';
+
+.my-component {
+  color: shared.$primary-color;
+  margin: math.div(16px, 2);
+}
 ```
