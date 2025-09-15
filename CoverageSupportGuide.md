@@ -90,6 +90,12 @@ In either case, it's important to be able to perform educated actions:
 1. Is this truly urgent? Know when to table an issue and save it for when Gabe returns. Most errors have workarounds, stopgaps, or human-based solutions (training, manual processes, etc.) that can sufficiently solve or postpone the problem until the end of Gabe's time away
 1. Do we need to bring in Gabe? Throughout the process, send Gabe updates but don't mark them as urgent. If it's life or death and you were not able to resolve the issue without them, then send an urgent message to Gabe. It is not in any way guaranteed that Gabe will have the network connectivitiy, time, resources, equipment, etc. to respond, so continue working on a stopgap solution in the meantime
 
+### Attempt to Reproduce the Issue
+
+1. **Research:** Gather as much information as you can about the issue: who encountered it, when did they notice the issue, what were they doing at the time, which course, which error messages/error codes, steps they took, etc.
+1. **Reproduce in Sandbox:** attempt to reproduce the issue with test resources, in a test environment/sandbox, and with test users. Watch logs, open the network and console tabs of the developer tools in your browser. See if you can reproduce the issue while also gaining extra information about any clientside console/network monitor or serverside logs that might help you pinpoint the issue in the app.
+1. **Reproduce in Prod:** if you cannot reproduce the issue, ask yourself if the action is destructive, dangerous, or modifies data that will impact student experience in a way that cannot be undone or cleaned up. If it's safe, perform the steps to reproduce the issue in prod. If possible, act as the user of interest, perform the same steps, use the same operating system and browser, and so on. Again, watch logs.
+
 ### Tail Container Logs
 
 During preparation, you would have become familiar with the process of opening the dev wizard. You can tail server container logs very easily from within the dev wizard.
