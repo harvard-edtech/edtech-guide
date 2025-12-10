@@ -8,17 +8,13 @@ This document outlines the steps required to migrate our application from React 
 
 ```bash
 # Update React core packages
-npm install react@^18 react-dom@^18 @types/react@^18 @types/react-dom@^18
+npm install react@^19 react-dom@^19 @types/react@^19 @types/react-dom@^19
 ```
-If that throws an error try this, and skip to step 3:
-```bash
-npm pkg set dependencies.react="^18.2.0" dependencies.react-dom="^18.2.0" dependencies.@testing-library/react="^14.0.0" dependencies.@testing-library/user-event="^14.4.3" dependencies.@types/react="^18.0.28" dependencies.@types/react-dom="^18.0.11"
-npm install
-```
+
 ### 2. Update Testing Libraries
 ```bash
 # Update React Testing Library
-npm install --save-dev @testing-library/react@13.4.0
+npm install --save-dev @testing-library/react@latest
 ```
 ### 3. Update ReactDOM Import and Rendering Method
 The main change in React 18 is the new root API. We updated our `index.tsx` to use the new API:
