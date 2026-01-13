@@ -15,7 +15,7 @@ npm install react@^19 react-dom@^19 @types/react@^19 @types/react-dom@^19
 
 If your project uses fortawesome, upgrade the fortawesome packages to 6.7.2 or higher
 ```bash
-   npm install @fortawesome/fontawesome-svg-core@latest @fortawesome/free-brands-svg-icons@latest @fortawesome/free-regular-svg-icons@latest @fortawesome/free-solid-svg-icons@latest
+   npm install @fortawesome/fontawesome-svg-core@latest @fortawesome/free-brands-svg-icons@latest @fortawesome/free-regular-svg-icons@latest @fortawesome/free-solid-svg-icons@latest @fortawesome/react-fontawesome@latest
 ```
 
 ### 2. Update Testing Libraries
