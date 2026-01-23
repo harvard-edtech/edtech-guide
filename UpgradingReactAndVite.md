@@ -11,19 +11,19 @@ This document outlines the steps required to migrate our application from React 
 npm install react@^19 react-dom@^19 @types/react@^19 @types/react-dom@^19
 ```
 
-### 1.5 Update fortawesome
+### 2. Update fortawesome
 
 If your project uses fortawesome, upgrade the fortawesome packages to 6.7.2 or higher
 ```bash
    npm install @fortawesome/fontawesome-svg-core@latest @fortawesome/free-brands-svg-icons@latest @fortawesome/free-regular-svg-icons@latest @fortawesome/free-solid-svg-icons@latest @fortawesome/react-fontawesome@latest
 ```
 
-### 2. Update Testing Libraries
+### 3. Update Testing Libraries
 ```bash
 # Update React Testing Library
 npm install --save-dev @testing-library/react@latest
 ```
-### 3. Update ReactDOM Import and Rendering Method
+### 4. Update ReactDOM Import and Rendering Method
 The main change in React 18 is the new root API. We updated our `index.tsx` to use the new API:
 ```tsx
 // Old React 17 way
