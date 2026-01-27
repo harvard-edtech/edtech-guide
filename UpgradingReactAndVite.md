@@ -1,4 +1,4 @@
-# Migration Guide: React 18 + Create React App to Vite
+# Migration Guide: React 19 + Create React App to Vite
 
 This document outlines the steps required to migrate our application from React 17 with Create React App (CRA) to React 18 with Vite. All commands should be run from the client directory, and all file modifications should be made to files within the client directory.
 
