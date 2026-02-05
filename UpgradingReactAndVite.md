@@ -2,20 +2,20 @@
 
 This document outlines the steps required to migrate our application from React 17 with Create React App (CRA) to React 18 with Vite. All commands should be run from the client directory, and all file modifications should be made to files within the client directory.
 
-## React 18 Upgrade
+## React 19 Upgrade
 
 ### 1. Update React Dependencies
 
 ```bash
 # Update React core packages
-npm install react@^19 react-dom@^19 @types/react@^19 @types/react-dom@^19
+npm install --save react@^19 react-dom@^19 @types/react@^19 @types/react-dom@^19
 ```
 
 ### 2. Update fortawesome
 
 If your project uses fortawesome, upgrade the fortawesome packages to 6.7.2 or higher
 ```bash
-   npm install @fortawesome/fontawesome-svg-core@latest @fortawesome/free-brands-svg-icons@latest @fortawesome/free-regular-svg-icons@latest @fortawesome/free-solid-svg-icons@latest @fortawesome/react-fontawesome@latest
+   npm install --save @fortawesome/fontawesome-svg-core@latest @fortawesome/free-brands-svg-icons@latest @fortawesome/free-regular-svg-icons@latest @fortawesome/free-solid-svg-icons@latest @fortawesome/react-fontawesome@latest
 ```
 
 ### 3. Update Testing Libraries
@@ -24,7 +24,7 @@ If your project uses fortawesome, upgrade the fortawesome packages to 6.7.2 or h
 npm install --save-dev @testing-library/react@latest
 ```
 ### 4. Update ReactDOM Import and Rendering Method
-The main change in React 18 is the new root API. We updated our `index.tsx` to use the new API:
+The main change in React 19 is the new root API. We updated our `index.tsx` to use the new API:
 ```tsx
 // Old React 17 way
 import ReactDOM from 'react-dom';
@@ -37,7 +37,7 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-// New React 18 way
+// New React 19 way
 import ReactDOM from 'react-dom/client';
 // ...
 const rootElement = document.getElementById('root') as HTMLElement;
@@ -53,7 +53,7 @@ root.render(
 ## Create React App to Vite Migration
 ### 1. Uninstall Create React App
 ```bash
-npm uninstall react-scripts
+npm uninstall --save react-scripts
 ```
 ### 2. Update Node Types for Compatibility with Vite
 ```bash
