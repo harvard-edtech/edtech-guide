@@ -8,14 +8,14 @@ This document outlines the steps required to migrate our application from React 
 
 ```bash
 # Update React core packages
-npm install --save react@^19 react-dom@^19 @types/react@^19 @types/react-dom@^19
+npm install --save "react@^19 react-dom@^19 @types/react@^19 @types/react-dom@^19"
 ```
 
 ### 2. Update fortawesome
 
 If your project uses fortawesome, upgrade the fortawesome packages to 6.7.2 or higher
 ```bash
-   npm install --save @fortawesome/fontawesome-svg-core@latest @fortawesome/free-brands-svg-icons@latest @fortawesome/free-regular-svg-icons@latest @fortawesome/free-solid-svg-icons@latest @fortawesome/react-fontawesome@latest
+   npm install --save "@fortawesome/fontawesome-svg-core@latest @fortawesome/free-brands-svg-icons@latest @fortawesome/free-regular-svg-icons@latest @fortawesome/free-solid-svg-icons@latest @fortawesome/react-fontawesome@latest"
 ```
 
 ### 3. Update Testing Libraries
