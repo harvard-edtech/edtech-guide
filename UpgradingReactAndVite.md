@@ -190,3 +190,15 @@ You should replace all `@import` statements with `@use` statements in your SCSS 
   margin: math.div(16px, 2);
 }
 ```
+
+### 10. Update `react-app-env.d.ts`
+
+Update the file to be this:
+```tsx
+/// <reference types="react-scripts" />
+
+declare module '*.svg' {
+  const content: string;
+  export default content;
+}
+```
