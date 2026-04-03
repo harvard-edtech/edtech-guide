@@ -201,4 +201,15 @@ declare module '*.svg' {
   const content: string;
   export default content;
 }
+
+/// <reference types="react-scripts" />
+
+// Allow SVG images
+declare module '*.svg' {
+  const content: string;
+  export default content;
+}
+
+// Allow SCSS imports
+declare module '*.scss';
 ```
