@@ -175,6 +175,7 @@ Programming and Testing:
 - [Automated UI Testing](#automated-ui-testing)
 - [Commonly Used Dependencies](#commonly-used-dependencies)
 - [Updating and Patching](#updating-and-patching)
+- [Doc Generation](#doc-generation)
 
 Creating Projects:
 
@@ -7146,6 +7147,16 @@ Every time you go to deploy an app, the dev wizard will automatically check the 
 ### Updating Container Node Version
 
 Check the current LTS version of node, make sure the Dockerfile's `FROM:` starts with `node:[LTS MAJOR VERSION]-alpine` (for example, `node:22`).
+
+# Doc Generation
+
+If your project follows standard error code documentation (`ClientErrorCode.ts` and `ServerErrorCode.ts` contain an enum of all error codes, you use `ErrorWithCode` as your error type, and you create error messages _inline_, not as separate variables before passing them into the `ErrorWithCode` constructor), you can use our error code documentation generator.
+
+We recommend that you add this directly to your build process.
+
+```bash
+npm explore dce-dev-wizard -- npm run build-error-docs
+```
 
 # Creating React Projects
 
