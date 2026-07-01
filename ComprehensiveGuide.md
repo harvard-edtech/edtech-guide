@@ -7148,6 +7148,19 @@ Every time you go to deploy an app, the dev wizard will automatically check the 
 
 Check the current LTS version of node, make sure the Dockerfile's `FROM:` starts with `node:[LTS MAJOR VERSION]-alpine` (for example, `node:22`).
 
+### Node and OS Updates
+
+Whenever you push and deploy new changes to an app, node and OS updates are automatically applied.
+
+If you want to update the Node and OS version without deploying any changes, follow these steps:
+
+1. Visit the GitHub repo for the project
+2. Open the "Actions" tab
+3. Click the "Build and Push Image to ECR" action
+4. Use the "Run workflow" dropdown to select `stage`, `main`, or whatever branch is currently deployed to the instance that you want to update (repeat for each relevant branch if you're updating many instances on different branches)
+5. Wait for the action(s) to finish successfully
+6. Open terminal and use the `dev:wizard` to deploy (for the first question, answer: no changes) and make sure the target matches one of the updated branches from step 4
+
 # Doc Generation
 
 If your project follows standard error code documentation (`ClientErrorCode.ts` and `ServerErrorCode.ts` contain an enum of all error codes, you use `ErrorWithCode` as your error type, and you create error messages _inline_, not as separate variables before passing them into the `ErrorWithCode` constructor), you can use our error code documentation generator.
